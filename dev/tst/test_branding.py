@@ -62,6 +62,7 @@ class BrandingTests(unittest.TestCase):
             site = root / 'site'
             homepage = (site / 'example.html').read_text()
             self.assertIn('Vorhaben bewegen. Wirkung sichtbar machen.', homepage)
+            self.assertIn('yap dein yapic mit mir!', homepage)
             self.assertIn('Example activities', homepage)
             self.assertIn('Dein Wirkungsfeld umfasst deine Vorhaben, Ziele und Beiträge.', homepage)
             self.assertIn('Arbeiten. Wirken. Nachlesen.', homepage)

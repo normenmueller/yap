@@ -45,8 +45,8 @@ signature is `yap. That’s right!`; `branding.footer` adds a separate instance 
 and cannot override that signature. Optional `branding.author` adds a modest,
 escaped `Portfolio von` / `Portfolio by` byline; no author is supplied by default.
 Neither text establishes agent execution or accepted curation. The product motto
-`yap dein yapic mit mir!` remains on About; the current generic homepage does not
-add an inactive AI input. Generic pages do not introduce personal requests or
+`yap dein yapic mit mir!` remains on the homepage and About, independently of the
+portfolio’s name; the current generic homepage does not add an inactive AI input. Generic pages do not introduce personal requests or
 pretend that future need-entry and trace collection are already available.
 
 Optional `application.revision` is a full 40-character lowercase Git commit. When

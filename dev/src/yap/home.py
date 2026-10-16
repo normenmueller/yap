@@ -94,7 +94,8 @@ def render(destination):
     tagline = escape(instance.brand('tagline', 'your activity portfolio'))
     homepage = _page('home', '<p class="eyebrow">' + tagline + '</p><header class="intro"><h1>'
                      + title + '</h1><p class="lead">' + product.MISSION + '</p><p class="description">'
-                     + product.DESCRIPTION + '</p></header>' + _cards())
+                     + product.DESCRIPTION + '</p><p class="product-motto">'
+                     + product.MOTTO + '</p></header>' + _cards())
     portfolio = _page('yapics', '<header class="portfolio-intro"><h1>yapic Portfolio</h1><p>'
                       + product.COLLECTION + '</p></header>' + _cards('../../'))
     about = _page('about', '<article class="about">' + _product_logo() + product.ABOUT + '</article>')

@@ -15,7 +15,9 @@ checks of home, collection and About. Consumer-specific verification belongs to
 the selecting instance’s records.
 Evidence stays ignored under `.yap/local/build/`.
 
-Next: present this branch through its issue-linked PR for product acceptance.
+Next: review [PR #2](https://github.com/normenmueller/yap/pull/2), natively
+associated with #1, for product acceptance. The universal homepage/About motto
+remains independent of a portfolio’s name.
 Do not merge or update another checkout without that acceptance. Verify live PR
 and publication state; memory does not establish approval. The implementation is
 Python. TypeScript replacement, a new-instance wizard, saved generic yapic

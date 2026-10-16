@@ -33,3 +33,8 @@ owns the selected Apache-2.0 terms. Verify actual branch/publication state.
 The compact directory convention is `doc` and `dev/{src,tst,acc}`; add `utl` only
 when real helper tools need it. Ordinary documents use lowercase filenames;
 README and agent entry/contract filenames retain their established conventions.
+
+Private local session navigation may live in ignored `.yap/cfg/session.md`.
+It is not product configuration, shared team memory, a source of portfolio facts
+or a prerequisite for a fresh generic clone. AGENTS/BEHAVIOR define its recovery
+role; the explicitly selected instance owns its operational records.

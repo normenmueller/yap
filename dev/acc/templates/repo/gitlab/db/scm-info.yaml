@@ -1,0 +1,12 @@
+---
+version: v3
+license: LicenseRef-DBISL
+contacts: {{contacts}}
+confidentiality: {{confidentiality}}
+reference-ids: {{reference-ids}}
+protected-branches: {{protected-branches}}
+usage-scenario: {{usage-scenario}}
+custom:
+  integrity: {{integrity}}
+  availability: {{availability}}
+  confidentiality: {{custom_confidentiality}}

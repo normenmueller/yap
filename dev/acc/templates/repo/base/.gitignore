@@ -1,0 +1,4 @@
+# Local environment values; keep a nonsecret example available for documentation.
+.env
+.env.*
+!.env.example

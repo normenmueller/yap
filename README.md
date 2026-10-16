@@ -31,3 +31,8 @@ in `.yap/cfg/machine.json`; runtime output remains in `.yap/local/`.
 
 Run regression tests with `make test`. The CLI supports one selected local instance
 per process; it retains the baseline process working-directory model.
+
+## License
+
+Licensed under the [Apache License 2.0](LICENSE). Bundled repository-template
+license texts retain their stated terms.

@@ -27,3 +27,9 @@ when extending the product.
 The application owns its own `.yap/local/` for ignored development evidence and
 caches. This is distinct from every selected instance’s `.yap/`; do not share or
 synchronize agent memory, configuration or runtime directories between them.
+
+The canonical application repository is `normenmueller/yap`; the root `LICENSE`
+owns the selected Apache-2.0 terms. Verify actual branch/publication state.
+The compact directory convention is `doc` and `dev/{src,tst,acc}`; add `utl` only
+when real helper tools need it. Ordinary documents use lowercase filenames;
+README and agent entry/contract filenames retain their established conventions.

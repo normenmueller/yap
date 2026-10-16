@@ -64,6 +64,7 @@ class BrandingTests(unittest.TestCase):
             self.assertIn('Vorhaben bewegen. Wirkung sichtbar machen.', homepage)
             self.assertIn('yap dein yapic mit mir!', homepage)
             self.assertIn('Example activities', homepage)
+            self.assertIn('Example &lt;portfolio&gt;<span>.</span>', homepage)
             self.assertIn('Dein Wirkungsfeld umfasst deine Vorhaben, Ziele und Beiträge.', homepage)
             self.assertIn('Arbeiten. Wirken. Nachlesen.', homepage)
             self.assertIn('Dein Beitrag. An jedem Heute.', homepage)

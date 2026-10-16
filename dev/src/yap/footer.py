@@ -1,6 +1,7 @@
 """Minimal application credit and optional instance-supplied plain text."""
 
 from html import escape
+from urllib.parse import urlsplit
 
 from . import palette, instance
 
@@ -17,10 +18,34 @@ body.yap-page{display:flex;flex-direction:column;min-height:100vh}
 ''')
 
 
+def _credit(text, link):
+    """A malformed or ambiguous optional link leaves the credit as plain text."""
+    plain = escape(text)
+    if not isinstance(link, dict) or set(link) != {'text', 'url'}:
+        return plain
+    label, url = link['text'], link['url']
+    if (not isinstance(label, str) or not label or label.strip() != label
+            or text.find(label) < 0 or text.find(label) != text.rfind(label)
+            or not isinstance(url, str) or not url
+            or any(character.isspace() or ord(character) < 32 or ord(character) == 127 for character in url)):
+        return plain
+    try:
+        address = urlsplit(url)
+        if (address.scheme not in ('http', 'https') or not address.hostname
+                or address.username is not None or address.password is not None):
+            return plain
+        address.port  # Reject malformed ports without making network requests.
+    except ValueError:
+        return plain
+    before, _, after = text.partition(label)
+    return (escape(before) + '<a href="' + escape(url, quote=True) + '">'
+            + escape(label) + '</a>' + escape(after))
+
+
 def render(language='de', *, about_href='../../about.html'):
     """Keep the product name unchanged in both interface languages."""
     credit = instance.brand('footer', '')
-    prefix = escape(credit) + ' · ' if credit.strip() else ''
-    return ('<footer class="yap-footer">' + prefix
+    prefix = _credit(credit, instance.brand('footer_link', None)) + ' · ' if credit.strip() else ''
+    return ('<footer class="yap-footer">' + prefix + 'Focused with '
             + '<a class="footer-signoff" href="' + escape(about_href, quote=True)
-            + '">Focused with yap</a></footer>')
+            + '">yap</a></footer>')

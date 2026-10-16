@@ -31,6 +31,8 @@ class Page(HTMLParser):
         self.in_footer = False
         self.footer_text = []
         self.footer_links = []
+        self.footer_anchors = []
+        self.current_footer_anchor = None
         self.feed(source)
 
     def handle_starttag(self, tag, attributes):
@@ -41,10 +43,14 @@ class Page(HTMLParser):
             self.links.append(fields.get('href', ''))
             if self.in_footer:
                 self.footer_links.append(fields.get('href', ''))
+                self.current_footer_anchor = {'href': fields.get('href', ''), 'text': []}
+                self.footer_anchors.append(self.current_footer_anchor)
         if tag == 'img':
             self.images.append(fields)
 
     def handle_endtag(self, tag):
+        if tag == 'a':
+            self.current_footer_anchor = None
         if tag == 'footer':
             self.in_footer = False
 
@@ -52,6 +58,8 @@ class Page(HTMLParser):
         self.text.append(data)
         if self.in_footer:
             self.footer_text.append(data)
+            if self.current_footer_anchor is not None:
+                self.current_footer_anchor['text'].append(data)
 
 
 class BrandingTests(unittest.TestCase):
@@ -117,6 +125,7 @@ class BrandingTests(unittest.TestCase):
                 parsed = Page(rendered)
                 self.assertEqual(''.join(parsed.footer_text), 'Focused with yap')
                 self.assertEqual(parsed.footer_links, ['../../about.html'])
+                self.assertEqual([''.join(anchor['text']) for anchor in parsed.footer_anchors], ['yap'])
                 self.assertNotIn('ai4X', rendered)
                 self.assertNotIn('Curated', rendered)
                 self.assertNotIn('That’s right!', rendered)
@@ -135,6 +144,7 @@ class BrandingTests(unittest.TestCase):
                     parsed = Page(rendered)
                     self.assertEqual(''.join(parsed.footer_text), credit + ' · Focused with yap')
                     self.assertEqual(parsed.footer_links, ['../../about.html'])
+                    self.assertEqual([''.join(anchor['text']) for anchor in parsed.footer_anchors], ['yap'])
                     self.assertIn('&lt;a href=&quot;https://example.org&quot;&gt;', rendered)
                     self.assertNotIn('Example author', rendered)
                     self.assertNotIn('Example portfolio', rendered)
@@ -180,7 +190,8 @@ class BrandingTests(unittest.TestCase):
                 source.write_text(text)
             (root / 'yap.json').write_text(json.dumps({'schema': 1, 'slug': 'example',
                 'branding': {'title': 'Example portfolio', 'author': 'Example author',
-                             'footer': 'Curated by Example'}}))
+                             'footer': 'Curated by Example',
+                             'footer_link': {'text': 'Example', 'url': 'https://example.org/'}}}))
             site = root / 'site'
             with selected(root):
                 model = content.load(root)
@@ -197,7 +208,51 @@ class BrandingTests(unittest.TestCase):
             for page in pages:
                 parsed = Page(page.read_text())
                 self.assertEqual(''.join(parsed.footer_text), 'Curated by Example · Focused with yap', str(page.relative_to(site)))
-                self.assertEqual(len(parsed.footer_links), 1)
-                self.assertEqual((page.parent / parsed.footer_links[0]).resolve(), (site / 'about.html').resolve())
+                self.assertEqual(parsed.footer_links[0], 'https://example.org/')
+                self.assertEqual([''.join(anchor['text']) for anchor in parsed.footer_anchors], ['Example', 'yap'])
+                self.assertEqual((page.parent / parsed.footer_links[1]).resolve(), (site / 'about.html').resolve())
             for name, original in sources.items():
                 self.assertEqual((root / name).read_text(), original)
+
+    def test_optional_link_names_only_one_unique_credit_fragment(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for url in ('https://example.org/docs?q=x&name=y#section', 'http://example.org/'):
+                (root / 'yap.json').write_text(json.dumps({'schema': 1, 'slug': 'example', 'branding': {
+                    'footer': 'Curated by Example', 'footer_link': {'text': 'Example', 'url': url}}}))
+                with selected(root):
+                    for language in ('de', 'en'):
+                        parsed = Page(footer.render(language))
+                        self.assertEqual(''.join(parsed.footer_text), 'Curated by Example · Focused with yap')
+                        self.assertEqual(parsed.footer_links, [url, '../../about.html'])
+                        self.assertEqual([''.join(anchor['text']) for anchor in parsed.footer_anchors], ['Example', 'yap'])
+
+    def test_invalid_or_ambiguous_credit_links_fall_back_to_escaped_plain_text(self):
+        invalid = [None, [], 'https://example.org/', {}, {'text': 'Example'},
+                   {'text': 1, 'url': 'https://example.org/'},
+                   {'text': 'Example', 'url': True},
+                   {'text': 'Example', 'url': 'https://example.org/', 'extra': 'ignored'},
+                   {'text': '', 'url': 'https://example.org/'},
+                   {'text': ' Example', 'url': 'https://example.org/'},
+                   {'text': 'Absent', 'url': 'https://example.org/'}]
+        for url in ('javascript:alert(1)', 'data:text/html,example', '//example.org/',
+                    'https:///missing', 'https://[broken', 'https://example.org:bad/',
+                    'https://user:secret@example.org/', 'https://example.org/ with space',
+                    'https://example.org/\npath', 'https://example.org/\x00path'):
+            invalid.append({'text': 'Example', 'url': url})
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            cases = [('Curated by <Example>', link) for link in invalid]
+            cases.append(('Curated by Example Example', {'text': 'Example', 'url': 'https://example.org/'}))
+            cases.append(('aaa', {'text': 'aa', 'url': 'https://example.org/'}))
+            for credit, link in cases:
+                with self.subTest(link=link):
+                    (root / 'yap.json').write_text(json.dumps({'schema': 1, 'slug': 'example',
+                        'branding': {'footer': credit, 'footer_link': link}}))
+                    with selected(root):
+                        rendered = footer.render()
+                        parsed = Page(rendered)
+                        self.assertEqual(''.join(parsed.footer_text), credit + ' · Focused with yap')
+                        self.assertEqual(parsed.footer_links, ['../../about.html'])
+                        self.assertEqual([''.join(anchor['text']) for anchor in parsed.footer_anchors], ['yap'])
+                        self.assertNotIn('<Example>', rendered)

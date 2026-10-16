@@ -30,3 +30,7 @@ Maintain concise durable context when a decision changes. STATE is a return
 pointer, not a source of live work status or authorization. For a status request,
 report observed state and the next proposed action. Continue work only within
 the user's actual authorized scope.
+
+Use the same branch name locally and on the remote; name new worktree directories
+after that branch to keep the workspace unambiguous. Preserve existing PR/review
+history when reconciling older naming differences.

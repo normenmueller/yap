@@ -9,13 +9,12 @@ The branding correction preserves product copy and original product artwork
 while portfolios select their own identity. The compact footer contains optional
 escaped instance credit plus `Focused with yap`; the former signature is now
 product documentation only. No curator or author is invented by default.
-[Architecture](../doc/architecture.md) owns that contract. The compact-footer implementation passes all 242 tests, including the six
-focused renderer tests. Final report/browser checks against the selected footer
-are pending; earlier visual evidence certifies the earlier branding revision.
-Architecture owns the actual rendering contract. Independent code review found no material blockers;
-a synthetic external instance completed a full report and desktop/narrow browser
-checks of home, collection and About. Consumer-specific verification belongs to
-the selecting instance’s records.
+[Architecture](../doc/architecture.md) owns that contract. The final name-only
+link refinement passes all 244 tests, including eight focused renderer tests;
+the overlapping-fragment fallback was additionally checked after its final remedy.
+Independent code review found no unresolved findings. A synthetic empty external
+instance completed its full report and offline desktop/narrow browser checks.
+Consumer-specific verification belongs to the selecting instance’s records.
 Evidence stays ignored under `.yap/local/build/`.
 
 Next: review [PR #2](https://github.com/normenmueller/yap/pull/2), natively

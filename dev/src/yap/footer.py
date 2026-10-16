@@ -2,7 +2,7 @@
 
 from html import escape
 
-from . import palette, instance
+from . import palette, instance, product
 
 
 STYLE = palette.css('''
@@ -21,7 +21,12 @@ body.yap-page{display:flex;flex-direction:column;min-height:100vh}
 def render(language='de', *, about_href='../../about.html'):
     description = ('Clarity about initiatives and impact.' if language == 'en'
                    else 'Klarheit über Vorhaben und Wirkung.')
+    author = instance.brand('author', '')
+    credit = escape(instance.brand('footer', 'Powered by yap'))
+    if author.strip():
+        byline = 'Portfolio by ' if language == 'en' else 'Portfolio von '
+        credit = byline + escape(author) + (' · ' + credit if credit else '')
     return ('<footer class="yap-footer"><a class="footer-signoff" href="'
-            + escape(about_href, quote=True) + '"><em>' + escape(instance.brand('title', 'yap.'))
+            + escape(about_href, quote=True) + '"><em>' + escape(product.SIGNATURE)
             + '</em></a> · ' + description + '<p class="credit">'
-            + escape(instance.brand('footer', 'Powered by yap')) + '</p></footer>')
+            + credit + '</p></footer>')

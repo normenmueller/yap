@@ -35,6 +35,20 @@ An optional instance manifest uses standard-library JSON:
 `logo`, `favicon` and `footer` text; logo/favicon paths must name existing files
 inside the instance. `publication_prefix` controls PDF destination prefixes;
 preserve existing publication addresses deliberately when adopting older content.
+
+Instance branding identifies the portfolio in its homepage, navigation, browser
+context and selected logo/favicon. Application-owned mission, slogans and product
+explanations remain unchanged. `about.html` describes the application and keeps the
+label `Über yap.`. Its small product logo embeds the original application SVG bytes,
+so an instance-selected image cannot replace the product identity. The fixed footer
+signature is `yap. That’s right!`; `branding.footer` adds a separate instance credit
+and cannot override that signature. Optional `branding.author` adds a modest,
+escaped `Portfolio von` / `Portfolio by` byline; no author is supplied by default.
+Neither text establishes agent execution or accepted curation. The product motto
+`yap dein yapic mit mir!` remains on About; the current generic homepage does not
+add an inactive AI input. Generic pages do not introduce personal requests or
+pretend that future need-entry and trace collection are already available.
+
 Optional `application.revision` is a full 40-character lowercase Git commit. When
 declared, it requires that exact clean application checkout. The manifest does
 not fetch or select another checkout; a launcher must select it explicitly.

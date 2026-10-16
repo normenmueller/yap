@@ -1,20 +1,23 @@
 # Return point
 
-This independent reusable application uses `normenmueller/yap`, branch `trunk`,
-with explicit instance selection and separate generic resources. The owner's
-Apache-2.0 initialization and the reviewed application history are retained
-through a normal merge. Root `LICENSE` is authoritative; verify actual remote
-publication and branch state rather than inferring either from memory.
+The reusable application uses `normenmueller/yap`. Inspect actual Git/remote state;
+this checkout is the issue-linked `fix/1-portfolio-branding` review branch for
+[#1](https://github.com/normenmueller/yap/issues/1), based on published `trunk`.
+The owner’s Apache-2.0 initialization and generic application history are retained.
 
-Independent boundary review resolved inherited personal examples and resources.
-The compact `doc` and `dev/{src,tst,acc}` layout passed all 236 tests, including
-actual browser/PDF integration. A real empty external instance also produced its
-full report set. Evidence stays ignored under `.yap/local/build/`.
-Product acceptance and publication remain separate. The public starting history
-contains only the reviewed generic tree; personal repository history is not adopted.
+The branding correction preserves fixed product copy, signature and original
+product logo while portfolios select their own identity and optional author.
+[Architecture](../doc/architecture.md) owns that contract. All 240 tests pass,
+including author escaping, German/English bylines, asset-name isolation and real
+browser/PDF integration. Independent code review found no material blockers;
+a synthetic external instance completed a full report and desktop/narrow browser
+checks of home, collection and About. Consumer-specific verification belongs to
+the selecting instance’s records.
+Evidence stays ignored under `.yap/local/build/`.
 
-Next: recover the user's next approved task through this repository's own work
-records. Full TypeScript replacement, new-instance wizard, saved generic yapic
-definitions and live ai4X integration remain undelivered. No instance path or
-private tracker is authoritative here. Application and instance agent/runtime
-contexts stay separate.
+Next: present this branch through its issue-linked PR for product acceptance.
+Do not merge or update another checkout without that acceptance. Verify live PR
+and publication state; memory does not establish approval. The implementation is
+Python. TypeScript replacement, a new-instance wizard, saved generic yapic
+definitions and live ai4X integration remain undelivered. Application and instance
+agent/runtime contexts stay separate; no private instance is authoritative here.

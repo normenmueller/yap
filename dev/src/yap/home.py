@@ -2,9 +2,10 @@
 from pathlib import Path
 from html import escape
 import shutil
+import base64
 import re
 from urllib.parse import urlsplit
-from . import footer, navigation, palette, instance
+from . import footer, navigation, palette, instance, product
 from .resources import ASSETS as RESOURCE_ASSETS
 
 PORTRAIT = Path('acc/img/gertrud-ai4x.png')
@@ -25,7 +26,7 @@ def asset_source(asset):
 
 
 def asset_sources():
-    return [asset_source(asset) for asset in assets()]
+    return list(dict.fromkeys([*(asset_source(asset) for asset in assets()), RESOURCE_ASSETS / Path(navigation.LOGO).name]))
 
 
 def root_entry(site, destination):
@@ -54,7 +55,7 @@ main{display:flex;flex-direction:column;width:100%;max-width:1000px;margin:0 aut
 .ai-preview{width:100%;max-width:780px;margin:0 auto 56px;border-block:1px solid var(--line);padding:26px 0 28px}.request-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px}.request-heading label{display:flex;align-items:center;gap:9px;font-size:1rem;font-weight:600}.request-question{min-width:0;font-style:italic;font-weight:500}.request-scope{color:@namBrand}.request-mark{width:26px;height:26px;flex:none;color:@namBrand}.preview-badge{color:var(--muted);font-size:.68rem;letter-spacing:.04em;white-space:nowrap}.preview-badge span,.preview-badge a{color:@namBrand}.preview-badge a{text-underline-offset:3px}.preview-badge a:focus-visible{outline:2px solid @namBrand;outline-offset:4px}.request-box{display:flex;align-items:center;gap:14px;padding:16px 20px;border:1px solid #786992;border-radius:16px;background:linear-gradient(115deg,#272338,@namPanel 75%);box-shadow:0 6px 24px #00000014,inset 0 1px 0 #d8ccff0a;transition:border-color .15s,box-shadow .15s}.request-box:focus-within{border-color:@namBrand;box-shadow:0 0 0 3px #b5a5ff33}.request-box textarea{display:block;width:100%;min-width:0;height:48px;resize:none;border:0;padding:0;background:transparent;color:var(--ink);font:inherit;line-height:24px;outline:none}.request-box textarea::placeholder{color:#c3b6ed;opacity:1}.request-box button{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;padding:0;border:1px solid #b5a5ff88;border-radius:50%;overflow:hidden;background:#faf6fc;cursor:default}.request-box button img{display:block;width:100%;height:100%;object-fit:contain}.request-note{margin:12px 2px 0;color:var(--muted);font-size:.82rem;line-height:1.7}
 
 .portfolio-intro{padding:24px 0 30px}.portfolio-intro h1{font-size:clamp(2rem,5vw,3rem);letter-spacing:-.05em;line-height:1.15;color:@namBrand}.portfolio-intro p{margin:10px 0 0;color:var(--muted);font-size:.9rem}
-.description a,.about a{color:@namBrand;text-underline-offset:4px}.description a:hover,.about a:hover{color:var(--ink)}.description a:focus-visible,.about a:focus-visible{outline:2px solid @namBrand;outline-offset:4px}.about{max-width:65ch;margin:24px auto}.about h1{font-size:clamp(2rem,5vw,3rem);letter-spacing:-.04em;line-height:1.2}.about h2{font-size:1.2rem;margin:32px 0 12px}.about p{color:var(--muted)}.about .product-term{color:@namBrand}
+.description a,.about a{color:@namBrand;text-underline-offset:4px}.description a:hover,.about a:hover{color:var(--ink)}.description a:focus-visible,.about a:focus-visible{outline:2px solid @namBrand;outline-offset:4px}.about{max-width:65ch;margin:24px auto}.about h1{font-size:clamp(2rem,5vw,3rem);letter-spacing:-.04em;line-height:1.2}.about h2{font-size:1.2rem;margin:32px 0 12px}.about p{color:var(--muted)}.about .product-term{color:@namBrand}.about .product-logo{display:block;width:64px;height:auto;margin:0 0 18px}
 
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.tile{--accent:@namActivities;display:flex;flex-direction:column;min-height:240px;padding:26px;border:1px solid var(--line);border-top:2px solid var(--accent);border-radius:14px;background:@namPanel;color:var(--ink);text-decoration:none;transition:border-color .15s}
 .tile.performance{--accent:@namGreen}.tile:hover{border-color:var(--accent)}.tile:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
@@ -72,15 +73,31 @@ def _page(current, body):
             + footer.render(about_href='../../about.html' if current == 'yapics' else 'about.html') + '</body></html>')
 
 
+def _cards(prefix=''):
+    return ('<nav class="tiles" aria-label="Yapics">'
+            '<a class="tile" href="' + prefix + 'views/activity-board/index.html"><h2>Act · Activity</h2>'
+            '<p class="tile-slogan">Arbeiten. Wirken. Nachlesen.</p>'
+            '<p>To-do-Listen zeigen Absichten. Deine Arbeit hinterlässt Spuren. Doch was hat sie tatsächlich bewegt? Lies es nach — und nutze die Erkenntnisse, um morgen <span class="insight-emphasis">fokussierter</span> zu arbeiten.</p></a>'
+            '<a class="tile performance" href="' + prefix + 'views/mPM-ish/index.html"><h2>Pfm · Performance</h2>'
+            '<p class="tile-slogan">Dein Beitrag. An jedem Heute.</p>'
+            '<p>Ziele zeigen die Richtung. Dein Beitrag zählt heute. Doch was bewirkt deine Arbeit für dein Unternehmen? Lies es nach — und nutze die Erkenntnisse, um morgen <span class="insight-emphasis">wirkungsvoller</span> zu arbeiten.</p></a></nav>')
+
+
+def _product_logo():
+    # Embed unchanged application bytes: instance assets cannot replace this identity.
+    data = base64.b64encode((RESOURCE_ASSETS / Path(navigation.LOGO).name).read_bytes()).decode('ascii')
+    return '<img class="product-logo" src="data:image/svg+xml;base64,' + data + '" alt="yap." width="64" height="31">'
+
+
 def render(destination):
     title = escape(instance.brand('title', 'yap.'))
-    tagline = escape(instance.brand('tagline', 'Your activity portfolio'))
-    cards = ('<nav class="tiles" aria-label="Yapics">'
-             '<a class="tile" href="views/activity-board/index.html"><h2>Act · Activity</h2><p>Aktivitäten und Zusammenhänge / Activities and relationships</p></a>'
-             '<a class="tile performance" href="views/mPM-ish/index.html"><h2>Pfm · Performance</h2><p>Ziele und Beiträge / Goals and contributions</p></a></nav>')
-    homepage = _page('home', '<header class="intro"><h1>' + title + '</h1><p class="lead">' + tagline + '</p></header>' + cards)
-    portfolio = _page('yapics', '<h1>Yapics</h1><p>Seeds of Insight. Tailored to your needs.</p>' + cards.replace('href="views/', 'href="../../views/'))
-    about = _page('about', '<article class="about"><h1>' + title + '</h1><p>' + tagline + '</p><p>Activities, goals and their contributions share one authored portfolio.</p></article>')
+    tagline = escape(instance.brand('tagline', 'your activity portfolio'))
+    homepage = _page('home', '<p class="eyebrow">' + tagline + '</p><header class="intro"><h1>'
+                     + title + '</h1><p class="lead">' + product.MISSION + '</p><p class="description">'
+                     + product.DESCRIPTION + '</p></header>' + _cards())
+    portfolio = _page('yapics', '<header class="portfolio-intro"><h1>yapic Portfolio</h1><p>'
+                      + product.COLLECTION + '</p></header>' + _cards('../../'))
+    about = _page('about', '<article class="about">' + _product_logo() + product.ABOUT + '</article>')
     destination = Path(destination)
     destination.mkdir(parents=True, exist_ok=True)
     for asset in assets():

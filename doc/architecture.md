@@ -40,14 +40,18 @@ Instance branding identifies the portfolio in its homepage, navigation, browser
 context and selected logo/favicon. Application-owned mission, slogans and product
 explanations remain unchanged. `about.html` describes the application and keeps the
 label `Über yap.`. Its small product logo embeds the original application SVG bytes,
-so an instance-selected image cannot replace the product identity. The fixed footer
-signature is `yap. That’s right!`; `branding.footer` adds a separate instance credit
-and cannot override that signature. Optional `branding.author` adds a modest,
-escaped `Portfolio von` / `Portfolio by` byline; no author is supplied by default.
-Neither text establishes agent execution or accepted curation. The product motto
+so an instance-selected image cannot replace the product identity. The footer
+always contains the fixed product link `Focused with yap` to About,
+with the same product wording in both interface languages. Optional
+`branding.footer` supplies additional escaped plain-text credit before that link;
+it defaults to empty and is never interpreted as markup or a curator API. The
+application supplies no default curation attribution. Author information remains
+with its source and is not rendered in the footer. No credit establishes agent
+execution or accepted curation. The slogan `yap. That’s right!` belongs in the
+user documentation rather than the footer. The product motto
 `yap dein yapic mit mir!` remains on the homepage and About, independently of the
-portfolio’s name; the current generic homepage does not add an inactive AI input. Generic pages do not introduce personal requests or
-pretend that future need-entry and trace collection are already available.
+portfolio’s name; the current generic homepage does not add an inactive AI input.
+Generic pages do not introduce personal requests or pretend that future need-entry and trace collection are already available.
 
 Optional `application.revision` is a full 40-character lowercase Git commit. When
 declared, it requires that exact clean application checkout. The manifest does

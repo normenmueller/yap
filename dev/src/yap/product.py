@@ -1,5 +1,4 @@
 """Application-owned identity and copy, independent of portfolio branding."""
-SIGNATURE = 'yap. That’s right!'
 MOTTO = 'yap dein yapic mit mir!'
 MISSION = 'Vorhaben bewegen. Wirkung sichtbar machen.'
 COLLECTION = 'Seeds of Insight. Tailored to your needs.'

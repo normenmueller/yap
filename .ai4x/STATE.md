@@ -5,11 +5,14 @@ this checkout is the issue-linked `fix/1-portfolio-branding` review branch for
 [#1](https://github.com/normenmueller/yap/issues/1), based on published `trunk`.
 The owner’s Apache-2.0 initialization and generic application history are retained.
 
-The branding correction preserves fixed product copy, signature and original
-product logo while portfolios select their own identity and optional author.
-[Architecture](../doc/architecture.md) owns that contract. All 240 tests pass,
-including author escaping, German/English bylines, asset-name isolation and real
-browser/PDF integration. Independent code review found no material blockers;
+The branding correction preserves product copy and original product artwork
+while portfolios select their own identity. The compact footer contains optional
+escaped instance credit plus `Focused with yap`; the former signature is now
+product documentation only. No curator or author is invented by default.
+[Architecture](../doc/architecture.md) owns that contract. The compact-footer implementation passes all 242 tests, including the six
+focused renderer tests. Final report/browser checks against the selected footer
+are pending; earlier visual evidence certifies the earlier branding revision.
+Architecture owns the actual rendering contract. Independent code review found no material blockers;
 a synthetic external instance completed a full report and desktop/narrow browser
 checks of home, collection and About. Consumer-specific verification belongs to
 the selecting instance’s records.

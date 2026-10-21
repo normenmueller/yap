@@ -72,3 +72,8 @@ Human acceptance, persistence, activation and individual assignment authority
 remain distinct. Neither opening a portfolio nor a branding footer activates
 agents or proves acceptance. An unbound ai4X association can coexist with ordinary
 AI assistance.
+
+The [next-architecture proposal](architecture-proposal.md) and its
+[engineering appendix](architecture-engineering.md) retain the proposed
+TypeScript and durable-definition design for issue #3. They are discussion
+artifacts; this document continues to own the delivered Python boundary.

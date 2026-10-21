@@ -1,25 +1,27 @@
-# Return point — published application baseline
+# Return point — architecture discussion and product review
 
-This is reusable application `trunk` in `normenmueller/yap`, retaining the owner's
-Apache-2.0 initialization and generic history. Root LICENSE owns licensing. Verify
-actual Git/remote state; agent maintenance commits do not adopt feature code.
+This is issue-linked `docs/3-architecture`, containing the generic discussion
+proposal for [#3](https://github.com/normenmueller/yap/issues/3), based on published
+trunk. [Proposal](../doc/architecture-proposal.md) owns future design choices;
+[engineering appendix](../doc/architecture-engineering.md) owns candidate module,
+value and proof boundaries. [Current architecture](../doc/architecture.md) owns
+delivered Python behavior. No private instance data or history is imported.
 
-The branding correction is delivered separately in
-[PR #2](https://github.com/normenmueller/yap/pull/2), branch
-`fix/1-portfolio-branding`, for [#1](https://github.com/normenmueller/yap/issues/1).
-It awaits product acceptance and has not been merged. Its 244-test evidence
-certifies that candidate, not this older trunk runtime. The extracted baseline
-previously passed 236 tests and an empty-instance report; this handoff changes no
-runtime, resources or tests. A fresh clone needs no private instance or old chat.
+Next: discuss the smallest testable create/open and durable-definition slice.
+Standard Act/Pfm, agent-assisted operation and one-way instance dependency are
+product directions; exact identity, persistence and public APIs still require
+agreement. This proposal does not approve implementation, migration, activation
+or full view replacement. [#4](https://github.com/normenmueller/yap/issues/4)
+remains separately scoped foundation work after the architecture decision.
 
-Next: the owner selected continuation of an external presentation review from the
-existing fix worktree. Do not switch this checkout, merge the candidate or start
-a feature from this pointer. Optional private review navigation is local only;
-without an explicit external location, ask only when that review requires it.
+The independent branding candidate remains in
+[PR #2](https://github.com/normenmueller/yap/pull/2) for
+[#1](https://github.com/normenmueller/yap/issues/1), pending owner acceptance.
+Its 244-test evidence applies to that implementation; this documentation branch
+changes no runtime/resources/tests. Do not merge that candidate or start a new
+feature merely to tidy the branch list.
 
-For later application work, [Project](https://github.com/users/normenmueller/projects/5)
-owns live order: architecture [#3](https://github.com/normenmueller/yap/issues/3),
-then separately approved foundation [#4](https://github.com/normenmueller/yap/issues/4).
-README [#13](https://github.com/normenmueller/yap/issues/13) is later work. TypeScript,
-guided creation, saved generic yapics and live ai4X integration remain undelivered.
-BEHAVIOR defines automatic recovery and acceptance boundaries.
+The application Project owns live status/order. Future care references remain
+[#12](https://github.com/normenmueller/yap/issues/12); README improvements remain
+[#13](https://github.com/normenmueller/yap/issues/13). Read their source scope rather
+than duplicating a delivery queue here. BEHAVIOR owns recovery and authority.

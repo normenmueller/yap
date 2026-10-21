@@ -1,27 +1,27 @@
-# Return point — architecture discussion and product review
+# Return point — next architecture discussion
 
-This is issue-linked `docs/3-architecture`, containing the generic discussion
-proposal for [#3](https://github.com/normenmueller/yap/issues/3), based on published
-trunk. [Proposal](../doc/architecture-proposal.md) owns future design choices;
-[engineering appendix](../doc/architecture-engineering.md) owns candidate module,
-value and proof boundaries. [Current architecture](../doc/architecture.md) owns
-delivered Python behavior. No private instance data or history is imported.
+This is issue-linked `docs/3-architecture`, with the generic discussion proposal
+for [#3 / PR #14](https://github.com/normenmueller/yap/pull/14). The owner is directly
+requested as reviewer. [Proposal](../doc/architecture-proposal.md) owns future
+choices; [engineering appendix](../doc/architecture-engineering.md) owns candidate
+module/value/proof boundaries. [Current architecture](../doc/architecture.md)
+owns delivered Python behavior. No private instance data or history is imported.
 
 Next: discuss the smallest testable create/open and durable-definition slice.
 Standard Act/Pfm, agent-assisted operation and one-way instance dependency are
-product directions; exact identity, persistence and public APIs still require
-agreement. This proposal does not approve implementation, migration, activation
-or full view replacement. [#4](https://github.com/normenmueller/yap/issues/4)
-remains separately scoped foundation work after the architecture decision.
+product directions; identity, persistence and public APIs still need agreement.
+Publishing/rebasing this draft does not approve implementation, migration,
+activation or full view replacement. [#4](https://github.com/normenmueller/yap/issues/4)
+remains separately scoped foundation work after the design decision.
 
-The independent branding candidate remains in
-[PR #2](https://github.com/normenmueller/yap/pull/2) for
-[#1](https://github.com/normenmueller/yap/issues/1), pending owner acceptance.
-Its 244-test evidence applies to that implementation; this documentation branch
-changes no runtime/resources/tests. Do not merge that candidate or start a new
-feature merely to tidy the branch list.
+The owner approved the branding candidate at `6580d1d`; PR #2 is merged and #1 is
+complete. This branch incorporates the accepted Python application and its
+post-merge reviewer/recovery records. Runtime/resources/tests retain the approved
+244-test implementation; this architecture proposal changes none of those bytes.
+Earlier proposal/source review and its scoped recovery check remain evidence for
+their inspected artifacts, not acceptance of future API or runtime changes.
 
-The application Project owns live status/order. Future care references remain
-[#12](https://github.com/normenmueller/yap/issues/12); README improvements remain
-[#13](https://github.com/normenmueller/yap/issues/13). Read their source scope rather
-than duplicating a delivery queue here. BEHAVIOR owns recovery and authority.
+The application Project owns live status/order. Care references remain #12 and
+README improvements #13; read their owning scope instead of duplicating a queue.
+BEHAVIOR requires requesting `normenmueller` on new managed PRs and distinguishes
+review requests, design acceptance, implementation acceptance and merge authority.

@@ -71,8 +71,7 @@ LOGO = 'acc/img/yap-logo.svg'
 
 
 def views():
-    return tuple((key, instance.brand('title', 'yap.') if key == 'home' else
-                  'Über ' + instance.brand('title', 'yap.') if key == 'about' else label,
+    return tuple((key, instance.brand('title', 'yap.') if key == 'home' else label,
                   instance.entry() if key == 'home' else path) for key, label, path in VIEWS)
 
 
@@ -153,7 +152,7 @@ def render(current, *, theme='light', exports=(), selection=None):
                            for label, items in output_sections) + '</div></details>')
     identity = link(instance.brand('title', 'yap.'), instance.entry(), current == 'home', brand=True)
     if current == 'about':
-        identity += '<span class="nav-location-current">Über ' + escape(instance.brand('title', 'yap.')) + '</span>'
+        identity += '<span class="nav-location-current">Über yap.</span>'
     elif current != 'home':
         location = link('Yapics', 'views/yapics/index.html', current == 'yapics')
         if current != 'yapics':

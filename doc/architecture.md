@@ -35,6 +35,40 @@ An optional instance manifest uses standard-library JSON:
 `logo`, `favicon` and `footer` text; logo/favicon paths must name existing files
 inside the instance. `publication_prefix` controls PDF destination prefixes;
 preserve existing publication addresses deliberately when adopting older content.
+
+Instance branding identifies the portfolio in its homepage, navigation, browser
+context and selected logo/favicon. Application-owned mission, slogans and product
+explanations remain unchanged. `about.html` describes the application and keeps the
+label `Über yap.`. Its small product logo embeds the original application SVG bytes,
+so an instance-selected image cannot replace the product identity. The footer
+always contains the plain words `Focused with` followed by the product link `yap`
+to About, with the same product wording in both interface languages. Optional
+`branding.footer` supplies additional escaped plain-text credit before that link;
+it defaults to empty and is never interpreted as markup or a curator API.
+Optional `branding.footer_link` supplies one link within that credit. Inside
+`branding`, the two values look like:
+
+```json
+{
+  "footer": "Curated by Example",
+  "footer_link": {"text": "Example", "url": "https://example.org/"}
+}
+```
+
+Only the supplied `text` becomes a link. It must be nonempty, have no surrounding
+whitespace and occur exactly once, case-sensitively, in the credit. The URL must
+use HTTP(S), have a host and valid port, and contain no credentials, whitespace or
+control characters. Invalid, missing or ambiguous link data leaves the credit as
+escaped plain text. No credit is inferred from the link or its destination. The
+application supplies no default curation attribution. Author information remains
+with its source and is not rendered in the footer. No credit establishes agent
+execution or accepted curation. The slogan `yap. That’s right!` belongs in the
+user documentation rather than the footer. The product motto
+`yap dein yapic mit mir!` remains on the homepage and About, independently of the
+portfolio’s name; the current generic homepage does not add an inactive AI input.
+Generic pages do not introduce personal requests or pretend that future need-entry
+and trace collection are already available.
+
 Optional `application.revision` is a full 40-character lowercase Git commit. When
 declared, it requires that exact clean application checkout. The manifest does
 not fetch or select another checkout; a launcher must select it explicitly.

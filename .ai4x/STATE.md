@@ -1,43 +1,25 @@
-# Return point — product review
+# Return point — accepted Python application and architecture discussion
 
-## Current return point
+The owner approved the delivered branding candidate at `6580d1d`; PR #2 is merged
+and #1 is complete. The published application keeps the reviewed Python runtime,
+resources and tests. Its prior 244-test, empty-instance report, offline browser
+and independent source evidence applies to those unchanged implementation bytes.
+Post-merge recovery and reviewer-default maintenance changes no runtime behavior.
+Verify actual clean Git/remote state rather than inferring a revision from memory.
 
-Next: the owner reviews this delivered application candidate. Its acceptance
-and merge remain pending; a successful check or repository cleanup does not
-supply that acceptance. Keep application development independent of private
-portfolio data, locations, team contexts and workflow links.
+Next: discuss [#3 / PR #14](https://github.com/normenmueller/yap/pull/14), the separate
+future architecture proposal. It retains its own branch and design acceptance.
+Its current/future layouts, initial durable definitions, guided create/open and
+TypeScript contracts remain proposals; [#4](https://github.com/normenmueller/yap/issues/4)
+needs separately approved foundation scope before coding. The application Project
+owns live order. README improvements remain later #13 work.
 
-## Delivered application candidate
+This application contains no private instance sources, locations, team memory or
+workflow links. Instances select a clean exact application revision explicitly;
+they own their content, configuration and generated output. Application updates
+never migrate or silently advance a consuming instance. Current operation and
+source contracts belong to doc/architecture.md and doc/authoring.md.
 
-This is `fix/1-portfolio-branding`, locally and remotely, in the matching worktree
-path. [PR #2](https://github.com/normenmueller/yap/pull/2) delivers
-[#1](https://github.com/normenmueller/yap/issues/1), awaiting product acceptance.
-Published trunk remains the prior application; this PR has not been merged.
-Verify live state rather than inferring approval from the handoff.
-
-[Architecture](../doc/architecture.md) owns the branding contract: instance identity
-is separate from original product artwork/copy; the shared footer has optional
-escaped credit and `Focused with yap`, linking only the configured name and `yap`.
-No curator is invented by default. The former slogan is product documentation;
-the universal home/About invitation remains independent of the instance name.
-
-The implementation at `dbb98ef` passes 244 tests including eight focused branding
-tests; the final overlapping-fragment fallback was separately rechecked. Synthetic
-empty-instance full report and offline desktop/narrow browser checks pass.
-Independent review found no unresolved source findings. This handoff changes only
-agent records/configuration guidance; recheck the runtime tree before reusing
-those results. Consumer evidence belongs to the selecting instance's records.
-
-## Planned application work after review
-
-The [Project](https://github.com/users/normenmueller/projects/5) owns live order.
-Architecture is [#3](https://github.com/normenmueller/yap/issues/3), with the
-versioned discussion in [draft PR #14](https://github.com/normenmueller/yap/pull/14);
-foundation [#4](https://github.com/normenmueller/yap/issues/4) waits for its decision
-and approved scope. README improvements [#13](https://github.com/normenmueller/yap/issues/13)
-remain deferred for later. Read those owning Issues rather than reconstructing
-requirements here. TypeScript, guided instance creation, saved generic yapic
-definitions and live ai4X curation remain undelivered.
-
-Next user action: review PR #2. The architecture draft and later foundation
-retain their own design/scope decisions; no TypeScript implementation is approved.
+Request `normenmueller` as reviewer when creating each managed PR, preserving
+other reviewers. Review requests, design approval, implementation approval and
+merge authority remain distinct; BEHAVIOR owns the rule and recovery semantics.

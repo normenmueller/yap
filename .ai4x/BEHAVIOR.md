@@ -38,6 +38,9 @@ identical and match new worktree paths to the branch, preserving existing PR and
 review history. Use Git for history, not backup folders. Preserve assignees and
 owner order; relocated issues are not evidence of delivered functionality.
 Use only the explicitly selected provider profile; never switch shared login.
+When creating a managed PR, request `normenmueller` as reviewer immediately,
+including documentation drafts. Preserve other reviewers; assignment is not a
+review request, and a request is not approval.
 
 Use proportionate verification and report its revision/scope accurately. Reuse
 valid evidence for metadata-only changes. Keep one owner for every domain fact;

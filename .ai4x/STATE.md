@@ -7,6 +7,14 @@ choices; [engineering appendix](../doc/architecture-engineering.md) owns candida
 module/value/proof boundaries. [Current architecture](../doc/architecture.md)
 owns delivered Python behavior. No private instance data or history is imported.
 
+Current development focus: `docs/3-architecture`. `trunk` remains the accepted
+Python application baseline. In the maintained checkout layout, the architecture
+working copy is `docs/3-architecture` beside `trunk`; verify its actual location
+with `git worktree list`. A fresh session opened in `trunk` should explain this
+return point and direct the owner to the architecture working copy for this
+discussion. Do not switch checkouts automatically or start implementation from
+a status greeting. Explicit user tasks still take precedence.
+
 Next: discuss the smallest testable create/open and durable-definition slice.
 Standard Act/Pfm, agent-assisted operation and one-way instance dependency are
 product directions; identity, persistence and public APIs still need agreement.

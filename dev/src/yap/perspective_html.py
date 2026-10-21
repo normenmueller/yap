@@ -131,7 +131,7 @@ def render(root, destination=None, model=None):
         parts = ['<!doctype html><html lang="' + language + '"><head><meta charset="utf-8">',
                  '<meta name="viewport" content="width=device-width,initial-scale=1">',
                  ('<link rel="icon" type="image/svg+xml" href="../../' + quote(navigation.favicon(), safe='/') + '">') if model is not None else '',
-                 '<title>yap. ' + words['title'] + '</title><style>' + board.STYLE + STYLE + footer.STYLE +
+                 '<title>' + escape(navigation.instance.brand('title', 'yap.')) + ' ' + words['title'] + '</title><style>' + board.STYLE + STYLE + footer.STYLE +
                  '</style></head><body class="yap-page"><main><nav>',
                  '<a href="../../' + navigation.instance.entry() + '">' + escape(navigation.instance.brand('title', 'yap.')) + '</a>' if model is not None else '',
                  '<a href="' + names[0] + '" lang="de">Deutsch</a>',

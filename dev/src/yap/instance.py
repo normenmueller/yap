@@ -14,8 +14,8 @@ def manifest():
     if not isinstance(value.get('slug'), str) or not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9_-]*', value['slug']):
         raise ValueError('yap.json: slug must be a simple file name.')
     branding = value.get('branding', {})
-    if not isinstance(branding, dict) or any(not isinstance(v, str) for v in branding.values()):
-        raise ValueError('yap.json: branding values must be text.')
+    if not isinstance(branding, dict) or any(not isinstance(v, str) for key, v in branding.items() if key != 'footer_link'):
+        raise ValueError('yap.json: branding values must be text except optional footer_link data.')
     for field in ('logo', 'favicon'):
         if field in branding:
             relative = PurePosixPath(branding[field])

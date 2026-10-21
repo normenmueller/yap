@@ -1,5 +1,7 @@
 # Using yap / yap verwenden
 
+*yap. That’s right!*
+
 **English:** Edit your portfolio in Vim or another text editor, and use yap to
 validate sources and generate activity and performance views. An AI assistant can
 help through the same commands. Select your portfolio explicitly; its content

@@ -1,13 +1,11 @@
 # Return point — product review
 
-## First action after this handoff
+## Current return point
 
-The owner ended the session after implementation, before completing the selected
-external presentation review. Resume that human review first. Read optional
-private `.yap/cfg/session.md` for the explicit location and owning review record;
-do not publish private navigation or start another feature while waiting.
-For a status greeting, report and wait; for continuation, support the review and
-ask only for the next feedback. No particular additional correction is known.
+Next: the owner reviews this delivered application candidate. Its acceptance
+and merge remain pending; a successful check or repository cleanup does not
+supply that acceptance. Keep application development independent of private
+portfolio data, locations, team contexts and workflow links.
 
 ## Delivered application candidate
 
@@ -33,12 +31,13 @@ those results. Consumer evidence belongs to the selecting instance's records.
 ## Planned application work after review
 
 The [Project](https://github.com/users/normenmueller/projects/5) owns live order.
-Architecture/next delivery is [#3](https://github.com/normenmueller/yap/issues/3);
+Architecture is [#3](https://github.com/normenmueller/yap/issues/3), with the
+versioned discussion in [draft PR #14](https://github.com/normenmueller/yap/pull/14);
 foundation [#4](https://github.com/normenmueller/yap/issues/4) waits for its decision
 and approved scope. README improvements [#13](https://github.com/normenmueller/yap/issues/13)
 remain deferred for later. Read those owning Issues rather than reconstructing
 requirements here. TypeScript, guided instance creation, saved generic yapic
 definitions and live ai4X curation remain undelivered.
 
-Next user action: continue the selected presentation review. Application acceptance,
-any merge and later feature execution remain separate decisions.
+Next user action: review PR #2. The architecture draft and later foundation
+retain their own design/scope decisions; no TypeScript implementation is approved.

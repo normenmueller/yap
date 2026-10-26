@@ -1,25 +1,38 @@
-# Return point — accepted Python application and architecture discussion
+# Return point — implement #15 on its prepared feature branch
 
-The owner approved the delivered branding candidate at `6580d1d`; PR #2 is merged
-and #1 is complete. The published application keeps the reviewed Python runtime,
-resources and tests. Its prior 244-test, empty-instance report, offline browser
-and independent source evidence applies to those unchanged implementation bytes.
-Post-merge recovery and reviewer-default maintenance changes no runtime behavior.
-Verify actual clean Git/remote state rather than inferring a revision from memory.
+Next: implement [#15](https://github.com/normenmueller/yap/issues/15) on
+`feat/15-aspiration-source`. The owner approved its bounded scope and chose this
+work for the next fresh session. The native Issue-linked remote branch and
+matching local worktree were prepared from `trunk` at `98b1318`; verify actual
+Git/remote state and worktree location. A session starting on `trunk` routes this
+work to the prepared feature worktree; preserve the separate architecture branch.
+The Issue owns the full scope, design, acceptance checks and next action.
 
-Next: discuss [#3 / PR #14](https://github.com/normenmueller/yap/pull/14), the separate
-future architecture proposal. It retains its own branch and design acceptance.
-Its current/future layouts, initial durable definitions, guided create/open and
-TypeScript contracts remain proposals; [#4](https://github.com/normenmueller/yap/issues/4)
-needs separately approved foundation scope before coding. The application Project
-owns live order. README improvements remain later #13 work.
+The approved change makes `pfo/asp` the default aspiration-source root, with an
+optional instance-relative `sources.aspirations` override in `yap.json`. Remove
+implicit `pfo/okr` lookup or creation; an old-named path remains usable when
+explicitly selected. Removing `okr` concerns the source directory only. Keep the
+existing source structure, semantics, internal styling and publication targets.
+Manual source moves and reference repairs remain consumer-owned.
 
-This application contains no private instance sources, locations, team memory or
-workflow links. Instances select a clean exact application revision explicitly;
-they own their content, configuration and generated output. Application updates
-never migrate or silently advance a consuming instance. Current operation and
-source contracts belong to doc/architecture.md and doc/authoring.md.
+Independent AI architecture/filesystem and Python assessments, followed by a
+separate AI design review, found no unresolved design blockers. The review's
+configuration-boundary finding is resolved in the Issue's design: general
+manifest parsing stays structural; content/build validate selected source paths
+before discovery, hashing or cache reuse. These are design assessments only.
 
-Request `normenmueller` as reviewer when creating each managed PR, preserving
-other reviewers. Review requests, design approval, implementation approval and
-merge authority remain distinct; BEHAVIOR owns the rule and recovery semantics.
+No #15 implementation or runtime verification has started. The current Python
+code still uses `pfo/okr`; the new default and override are not delivered. The
+accepted baseline remains #1 / merged PR #2. Prior Python regression, report and
+browser evidence applies only to unchanged implementation bytes. Implement,
+verify the Issue's synthetic and regression cases, inspect generated output and
+obtain independent implementation review before requesting owner acceptance.
+Do not select a consumer revision or migrate an instance as part of this work.
+
+[#3 / draft PR #14](https://github.com/normenmueller/yap/pull/14) remains a separate
+future architecture discussion on `docs/3-architecture`, not the current return
+point. Its TypeScript and broader directory contracts remain proposals;
+[#4](https://github.com/normenmueller/yap/issues/4) still needs its own approved
+foundation scope. README work remains #13. Project order is unchanged; this
+explicit owner choice governs the continuation. BEHAVIOR owns recovery, reviewer
+requests and acceptance boundaries.

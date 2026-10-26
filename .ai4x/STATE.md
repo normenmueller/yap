@@ -11,6 +11,9 @@ Next: report this completed delivery and wait for the owner's next work choice.
 No next implementation item or consumer revision has been selected. Existing
 Project order remains unchanged. Preserve the separate architecture work and
 local development evidence; do not migrate an instance as part of this closeout.
+Resume in `trunk` for the accepted application or explicitly select
+`docs/3-architecture` for the separate design discussion. No previous chat or
+resume command is needed. BEHAVIOR owns completed-feature branch/worktree cleanup.
 
 The current Python application defaults to `pfo/asp`, with an optional
 instance-relative `sources.aspirations` setting in `yap.json`. Selected sources

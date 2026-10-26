@@ -59,7 +59,7 @@ def destination(path, nodes=()):
     return None
 
 
-def body(blocks, source, identifier, level, nodes, stage, external=False, child_style=None, goals=(), resource_prefix='../../'):
+def body(blocks, source, identifier, level, nodes, stage, external=False, child_style=None, goals=(), resource_prefix='../../', goal_source=None):
     by_path = {node['path']: node for node in nodes}
     versions = {version['anchor']: version for version in by_path.get(source, {}).get('versions', [])}
     goals_by_path = {goal['path']: goal for goal in goals}
@@ -105,7 +105,7 @@ def body(blocks, source, identifier, level, nodes, stage, external=False, child_
                 return element
             anchor = unquote(parsed.fragment)
             if not parsed.path:
-                if (source == 'pfo/okr/goals.md' or source in goals_by_path) and anchor in goal_anchors:
+                if (source == goal_source or source in goals_by_path) and anchor in goal_anchors:
                     element['c'][2][0] = '#' + pdf_target(goal_anchors[anchor])
                 else:
                     element['c'][2][0] = '#' + pdf_target(identifier + ('--' + anchor if anchor else ''))
@@ -125,7 +125,7 @@ def body(blocks, source, identifier, level, nodes, stage, external=False, child_
                 goal = goals_by_path[resolved]
                 ref = pdf_target(goal['id'] if not anchor or anchor == goal['id'] else goal['id'] + '--' + anchor)
                 target = ('#' if external else 'Performance - mPM.pdf#nameddest=') + ref
-            elif resolved == 'pfo/okr/goals.md':
+            elif resolved == goal_source:
                 ref = pdf_target(goal_anchors.get(anchor, anchor)) if anchor else ''
                 target = ('#' if external else 'Performance - mPM.pdf#nameddest=') + ref if ref else 'Performance - mPM.pdf'
             else:
@@ -179,12 +179,12 @@ def activity(model, stage):
             slogan = walk(slogan, lambda item: {'t': 'LineBreak'} if item['t'] == 'SoftBreak' else item)
             blocks.extend(body([{'t': 'BlockQuote', 'c': [{'t': 'Para', 'c': slogan}]}],
                                node['path'], node['id'], level, model['nodes'], stage,
-                               goals=model['goals']))
+                               goals=model['goals'], goal_source=model.get('goal_source')))
         if node.get('url'):
             blocks.append({'t': 'Para', 'c': [{'t': 'Link', 'c': [
                 ['', [], []], inlines('Quelle'), [node['url'], '']]}]})
         blocks.extend(body(node['blocks'], node['path'], node['id'], level,
-                           model['nodes'], stage, goals=model['goals']))
+                           model['nodes'], stage, goals=model['goals'], goal_source=model.get('goal_source')))
     meta = deepcopy(model['meta'])
     meta['cover-map'] = {'t': 'MetaString', 'c': str(stage / 'views/activity-map/map.png')}
     if model.get('dgraph', {}).get('nodes'):
@@ -212,7 +212,7 @@ def mpm(model, stage):
             blocks.append({'t': 'Para', 'c': inlines(goal['status'])})
         blocks.extend(goal_metadata(goal))
         for block in body(goal['blocks'], goal['path'], goal['id'], 1,
-                          model['nodes'], stage, external=True, goals=model['goals']):
+                          model['nodes'], stage, external=True, goals=model['goals'], goal_source=model.get('goal_source')):
             blocks.append(block)
             # Standalone bold labels introduce the following conversation entry.
             if block['t'] == 'Para' and len(block['c']) == 1 and block['c'][0]['t'] == 'Strong':

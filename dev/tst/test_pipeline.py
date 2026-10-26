@@ -37,7 +37,7 @@ class PipelineTests(unittest.TestCase):
         self.addCleanup(asset_patch.stop)
         self.write('pfo/act/act.md', '---\ntitle: Activity\ndate: fixed\n---\n')
         self.write('pfo/act/x/x.md', '---\ntitle: X\nsubtitle: First\n---\n\n## Detail\n\nA body.\n')
-        self.write('pfo/okr/goals.md', """---
+        self.write('pfo/asp/goals.md', """---
 title: mPM
 subtitle: Ziele und Beiträge
 author: Example author
@@ -51,7 +51,7 @@ tracking:
 
 Historical notes excluded.
 """)
-        self.write('pfo/okr/obj/a.md', """---
+        self.write('pfo/asp/obj/a.md', """---
 title: Goal A
 key: a
 ---
@@ -59,13 +59,13 @@ key: a
 
 [Detail](../../act/x/x.md#detail)
 """)
-        self.write('pfo/okr/obj/b.md', """---
+        self.write('pfo/asp/obj/b.md', """---
 title: Goal B
 key: b
 ---
 A second goal.
 """)
-        self.write('pfo/okr/obj/a/contribution.md', '---\nkey: contribution\ntitle: Contribution\n'
+        self.write('pfo/asp/obj/a/contribution.md', '---\nkey: contribution\ntitle: Contribution\n'
                    'measure: Evidence\nunit: result\ntarget: 1\nactivities: [x]\n---\n')
 
     def write(self, name, value):
@@ -81,7 +81,7 @@ A second goal.
         for key, section, error in [('x', 'history', None),
                                     ('missing', 'history', 'not linked'),
                                     ('x', 'missing', 'existing level-two section')]:
-            self.write('pfo/okr/obj/a.md', '---\ntitle: Goal A\nkey: a\nactivity-notes:\n'
+            self.write('pfo/asp/obj/a.md', '---\ntitle: Goal A\nkey: a\nactivity-notes:\n'
                        f'  {key}:\n    text: "Earlier runs see"\n    section: {section}\n'
                        '---\n\n## Contributions {#history}\n\nHistorical work.\n')
             with self.subTest(key=key, section=section):
@@ -103,18 +103,18 @@ A second goal.
                    'dgraph:\n  spec: |\n    z -> x\n---\n')
         template = ('---\nkey: {key}\ntitle: Result\nmeasure: Evidence\nunit: result\n'
                     'target: 1\nactivities:\n{entries}\n---\n')
-        first = self.root / 'pfo/okr/obj/a/contribution.md'
+        first = self.root / 'pfo/asp/obj/a/contribution.md'
         first.write_text(template.format(key='contribution', entries='  - x\n  - x\n'
             '  - "[Linked work](https://example.org/work)"\n  - {title: Named contribution}'))
-        second = self.write('pfo/okr/obj/a/second.md', template.format(key='second', entries='  - x\n  - z'))
-        self.write('pfo/okr/obj/b/shared.md', template.format(key='shared', entries='  - x'))
+        second = self.write('pfo/asp/obj/a/second.md', template.format(key='second', entries='  - x\n  - z'))
+        self.write('pfo/asp/obj/b/shared.md', template.format(key='shared', entries='  - x'))
 
         def assigned():
             model = self.load()
             return {g['key']: [a['key'] for a in g['activities']] for g in model['goals']}
 
         self.assertEqual(assigned(), {'a': ['x', 'z'], 'b': ['x']})
-        goal = self.root / 'pfo/okr/obj/a.md'
+        goal = self.root / 'pfo/asp/obj/a.md'
         goal.write_text(goal.read_text().replace('key: a', 'key: a\nkr-sequence: [second, contribution]'))
         second.write_text(template.format(key='second', entries='  - z\n  - x'))
         self.assertEqual(assigned(), {'a': ['z', 'x'], 'b': ['x']})
@@ -155,11 +155,11 @@ A second goal.
         node.write_text(original)
         self.load()
 
-        goal = self.root / 'pfo/okr/obj/a.md'
+        goal = self.root / 'pfo/asp/obj/a.md'
         goal.write_text(goal.read_text() + '\n## Additional heading {#b}\n')
-        control = self.root / 'pfo/okr/goals.md'
+        control = self.root / 'pfo/asp/goals.md'
         control.write_text(control.read_text().replace('tracking:', 'tracking:\n  a--b: {status: active}'))
-        self.write('pfo/okr/obj/ab.md', '---\ntitle: Other\nkey: a--b\n---\n')
+        self.write('pfo/asp/obj/ab.md', '---\ntitle: Other\nkey: a--b\n---\n')
         with self.assertRaisesRegex(ValueError, r'Duplicate PDF destination goal-a--b:.*a.md#b.*ab.md'):
             self.load()
 
@@ -170,7 +170,7 @@ A second goal.
         (self.root / 'pfo/act/x').rename(self.root / 'pfo/act/z/x')
         with self.assertRaisesRegex(ValueError, 'Link target is missing'):
             self.load()
-        goal = self.root / 'pfo/okr/obj/a.md'
+        goal = self.root / 'pfo/asp/obj/a.md'
         goal.write_text(goal.read_text().replace('../act/x/', '../act/z/x/'))
         model = self.load()
         x = next(n for n in model['nodes'] if n['key'] == 'x')
@@ -178,8 +178,8 @@ A second goal.
         self.assertNotIn('parent', x)
         self.assertEqual(model['goals'][0]['activities'], before['goals'][0]['activities'])
         goal.write_text(goal.read_text().replace('[Detail](../../act/z/x/x.md#detail)', 'No link.'))
-        control = self.root / 'pfo/okr/goals.md'
-        (self.root / 'pfo/okr/obj/a/contribution.md').unlink()
+        control = self.root / 'pfo/asp/goals.md'
+        (self.root / 'pfo/asp/obj/a/contribution.md').unlink()
         shutil.rmtree(self.root / 'pfo/act/z/x')
         with self.assertRaisesRegex(ValueError, 'unknown activity key'):
             self.load()
@@ -195,7 +195,7 @@ A second goal.
                    'tracking:\n  "cpp/sfe#detail": {status: on hold, priority: p1, next: 1}\n'
                    '  noEA/o2i: {status: wip, priority: p2}\n'
                    'dgraph:\n  spec: |\n    noEA/o2i -> cpp/sfe\n---\n')
-        self.write('pfo/okr/obj/a/contribution.md', '---\nkey: contribution\ntitle: Contribution\n'
+        self.write('pfo/asp/obj/a/contribution.md', '---\nkey: contribution\ntitle: Contribution\n'
                    'measure: Agreed result\nunit: result\ntarget: 1\nactivities: [cpp/sfe]\n---\n')
         self.write('pov/report/.perspective.yaml', json.dumps({'schema': 1, 'title': 'Report', 'entries': [
             {'id': 'p000001', 'name': 'Module', 'target': {'entry': 'cpp/sfe'}}]}))
@@ -318,7 +318,7 @@ A second goal.
         self.write('pfo/act/x/extra.md', 'Extra')
         self.assertEqual([n['key'] for n in self.load()['nodes']], ['x'])
         (self.root / 'pfo/act/x/extra.md').unlink()
-        goals = self.root / 'pfo/okr/obj/a.md'
+        goals = self.root / 'pfo/asp/obj/a.md'
         goals.write_text(goals.read_text().replace('#detail)', '#missing)'))
         with self.assertRaisesRegex(ValueError, 'Anchor is missing'):
             self.load()
@@ -374,8 +374,8 @@ A second goal.
 
     def test_all_anchors_and_cross_document_links_match_destinations(self):
         path = self.root / 'pfo/act/x/x.md'
-        path.write_text(path.read_text() + '\n::: {#box}\nBox\n:::\n\n[Box](#box) [Goal](../../okr/goals.md#goal-b)\n')
-        goals = self.root / 'pfo/okr/obj/b.md'
+        path.write_text(path.read_text() + '\n::: {#box}\nBox\n:::\n\n[Box](#box) [Goal](../../asp/goals.md#goal-b)\n')
+        goals = self.root / 'pfo/asp/obj/b.md'
         goals.write_text(goals.read_text().replace('A second goal.', '[First](a.md)'))
         model = self.load()
         activity = documents.activity(model, Path('stage'))
@@ -390,8 +390,8 @@ A second goal.
         self.assertIn('Activity - Details.pdf#nameddest=act-x--detail', links)
 
     def test_goal_anchors_are_unique_across_the_document(self):
-        first = self.root / 'pfo/okr/obj/a.md'
-        second = self.root / 'pfo/okr/obj/b.md'
+        first = self.root / 'pfo/asp/obj/a.md'
+        second = self.root / 'pfo/asp/obj/b.md'
         original = second.read_text()
         second.write_text(original.replace('key: b', 'key: a'))
         with self.assertRaisesRegex(ValueError, 'duplicate objective ID'):
@@ -402,9 +402,9 @@ A second goal.
             self.load()
 
     def test_objective_keys_survive_renaming_and_central_tracking_controls_views(self):
-        source = self.root / 'pfo/okr/obj/a.md'
+        source = self.root / 'pfo/asp/obj/a.md'
         source.rename(source.with_name('renamed.md'))
-        control = self.root / 'pfo/okr/goals.md'
+        control = self.root / 'pfo/asp/goals.md'
         control.write_text(control.read_text().replace('a: {status: active}', 'a: {status: on hold, priority: p2}')
                            .replace('title: mPM', 'title: My Performance'))
         model = self.load()
@@ -419,9 +419,9 @@ A second goal.
         self.assertIn('priority-dot priority-p2', html)
         self.assertIn('My Performance', html)
         self.assertEqual(first['activities'][0]['key'], 'x')
-        (self.root / 'pfo/okr/obj/b').mkdir()
-        (self.root / 'pfo/okr/obj/a/contribution.md').rename(
-            self.root / 'pfo/okr/obj/b/contribution.md')
+        (self.root / 'pfo/asp/obj/b').mkdir()
+        (self.root / 'pfo/asp/obj/a/contribution.md').rename(
+            self.root / 'pfo/asp/obj/b/contribution.md')
         model = self.load()
         self.assertEqual(model['goals'][0]['activities'], [])  # Prose links do not assign impact.
         self.assertEqual(len(model['goals'][1]['activities']), 1)
@@ -429,7 +429,7 @@ A second goal.
         self.assertEqual(self.load()['goals'][1]['status'], 'closed')
 
     def test_objective_source_and_timeframe_survive_metadata_move(self):
-        source = self.root / 'pfo/okr/obj/a.md'
+        source = self.root / 'pfo/asp/obj/a.md'
         url = 'https://example.org/goal?a=1&b=2'
         source.write_text(source.read_text().replace('key: a',
             'key: a\nurl: "' + url + '"\ntimeline: "01.01.2026 - 31.12.2026 < >"') +
@@ -449,7 +449,7 @@ A second goal.
         self.assertEqual(documents.goal_metadata(model['goals'][1]), [])
 
     def test_objective_metadata_rejects_invalid_source_and_structured_timeframe(self):
-        source = self.root / 'pfo/okr/obj/a.md'
+        source = self.root / 'pfo/asp/obj/a.md'
         original = source.read_text()
         for fields, message in [('url: javascript:alert(1)', 'HTTP'),
                                 ('url: /local/path', 'HTTP'),
@@ -461,7 +461,7 @@ A second goal.
                     self.load()
 
     def test_objective_control_and_impact_errors_are_actionable(self):
-        control = self.root / 'pfo/okr/goals.md'
+        control = self.root / 'pfo/asp/goals.md'
         original = control.read_text()
         cases = [('title: mPM', 'title: mPM\nigraph: {}', 'derived from KR activities'),
                  ('title: mPM', 'title: mPM\nimpact-graph: {}', 'derived from KR activities'),
@@ -475,20 +475,20 @@ A second goal.
                 with self.assertRaisesRegex(ValueError, message):
                     self.load()
         control.write_text(original)
-        objective = self.root / 'pfo/okr/obj/a.md'
+        objective = self.root / 'pfo/asp/obj/a.md'
         original_objective = objective.read_text()
         for field in ('status: active', 'priority: p1', 'tracking: {}', 'sequence: []', 'igraph: {}', 'impact-graph: {}'):
             objective.write_text(original_objective.replace('key: a', 'key: a\n'+field))
             with self.assertRaisesRegex(ValueError, 'derived from KR activities' if 'graph' in field
-                                        else 'centrally in pfo/okr/goals.md'):
+                                        else 'centrally in pfo/asp/goals.md'):
                 self.load()
         objective.write_text(original_objective)
-        self.write('pfo/okr/obj/c.md', '---\ntitle: C\nkey: c\n---\n')
+        self.write('pfo/asp/obj/c.md', '---\ntitle: C\nkey: c\n---\n')
         with self.assertRaisesRegex(ValueError, 'status is missing'):
             self.load()
         control.write_text(original.replace('tracking:', 'tracking:\n  c: {status: active}'))
         self.assertEqual([goal['key'] for goal in self.load()['goals']], ['a', 'b', 'c'])
-        (self.root / 'pfo/okr/obj/c.md').unlink()
+        (self.root / 'pfo/asp/obj/c.md').unlink()
         with self.assertRaisesRegex(ValueError, 'unknown objective'):
             self.load()
 
@@ -555,7 +555,7 @@ A second goal.
         with self.assertRaisesRegex(ValueError, 'endpoints must be activities'):
             self.load()
         self.write('pfo/act/act.md', '---\ntitle: Activity\n---\n')
-        self.write('pfo/okr/obj/a/result.md', '---\nkey: result\ntitle: Result\nmeasure: Evidence\nunit: count\ntarget: 1\nactivities: [area]\n---\n')
+        self.write('pfo/asp/obj/a/result.md', '---\nkey: result\ntitle: Result\nmeasure: Evidence\nunit: count\ntarget: 1\nactivities: [area]\n---\n')
         with self.assertRaisesRegex(ValueError, 'unknown activity'):
             self.load()
 
@@ -595,7 +595,7 @@ A second goal.
     def test_mpm_view_is_goal_first_and_keeps_resource_links(self):
         self.write('pfo/act/x/res/paper.pdf', 'PDF')
         self.write('pfo/act/x/res/picture.png', 'PNG')
-        goals = self.root / 'pfo/okr/obj/b.md'
+        goals = self.root / 'pfo/asp/obj/b.md'
         goals.write_text(goals.read_text().replace('A second goal.',
             '[Paper](../../act/x/res/paper.pdf)\n\n![Picture](../../act/x/res/picture.png)\n\n[First](a.md)'))
         model = self.load()
@@ -624,7 +624,7 @@ A second goal.
         node = self.root / 'pfo/act/x/x.md'
         internal = '\n::: {.internal}\n\n## Internal note {#private-note}\n\nPRIVATE-NOTE\n\n[Local](work/missing.md)\n\n![Draft](missing.png)\n\n:::\n'
         node.write_text(node.read_text() + internal + '\nPublic ending.\n')
-        goals = self.root / 'pfo/okr/obj/a.md'
+        goals = self.root / 'pfo/asp/obj/a.md'
         goals.write_text(goals.read_text().replace('**Contributions**',
             '**Contributions**\n\n::: {.internal}\n\nPRIVATE-GOAL\n\n[Wrong](../act/x/missing.md)\n\n:::\n'))
         model = self.load()
@@ -649,7 +649,7 @@ A second goal.
             self.write(f'pfo/act/x/res/{name}.svg', '<svg xmlns="http://www.w3.org/2000/svg"/>')
             path = '../../act/x/res/' + quote(name, safe='')
             markdown.append(f'[Resource]({path}.pdf#page=2)\n\n![Image]({path}.svg)')
-        objective = self.root / 'pfo/okr/obj/b.md'
+        objective = self.root / 'pfo/asp/obj/b.md'
         objective.write_text(objective.read_text() + '\n\n' + '\n\n'.join(markdown))
         model = self.load()
         stage = self.root / '.yap/local/site'
@@ -727,7 +727,7 @@ A second goal.
                 copy.assert_not_called()
 
     def test_incremental_publication_handles_subtitle_move_delete_and_failure(self):
-        (self.root / 'pfo/okr/obj/a/contribution.md').unlink()
+        (self.root / 'pfo/asp/obj/a/contribution.md').unlink()
         original_cwd = Path.cwd()
         self.addCleanup(os.chdir, original_cwd)
         calls = []
@@ -813,7 +813,7 @@ A second goal.
             before = yap.hashes(files.source_files(Path('.yap/local/site')))
             run()
             self.assertEqual(calls, [])
-            kr = self.write('pfo/okr/obj/a/result.md',
+            kr = self.write('pfo/asp/obj/a/result.md',
                 '---\nkey: result\ntitle: Result\nmeasure: Confirmed\nunit: outcomes\ntarget: 2\ncurrent: 0\n---\n')
             run()
             self.assertEqual(calls, ['views'])
@@ -887,7 +887,7 @@ A second goal.
                 self.assertEqual(published.read_bytes(), b'Updated asset')
                 source.write_bytes(original)
                 run()
-            control = self.root / 'pfo/okr/goals.md'
+            control = self.root / 'pfo/asp/goals.md'
             original_control = control.read_text()
             control.write_text(original_control.replace('title: mPM', 'title: Updated Performance'))
             run()
@@ -929,12 +929,12 @@ A second goal.
             (self.root / 'pfo/act/x/res/attachment.txt').unlink()
             run()
             calls.clear()
-            goals = self.root / 'pfo/okr/obj/a.md'
+            goals = self.root / 'pfo/asp/obj/a.md'
             goals.write_text(goals.read_text().replace('**Contributions**', '#### Detail {#detail}\n\n**Contributions**'))
             run()
             calls.clear()
             goals.write_text(goals.read_text().replace('#### Detail {#detail}\n\n', ''))
-            other = self.root / 'pfo/okr/obj/b.md'
+            other = self.root / 'pfo/asp/obj/b.md'
             other.write_text(other.read_text().replace('A second goal.', '#### Detail {#detail}'))
             run()
             self.assertIn('Activity', calls)

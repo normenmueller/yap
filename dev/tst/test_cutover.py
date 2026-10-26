@@ -15,7 +15,7 @@ class CutoverTests(unittest.TestCase):
         self.root = Path(temporary.name)
         self.write('pfo/act/act.md', '---\ntitle: Activities\nreport-perspective: report\n'
                    'members:\n  system: [a, b]\ndgraph:\n  spec: |\n    seed -> system\n---\n')
-        self.write('pfo/okr/goals.md', '---\ntitle: Goals\n---\n')
+        self.write('pfo/asp/goals.md', '---\ntitle: Goals\n---\n')
         for key in ('seed', 'system', 'a', 'b', 'other'):
             self.write(f'pfo/act/{key}/{key}.md', f'---\nkind: activity\nkey: "{key}"\ntitle: {key}\n---\n')
         self.definition = {'schema': 1, 'title': 'Report', 'entries': [

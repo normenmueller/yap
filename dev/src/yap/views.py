@@ -38,7 +38,7 @@ def _portable_blocks(goal, model):
     """Use the PDFs' publication rules, relative to the nested HTML view."""
     blocks = publication_body(
         goal.get("blocks", []), goal['path'], goal["id"], 3,
-        model["nodes"], Path("../.."), external=True, goals=model["goals"], resource_prefix="",
+        model["nodes"], Path("../.."), external=True, goals=model["goals"], resource_prefix="", goal_source=model.get("goal_source"),
     )
     def walk(value):
         if isinstance(value, list):

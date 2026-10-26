@@ -26,6 +26,10 @@ generation requires Pandoc, LaTeX with `latexmk`, PDF utilities and a supported
 Chromium-family browser. Python is the current runtime; the proposed TypeScript
 replacement and guided instance-creation wizard are not delivered here.
 
+Aspiration sources default to `pfo/asp`. Existing instances using `pfo/okr` need a
+manual move or an explicit `sources.aspirations` setting before using this revision;
+see [Objectives and Key Results](authoring.md#objectives-and-key-results).
+
 Authored originals live under `pfo/`; arrangements and source shortcuts live
 under `pov/`. Edit the original once, then choose its placements. Tracking belongs
 to central control documents. Directories and visible grouping do not create

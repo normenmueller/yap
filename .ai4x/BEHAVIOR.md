@@ -39,7 +39,8 @@ review history. Use Git for history, not backup folders. Preserve assignees and
 owner order; relocated issues are not evidence of delivered functionality.
 After a verified successful merge, delete the completed feature branch locally
 and remotely. Remove its worktree after preserving ignored/private material and
-verifying that no unmerged work remains. Preserve active branches and PR history.
+verifying that no unmerged work remains. Remove empty parent directories left by
+that cleanup. Preserve active branches and PR history.
 Use only the explicitly selected provider profile; never switch shared login.
 When creating a managed PR, request `normenmueller` as reviewer immediately,
 including documentation drafts. Preserve other reviewers; assignment is not a

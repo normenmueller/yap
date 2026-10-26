@@ -28,7 +28,7 @@ class InstanceBoundaryTests(unittest.TestCase):
             root = Path(directory).resolve()
             for name, text in {
                 'pfo/act/act.md': '---\ntitle: Activities\n---\n',
-                'pfo/okr/goals.md': '---\ntitle: Goals\n---\n',
+                'pfo/asp/goals.md': '---\ntitle: Goals\n---\n',
             }.items():
                 path = root / name
                 path.parent.mkdir(parents=True, exist_ok=True)

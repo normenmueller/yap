@@ -31,15 +31,15 @@ Released content.
 Current work.
 '''
         self.write(self.path, self.prefix + self.body)
-        self.write('pfo/okr/goals.md', '''---
+        self.write('pfo/asp/goals.md', '''---
 title: Goals
 tracking:
   result: {status: active}
 ---
 ''')
-        self.write('pfo/okr/obj/result/delivered.md', '---\nkey: delivered\ntitle: Delivered\n'
+        self.write('pfo/asp/obj/result/delivered.md', '---\nkey: delivered\ntitle: Delivered\n'
                    'measure: Evidence\nunit: result\ntarget: 1\nactivities: [area--sup--project--module]\n---\n')
-        self.write('pfo/okr/obj/result.md', '---\nkey: result\ntitle: Result\n---\n')
+        self.write('pfo/asp/obj/result.md', '---\nkey: result\ntitle: Result\n---\n')
 
     def write(self, name, value):
         path = self.root / name

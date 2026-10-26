@@ -16,7 +16,7 @@ def initialize(root):
     if root.exists():
         raise ValueError('Choose a new, absent directory for the isolated prototype')
     root.mkdir(parents=True)
-    for relative in ('pfo/act', 'pfo/okr', 'pfo/nts', 'pov', '.yap/local'):
+    for relative in ('pfo/act', 'pfo/asp', 'pfo/nts', 'pov', '.yap/local'):
         (root / relative).mkdir(parents=True, exist_ok=True)
     (root / MARKER).write_text(p.encode({'schema': 1}), encoding='utf-8')
 

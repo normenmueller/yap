@@ -20,7 +20,7 @@ class NextTests(unittest.TestCase):
                        '---\ntitle: ' + key.rsplit('/', 1)[-1] + '\n---\n')
         self.write('pfo/act/area/sup/a/a.md', '---\ntitle: A\n---\n'
                    '## Current {#current .version}\n\n## Released {#released .version}\n')
-        self.write('pfo/okr/goals.md', '---\ntitle: Goals\n---\n')
+        self.write('pfo/asp/goals.md', '---\ntitle: Goals\n---\n')
         self.defaults = {
             'area--sup--a#current': '{status: on hold, priority: p4, next: 1}',
             'area--sup--a#released': '{status: released}',

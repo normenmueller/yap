@@ -175,16 +175,18 @@ def _main(command, ROOT):
 
     state_path = BUILD / 'state.json'
     state = json.loads(state_path.read_text()) if state_path.exists() else {}
-    sources = hashes([*source_files(Path('pfo/act')), Path('pfo/okr/goals.md'),
+    from .aspirations import resolve
+    aspiration_paths = resolve(ROOT)
+    sources = hashes([*source_files(Path('pfo/act')), aspiration_paths.goals,
                       *Path('.yap/cfg').glob('progress-preview.json'),
                       *Path('.').glob('yap.json'),
-                      *source_files(Path('pfo/okr/obj')), *source_files(Path('pfo/nts')),
+                      *source_files(aspiration_paths.objectives, local_names=()), *source_files(Path('pfo/nts')),
                       *sorted(Path('pov').glob('*/.perspective.yaml'))])
     code = hashes(path for base in (APPLICATION / 'dev/src', TEMPLATES / 'tex', TEMPLATES / 'lua')
                   for path in source_files(Path(base))
                   if path.suffix in ('.py', '.js', '.lua', '.tex') and not path.name.startswith('test_'))
     code = dict(code, instance_configuration=digest(instance_config.manifest()))
-    source_signature = digest([sources, source_shape(Path('pfo/act')), source_shape(Path('pfo/okr/obj')), source_shape(Path('pfo/nts')), code])
+    source_signature = digest([sources, source_shape(Path('pfo/act')), source_shape(aspiration_paths.root, local_names=()), source_shape(Path('pfo/nts')), code])
     cache = BUILD / 'model.json'
     if command != 'check' and state.get('source') == source_signature and cache.exists():
         model = json.loads(cache.read_text())

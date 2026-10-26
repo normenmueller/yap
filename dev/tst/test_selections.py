@@ -30,7 +30,7 @@ dgraph:
 ''')
         for key in ('bundle', 'x', 'y', 'z'):
             self.write(f'pfo/act/{key}/{key}.md', f'---\nkind: activity\nkey: "{key}"\ntitle: "{key.upper()}"\n---\n')
-        self.write('pfo/okr/goals.md', '''---
+        self.write('pfo/asp/goals.md', '''---
 title: Goals
 sequence: [a, b, c]
 tracking:
@@ -40,7 +40,7 @@ tracking:
 ---
 ''')
         for key in ('a', 'b', 'c'):
-            self.write(f'pfo/okr/obj/{key}.md', f'---\nkey: "{key}"\ntitle: Goal {key.upper()}\n---\n')
+            self.write(f'pfo/asp/obj/{key}.md', f'---\nkey: "{key}"\ntitle: Goal {key.upper()}\n---\n')
         self.definition = {'schema': 1, 'title': 'Selected', 'entries': [
             {'id': 'p000001', 'name': 'X', 'target': {'entry': 'x'}},
             {'id': 'p000002', 'name': 'Z', 'target': {'entry': 'z'}},

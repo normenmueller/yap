@@ -44,10 +44,10 @@ def parse(fields, nodes, where):
     return row
 
 
-def load(root, nodes, goals):
+def load(root, nodes, goals, aspiration_paths):
     """Discover KR files under folders named for their objective's stable key."""
     from .content import metadata, public_content, read
-    folder = root / 'pfo/okr/obj'
+    folder = root / aspiration_paths.objectives
     known = {goal['key']: goal for goal in goals}
     result = {}
     for directory in sorted(folder.iterdir()) if folder.exists() else []:

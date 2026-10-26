@@ -35,6 +35,11 @@ An optional instance manifest uses standard-library JSON:
 `logo`, `favicon` and `footer` text; logo/favicon paths must name existing files
 inside the instance. `publication_prefix` controls PDF destination prefixes;
 preserve existing publication addresses deliberately when adopting older content.
+Optional `sources.aspirations` selects an instance-relative aspiration root;
+omitting it selects `pfo/asp`. The [authoring guide](authoring.md#objectives-and-key-results)
+describes its structure, boundaries and the manual change from the previous default.
+Manifest loading checks the setting's structure; content and build operations
+validate the selected source filesystem before discovery or cache reuse.
 
 Instance branding identifies the portfolio in its homepage, navigation, browser
 context and selected logo/favicon. Application-owned mission, slogans and product

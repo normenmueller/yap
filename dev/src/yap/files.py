@@ -11,29 +11,30 @@ LINK_ROLES = ('repo', 'shlf', 'zbox')
 LOCAL_NAMES = (*LINK_ROLES, 'wsp', 'work')
 
 
-def source_files(directory):
+def source_files(directory, local_names=LOCAL_NAMES):
     """Walk authored files only; never enter local locations or symlinks."""
     for current, directories, files in os.walk(directory, followlinks=False):
         base = Path(current)
         directories[:] = sorted(name for name in directories
-                                if name not in LOCAL_NAMES and not name.startswith('.')
+                                if name not in local_names and not name.startswith('.')
                                 and not (base / name).is_symlink())
         for name in sorted(files):
             path = base / name
-            if name not in LOCAL_NAMES and not name.startswith('.') and not path.is_symlink():
+            if name not in local_names and not name.startswith('.') and not path.is_symlink() and path.is_file():
                 yield path
 
 
-def source_shape(directory):
+def source_shape(directory, local_names=LOCAL_NAMES):
     """Include empty/new folders and unexpected links in discovery invalidation."""
     result = []
     for current, directories, files in os.walk(directory, followlinks=False):
         base = Path(current)
-        directories[:] = sorted(name for name in directories if name not in LOCAL_NAMES and not name.startswith('.'))
+        directories[:] = sorted(name for name in directories if name not in local_names and not name.startswith('.'))
         for name in [*directories, *files]:
-            if name not in LOCAL_NAMES and not name.startswith('.'):
+            if name not in local_names and not name.startswith('.'):
                 path = base / name
-                result.append((str(path), 'link' if path.is_symlink() else 'dir' if path.is_dir() else 'file'))
+                result.append((str(path), 'link' if path.is_symlink() else 'dir' if path.is_dir()
+                               else 'file' if path.is_file() else 'other'))
     return sorted(result)
 
 

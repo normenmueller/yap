@@ -40,7 +40,7 @@ title: Example activity
 :::
 
 [Heading](#überblick), [Div](#entscheidung), [Span](#maßstab).
-[Objective](../../okr/obj/a.md#nächster-schritt).
+[Objective](../../asp/obj/a.md#nächster-schritt).
 
 ## v0.2 {#v0.2 .version}
 
@@ -50,13 +50,13 @@ Released version.
 
 Current version.
 ''',
-                'pfo/okr/goals.md': '''---
+                'pfo/asp/goals.md': '''---
 title: Performance
 tracking:
   a: {status: active}
 ---
 ''',
-                'pfo/okr/obj/a.md': '''---
+                'pfo/asp/obj/a.md': '''---
 title: Example objective
 key: a
 ---

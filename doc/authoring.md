@@ -14,9 +14,9 @@ Die folgenden Beispiele sind frei erfunden und keine persönlichen Vorgaben.
 | `pfo/act/**/FOLDER/FOLDER.md` | Explicitly marked activity or area identity and content |
 | `pfo/act/act.md` | Report metadata, central activity tracking, explicit membership, dependencies and publication mapping |
 | `pfo/nts/**/*.md` | Topic-filed notes; managed notes explicitly declare kind, key and title |
-| `pfo/okr/goals.md` | Objective order and central Objective tracking |
-| `pfo/okr/obj/KEY.md` | Objective identity, description and optional KR order |
-| `pfo/okr/obj/KEY/*.md` | That Objective's Key Results and explicit contributions |
+| `pfo/asp/goals.md` | Objective order and central Objective tracking |
+| `pfo/asp/obj/KEY.md` | Objective identity, description and optional KR order |
+| `pfo/asp/obj/KEY/*.md` | That Objective's Key Results and explicit contributions |
 | `pov/NAME/.perspective.yaml` | Saved placement order, grouping and presentation choices |
 
 Activities and areas use a same-named folder/document pair. Ordinary folders do
@@ -113,12 +113,35 @@ with selected `repo`, `shlf` or `zbox` roles. No role is inherited by modules.
 
 ## Objectives and Key Results
 
+The default aspiration root is `pfo/asp`. To select another existing directory,
+set an instance-relative path in the optional `yap.json` manifest (schema 1 and
+the instance's `slug` remain required):
+
+```json
+{
+  "schema": 1,
+  "slug": "example",
+  "sources": {"aspirations": "plans/aspirations"}
+}
+```
+
+The selected root contains `goals.md` and, when Objectives exist, `obj/` with the
+same structure shown below. It must be a real directory inside the instance,
+separate from `.yap`, `.git`, `pov`, `pfo/act` and `pfo/nts` (including case
+variants); symlink paths are not supported. Diagnostics name the selected location.
+
+Existing instances using `pfo/okr` must either move that directory manually to
+`pfo/asp` and repair affected relative links, or explicitly set
+`sources.aspirations` to `pfo/okr`. There is no automatic move, fallback lookup or
+source-directory creation. Normal validation and builds preserve authored sources,
+configuration and perspectives. Publication destinations remain unchanged.
+
 An Objective file needs stable `key` and `title`. Optional `timeline` and `url`
 are authored values. Its tracking belongs in `goals.md`, with status `active`,
 `on hold` or `closed` and optional priority `p1`–`p4`. `sequence` there orders
 Objective keys; an Objective's optional `kr-sequence` orders its KR keys.
 
-For `pfo/okr/obj/quality/verified.md`:
+For `pfo/asp/obj/quality/verified.md`:
 
 ```yaml
 ---

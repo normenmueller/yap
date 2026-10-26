@@ -182,7 +182,7 @@ class BrandingTests(unittest.TestCase):
             sources = {
                 'pfo/act/act.md': '---\ntitle: Activities\ntracking:\n  example: {status: wip}\n---\n',
                 'pfo/act/example/example.md': '---\nkind: activity\nkey: example\ntitle: Example activity\n---\n',
-                'pfo/okr/goals.md': '---\ntitle: Goals\n---\n',
+                'pfo/asp/goals.md': '---\ntitle: Goals\n---\n',
             }
             for name, text in sources.items():
                 source = root / name

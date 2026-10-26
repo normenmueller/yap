@@ -33,12 +33,12 @@ class WorkspaceTests(unittest.TestCase):
             'pfo/act/area/area.md': '---\ntitle: Area\n---\n',
             'pfo/act/area/task/task.md': '---\ntitle: Task\n---\n\n[Attachment](res/note.txt)\n',
             'pfo/act/area/task/res/note.txt': 'A resource.\n',
-            'pfo/okr/goals.md': '---\ntitle: Goals\n---\n',
+            'pfo/asp/goals.md': '---\ntitle: Goals\n---\n',
         }.items():
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(source_text(name, text))
-        (self.root / 'pfo/okr/obj').mkdir()
+        (self.root / 'pfo/asp/obj').mkdir()
         self.view = self.root / 'pov/focus'
         self.view.mkdir(parents=True)
         self.link('Task', 'pfo/act/area/task')

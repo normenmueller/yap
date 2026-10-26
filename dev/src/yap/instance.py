@@ -4,8 +4,9 @@ from pathlib import Path, PurePosixPath
 import re
 
 
-def manifest():
-    path = Path('yap.json')
+def manifest(root=None):
+    root = Path(root).resolve() if root is not None else Path.cwd()
+    path = root / 'yap.json'
     if not path.is_file():
         return {}
     value = json.loads(path.read_text())
@@ -13,6 +14,14 @@ def manifest():
         raise ValueError('yap.json: expected an object with schema 1.')
     if not isinstance(value.get('slug'), str) or not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9_-]*', value['slug']):
         raise ValueError('yap.json: slug must be a simple file name.')
+    sources = value.get('sources', {})
+    if not isinstance(sources, dict):
+        raise ValueError('yap.json: sources must be a mapping.')
+    if 'aspirations' in sources:
+        selected = sources['aspirations']
+        if (not isinstance(selected, str) or not selected.strip() or '\0' in selected
+                or PurePosixPath(selected).is_absolute() or '..' in PurePosixPath(selected).parts):
+            raise ValueError(f'yap.json: sources.aspirations must be a nonempty relative instance path: {selected!r}.')
     branding = value.get('branding', {})
     if not isinstance(branding, dict) or any(not isinstance(v, str) for key, v in branding.items() if key != 'footer_link'):
         raise ValueError('yap.json: branding values must be text except optional footer_link data.')
@@ -21,8 +30,8 @@ def manifest():
             relative = PurePosixPath(branding[field])
             if relative.is_absolute() or '..' in relative.parts or not relative.parts:
                 raise ValueError('yap.json: branding assets must be relative instance paths.')
-            source = Path(branding[field])
-            if not source.resolve().is_relative_to(Path.cwd().resolve()) or not source.is_file():
+            source = root / branding[field]
+            if not source.resolve().is_relative_to(root) or not source.is_file():
                 raise ValueError('yap.json: branding asset must exist within the instance: ' + str(source))
     prefix = value.get('publication_prefix', 'yap-')
     if not isinstance(prefix, str) or not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]*', prefix):

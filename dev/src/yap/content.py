@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import subprocess
 from urllib.parse import unquote, urlsplit
@@ -198,7 +199,7 @@ def apply_activity_tracking(nodes, tracking):
                                  'each public version requires a status.')
 
 
-def local_target(target, source, root):
+def local_target(target, source, root, aspiration_sources=()):
     parts = urlsplit(target)
     if parts.scheme or parts.netloc:
         if parts.scheme.casefold() not in {"http", "https", "mailto", "tel"}:
@@ -206,10 +207,12 @@ def local_target(target, source, root):
         return None
     if parts.path.startswith(("/", "~")):
         raise ValueError(f"{source.relative_to(root)}: absolute link {target!r}.")
-    for name in LOCAL_NAMES:
-        if name in Path(unquote(parts.path)).parts:
-            raise ValueError(f"{source.relative_to(root)}: {name} is for local navigation only: {target!r}.")
+    lexical = Path(os.path.normpath(source.parent / unquote(parts.path))) if parts.path else source
     dest = (source.parent / unquote(parts.path)).resolve() if parts.path else source
+    selected_source = lexical in aspiration_sources and dest == lexical
+    for name in LOCAL_NAMES:
+        if name in Path(unquote(parts.path)).parts and not selected_source:
+            raise ValueError(f"{source.relative_to(root)}: {name} is for local navigation only: {target!r}.")
     if not dest.is_relative_to(root):
         raise ValueError(f"{source.relative_to(root)}: link outside the project: {target!r}.")
     return dest, unquote(parts.fragment)
@@ -243,11 +246,11 @@ def entry_fields(meta, source, root):
     return fields
 
 
-def reject_objective_graph(meta, source):
+def reject_objective_graph(meta, source, objective_folder):
     for field in ('igraph', 'impact-graph'):
         if field in meta:
             raise ValueError(f'{source}: {field} is no longer supported; define activities in '
-                             'pfo/okr/obj/<objective-key>/<kr-key>.md. '
+                             f'{objective_folder}/<objective-key>/<kr-key>.md. '
                              'Objective assignments are derived from KR activities.')
 
 
@@ -255,6 +258,10 @@ def load(root: Path) -> dict:
     root = Path(root).resolve()
     from . import portfolio, projection
     from .files import resource_plan
+    from .aspirations import resolve
+    aspiration_paths = resolve(root)
+    goal_source = aspiration_paths.goals.as_posix()
+    objective_folder = aspiration_paths.objectives.as_posix()
     model = portfolio.load(root)
     nodes = model['nodes']
     main = {'meta': model['meta'], 'pandoc-api-version': model['api']}
@@ -264,31 +271,31 @@ def load(root: Path) -> dict:
     sources = {root / node["path"]: node for node in nodes}
     known_anchors = {path: anchors([node["meta"].get("slogan", {}), node["blocks"]], path.relative_to(root))
                      for path, node in sources.items()}
-    goal_path = root / "pfo/okr/goals.md"
+    goal_path = root / aspiration_paths.goals
     goal_doc = public_content(read(goal_path))
     for field in ('title', 'subtitle', 'author', 'date', 'lang', 'tags'):
-        value = metadata(goal_doc['meta'], field, 'pfo/okr/goals.md')
+        value = metadata(goal_doc['meta'], field, goal_source)
         if field == 'title' and not value:
-            raise ValueError('pfo/okr/goals.md: title is missing from the YAML header.')
+            raise ValueError(f'{goal_source}: title is missing from the YAML header.')
     control = goal_doc['meta']
-    reject_objective_graph(control, 'pfo/okr/goals.md')
+    reject_objective_graph(control, goal_source, objective_folder)
     if 'okr-preview' in control:
-        raise ValueError('pfo/okr/goals.md: okr-preview has moved to pfo/okr/obj/<objective-key>/<kr-key>.md.')
+        raise ValueError(f'{goal_source}: okr-preview has moved to {objective_folder}/<objective-key>/<kr-key>.md.')
     sequence = control.get('sequence', {'t': 'MetaList', 'c': []})
     if sequence['t'] != 'MetaList':
-        raise ValueError('pfo/okr/goals.md: sequence requires a list of objective keys.')
+        raise ValueError(f'{goal_source}: sequence requires a list of objective keys.')
     order = []
     for item in sequence['c']:
-        key = metadata({'item': item}, 'item', 'pfo/okr/goals.md: sequence')
+        key = metadata({'item': item}, 'item', goal_source + ': sequence')
         if not key or key in order:
-            raise ValueError('pfo/okr/goals.md: sequence contains an empty or duplicate entry.')
+            raise ValueError(f'{goal_source}: sequence contains an empty or duplicate entry.')
         order.append(key)
     tracking = control.get('tracking', {'t': 'MetaMap', 'c': {}})
     if tracking['t'] != 'MetaMap':
-        raise ValueError('pfo/okr/goals.md: tracking requires a mapping.')
+        raise ValueError(f'{goal_source}: tracking requires a mapping.')
     assignments = {}
     for key, value in tracking['c'].items():
-        label = f'pfo/okr/goals.md: tracking[{key}]'
+        label = f'{goal_source}: tracking[{key}]'
         if value['t'] != 'MetaMap' or set(value['c']) - {'status', 'priority'}:
             raise ValueError(label + ': allowed fields are status and priority.')
         fields = {field: metadata(value['c'], field, label) for field in ('status', 'priority')}
@@ -297,9 +304,7 @@ def load(root: Path) -> dict:
         if fields['priority'] and fields['priority'] not in PRIORITIES:
             raise ValueError(label + ': priority requires p1 through p4.')
         assignments[key] = fields
-    folder = root / 'pfo/okr/obj'
-    if folder.is_symlink():
-        raise ValueError('pfo/okr/obj: symlinks are not content sources.')
+    folder = root / aspiration_paths.objectives
     goals = []
     known_anchors[goal_path] = set()
     for path in sorted(folder.iterdir()) if folder.exists() else []:
@@ -312,11 +317,11 @@ def load(root: Path) -> dict:
         doc = public_content(read(path))
         label = path.relative_to(root).as_posix()
         if 'okr-preview' in doc['meta']:
-            raise ValueError(f'{label}: define KRs in pfo/okr/obj/{metadata(doc["meta"], "key", label)}/<kr-key>.md.')
-        reject_objective_graph(doc['meta'], label)
+            raise ValueError(f'{label}: define KRs in {objective_folder}/{metadata(doc["meta"], "key", label)}/<kr-key>.md.')
+        reject_objective_graph(doc['meta'], label, objective_folder)
         for field in ('status', 'priority', 'tracking', 'sequence'):
             if field in doc['meta']:
-                raise ValueError(f'{label}: {field} is maintained centrally in pfo/okr/goals.md.')
+                raise ValueError(f'{label}: {field} is maintained centrally in {goal_source}.')
         title = metadata(doc['meta'], 'title', label)
         key = metadata(doc['meta'], 'key', label)
         if not title or not key:
@@ -330,7 +335,7 @@ def load(root: Path) -> dict:
             raise ValueError(f'{label}: key allows letters, digits, hyphens, and underscores.')
         identifier = 'goal-' + key
         if key not in assignments:
-            raise ValueError(f'pfo/okr/goals.md: tracking[{key}]: status is missing.')
+            raise ValueError(f'{goal_source}: tracking[{key}]: status is missing.')
         body_anchors = anchors(doc['blocks'], label)
         if identifier in body_anchors or identifier in known_anchors[goal_path]:
             raise ValueError(f'{label}: duplicate objective ID {identifier}.')
@@ -344,7 +349,7 @@ def load(root: Path) -> dict:
     keys = {goal['key'] for goal in goals}
     for key in [*order, *assignments]:
         if key not in keys:
-            raise ValueError(f'pfo/okr/goals.md: unknown objective {key!r}.')
+            raise ValueError(f'{goal_source}: unknown objective {key!r}.')
     ranks = {key: index for index, key in enumerate(order)}
     goals.sort(key=lambda goal: (ranks.get(goal['key'], len(ranks)), goal['key'].casefold(), goal['key']))
 
@@ -365,12 +370,14 @@ def load(root: Path) -> dict:
                                      'Rename one of the anchors or keys.')
                 destinations[target] = source
 
+    aspiration_sources = {goal_path, *(root / goal['path'] for goal in goals)}
+
     def validate(blocks, path):
         for item in walk(blocks):
             if item["t"] not in {"Link", "Image"}:
                 continue
             target = item["c"][2][0]
-            local = local_target(target, path, root)
+            local = local_target(target, path, root, aspiration_sources=aspiration_sources)
             if local is None:
                 continue
             dest, anchor = local
@@ -393,8 +400,8 @@ def load(root: Path) -> dict:
     from .impact import assign as assign_objective_activities
     from .performance import load as key_results
     activities = [node for node in nodes if node['kind'] == 'activity']
-    model.update(goals=goals, report=report, goal_meta=goal_doc['meta'],
-                 key_results=key_results(root, activities, goals),
+    model.update(goals=goals, report=report, goal_meta=goal_doc['meta'], goal_source=goal_source,
+                 key_results=key_results(root, activities, goals, aspiration_paths),
                  dgraph=dependency_graph(main['meta'], nodes, model['members'], report))
     assign_objective_activities(goals, model['key_results'], activities)
     from .work_progress import load_preview

@@ -164,8 +164,11 @@ Unbound records absence of a care association, not an empty accepted constellati
 Definition identity differs from activity identity; creating a portfolio does not
 register artificial Act/Pfm activities in its authored corpus.
 
-One small JSON manifest owns the application pin and selections. This candidate
-example contains placeholders and is not a runnable manifest:
+One small JSON manifest owns the application pin and selections. The delivered
+Python application now uses `sources.aspirations` (default `pfo/asp`, accepted in
+#15 / PR #16). Reconcile the candidate source vocabulary below during the next
+design discussion. This candidate example contains placeholders and is not a
+runnable manifest:
 
 ```json
 {

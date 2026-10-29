@@ -21,7 +21,8 @@ workspace details. The candidate manifest uses `sources.aspirations` and the
 and definition fields remain proposed. Existing `pfo/okr` needs explicit selection.
 No runtime changes beyond the integrated accepted baseline are introduced.
 
-Next: discuss the smallest testable create/open and durable-definition slice.
+Next: decide the technology direction, then discuss the smallest testable
+create/open and durable-definition slice with actual quip identification in view.
 Standard Act/Pfm, agent-assisted operation and one-way instance dependency remain
 product directions; identity, persistence and public APIs still need agreement.
 Publishing this draft does not approve implementation, migration, activation or
@@ -36,14 +37,20 @@ constitutes one quip, its evidence and activity association, stable identity and
 recognition on refresh before fixing relevant model/operation boundaries. This
 note selects no evidence provider, changes no queue order and approves no collection.
 
-The owner requests a concise PO-level recommendation on staying with Python or
-switching to TypeScript/Haskell. Independent architecture, runtime and language
-assessments recommend Python for the next product deliveries, including real
-quip identification; the owner's technology decision remains pending. The existing
-TypeScript proposal and #4 scope have not been accepted or rewritten by this advice.
-The owner asks for the recommendation to account for the entire planned yap
-backlog. The initial assessments covered the immediate scope, not a complete
-backlog audit; the recommendation is provisional pending that broader review.
+The owner requests a concise PO-level technology recommendation for the entire
+planned yap, including real quip identification. Three independent assessments
+now cover all 11 open Issues (#3–#13), the five closed baselines, all 16 Project
+cards, comments and the proposal/engineering appendix; there are no additional
+Project draft items. The recommendation is to retain Python as the canonical
+application/domain core, using TypeScript for richer browser presentation when
+needed. No current requirement demands independent domain execution in the browser.
+A local browser-to-operations interface would still need design and delivery.
+Haskell offers no demonstrated product benefit that justifies replacement here.
+
+The owner's technology decision remains pending. The initial immediate-scope
+recommendation was explicitly provisional until this full review. The existing
+TypeScript proposal and #4 scope have not been accepted or rewritten by this advice;
+a decision to retain Python would require their reconciliation before implementation.
 
 <details>
 <summary>Integration verification and review scope</summary>

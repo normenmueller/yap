@@ -218,10 +218,11 @@ The runtime uses Python 3.10-or-later syntax and POSIX facilities, including
 `fcntl`; execution evidence currently covers Python 3.15.2. Neither a broader
 Python-version matrix nor Windows portability is established.
 
-Before conditional closure of #3/#4, carry create/open, durable identity,
-Act/Pfm definitions, shared operations and compatibility into explicit surviving
-backlog scope. Those goals do not disappear with the TypeScript replacement
-proposal. Evidence for an eventual creation/definition slice includes unknown
+The superseded #3/#4 language-replacement plan is closed as not planned after
+acceptance of PR #14. Create/open and durable identity remain in #23, Act/Pfm
+definitions/care in #12 and further domain/module quality work in #24. Shared
+operations and compatibility remain obligations of those deliveries. Evidence for
+an eventual creation/definition slice includes unknown
 IDs, wrong pins, existing targets, interruption/retry and equivalent interactive
 and noninteractive effects. Later adoption needs meaningful existing activities,
 nested views, source writes, conflicts and comparison of accepted HTML/PDF output.

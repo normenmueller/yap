@@ -15,9 +15,10 @@ The [current application boundary](architecture.md) owns delivered Python behavi
 **Python remains the application/domain core until further notice.** The full
 creation journey and generic saved yapic definitions remain product goals; they
 do not require a language replacement. The current work strengthens the Python
-design and checks its concrete defects. The owner proposes considering closure
-of #3/#4 afterwards, with their unfinished product goals carried into the surviving
-backlog. That closure remains conditional. Publication approves no portfolio migration.
+design and checks its concrete defects. The owner accepted PR #14; the superseded
+#3/#4 language-replacement plan is closed as not planned. #23 retains Python create/open and identity, #12 durable
+definitions/care and #24 further typed domain/module work. These goals remain
+unfinished product scope.
 
 <details>
 <summary>Architecture, technical choices and open decisions</summary>
@@ -358,8 +359,8 @@ stronger external-editor write protocols remain separate requirements.
 
 | Owner | Scope |
 | --- | --- |
-| [#3](https://github.com/normenmueller/yap/issues/3) | Architecture decision, Python quality assessment and reconciliation of this proposal. |
-| [#4](https://github.com/normenmueller/yap/issues/4) | Existing TypeScript-specific foundation proposal; its replacement or closure remains conditional on preserving the product obligations. |
+| [#3](https://github.com/normenmueller/yap/issues/3) | Accepted Python decision and quality delivery in PR #14; the superseded language-replacement plan is closed as not planned. |
+| [#4](https://github.com/normenmueller/yap/issues/4) | Superseded TypeScript foundation, closed as not planned; its Python product obligations remain in #23/#12. |
 | [#23](https://github.com/normenmueller/yap/issues/23) | Python create/open, stable portfolio identity, empty-source construction and safe retry carried forward from #3/#4. |
 | [#24](https://github.com/normenmueller/yap/issues/24) | Remaining checked Python domain boundaries and separation of source semantics from presentation. |
 | [#12](https://github.com/normenmueller/yap/issues/12) | Durable definitions and future care references. |
@@ -367,10 +368,11 @@ stronger external-editor write protocols remain separate requirements.
 | [#7](https://github.com/normenmueller/yap/issues/7), [#8](https://github.com/normenmueller/yap/issues/8) | Repository operations and work observations/provenance. |
 | [#10](https://github.com/normenmueller/yap/issues/10), [#11](https://github.com/normenmueller/yap/issues/11) | Separately scoped Todo integration and deferred graphical authoring. |
 
-Complete the bounded Python assessment and justified improvements, then reassess
-the backlog. Before any conditional closure of #3/#4, give create/open, durable
-identity, Act/Pfm definitions, shared operations and compatibility explicit surviving
-owners and next actions. Refinement still needs identity/reference rules,
+The owner accepted the bounded Python quality delivery in PR #14. The original
+#3/#4 language-replacement plan is closed as not planned. #23 retains create/open
+and durable identity, #12 definitions/care and #24 further typed domain/module
+work; shared operations and compatibility remain obligations of those deliveries.
+Refinement still needs identity/reference rules,
 writer/conflict behavior, observable acceptance criteria and empty-instance failure
 checks. An initial delivery need not claim full Board/Performance parity or
 readiness to adopt existing portfolios. Live curation/activation and a universal

@@ -1,67 +1,65 @@
-# Return point — review the Python quality foundation
+# Return point — Python delivery accepted; choose the next Issue
 
-The owner selected Python as yap's application/domain core until further notice
-and authorized a specialist development team, independent assessment and justified
-code improvements. [TEAM.md](TEAM.md) owns the capabilities;
-[python-quality.md](python-quality.md) owns the working method. Their scoped
-independent review resolved its findings. This is application-development authority,
-not accepted provider curation or instance care.
+The owner approved [PR #14](https://github.com/normenmueller/yap/pull/14) at
+`3fd0ba3` on October 29, 2026. It merged into `trunk` as `6862c53`; the merge tree
+matches the approved head. Python remains the selected application/domain core.
+[TEAM.md](TEAM.md) and [python-quality.md](python-quality.md) own the specialist
+capabilities and ongoing quality method. Whole-codebase typing/10/10 is not claimed.
 
-The selected work is [#3 / PR #14](https://github.com/normenmueller/yap/pull/14)
-on `docs/3-architecture`. Next: support the owner's review of the delivered Python
-quality changes. The owner remains requested as reviewer; no implementation
-approval or merge has occurred. Follow BEHAVIOR's review/merge and session boundaries.
-Do not start another backlog implementation or infer acceptance from these checks.
+[#3](https://github.com/normenmueller/yap/issues/3) and
+[#4](https://github.com/normenmueller/yap/issues/4) are closed as not planned for
+the superseded language-replacement plan; the Project marks them Done. This does
+not mark their unfinished product behavior delivered. #23 retains guided Python
+create/open and stable portfolio identity, #12 durable standard/local definitions
+and care references, and #24 further typed domain/model and module separation.
+#8, #12, #23 and #24 remain Backlog; none is selected or Ready by this handoff.
 
-The change protects generated build/publication trees against preexisting symlinks,
-hardlinks and special files, uses unique atomic text/publication writes, tightens
-schema/date/preview/target decoding, removes unused PDF dependencies from `check`,
-and reuses source catalogs safely. Cached navigation verifies collection roots and
-fresh source hashes; private workspace values stay outside public models/caches.
-Architecture/setup guidance now follows the accepted Python decision.
+The accepted feature branch was deleted locally/remotely, its worktree was removed
+and the empty worktree collection parent was removed after preserving its directory
+metadata. BEHAVIOR now states the cleanup rule generically, without fixed folder
+names: remove empty worktree collection directories and recreate them when needed.
+Ignored/private artifacts were preserved and verified before removal; archived
+configuration, virtual environments and old navigation are historical, not active.
+
+Next: end/delete the completed Issue session. Start a fresh Codex CLI session in
+`trunk`, without resume, to verify the owner's next Issue selection and prepare its
+matching branch/worktree. Then end that preparation session and start a fresh one
+in the selected worktree for Issue-specific refinement. Do not begin another Issue
+in this session. BEHAVIOR owns these session boundaries.
+
+The backlog assessment recommends #8, actual quip identification, as the next
+concrete product case with its required typed boundaries; this is a recommendation,
+not an owner selection or Project reorder. #5 remains Paused; #6/#11 deferrals and
+#13's hold remain effective. #7/#10 retain their separately bounded effect/provider
+scopes. The current quip scene is illustrative. No real collection, provider
+activation, consumer revision or instance migration is selected here.
 
 <details>
-<summary>Verification, independent review and limits</summary>
+<summary>Accepted implementation and closeout evidence</summary>
 
-All 312 tests passed on Python 3.15.2 with PyYAML 6.0.3 and local browser access.
-The pinned mypy 2.4.0 gate passes strict checks for `outputs.py`, `source_values.py`
-and a positive fixture; four invalid calls/assignments are rejected. The remaining
-application modules are outside the strict gate. Python 3.10 syntax parsing passes;
-other interpreter versions and Windows are not verified. The runtime uses POSIX.
+The accepted implementation is `3fd0ba3`. All 312 tests passed on Python 3.15.2 with
+PyYAML 6.0.3 and local browser access. Pinned mypy 2.4.0 passed strict checks for
+`outputs.py`, `source_values.py` and a positive fixture; four invalid calls were
+rejected. Other modules remain outside that gate; Python 3.10 syntax parsing is
+not a tested interpreter-version matrix or Windows support. The runtime uses POSIX.
 
-A synthetic full report produced 25 site files including five PDFs. Extracted PDF
-text, other generated files and model cache contained no private-workspace path or
-target-content markers. Sources and target content were preserved, portable-export
-SHA-256 inventories matched, and a repeated full build was up to date. The final
-hardlink preflight also accepted that real renderer work/output tree.
+A real synthetic report produced 25 site files including five PDFs. Sources and
+private target content were preserved, workspace markers were absent from generated
+text/PDFs/model cache, portable-export SHA-256 inventories matched and a repeat
+full build was up to date. The final output guard accepted the real retained work
+and site trees. The 21-activity resources fixture used 26 document reads cold and
+zero warm (0.9806s/0.0368s locally); this is not a full-report or scale guarantee.
 
-On a synthetic 21-activity PipelineTests fixture, `resources` used 26 document
-reads cold and zero warm (0.9806s/0.0368s in this local run). This is bounded command
-and fixture evidence, not a general speed/scale or full-report one-pass claim.
-Markdown, JSON examples, relative file references and whitespace checks pass.
+Nonauthor reviewers resolved all actionable findings in the inspected source and
+architecture/setup records. Their scoped context review does not certify the whole
+codebase. Runtime/resources/tests match the approved delivery; this closeout only
+updates engineering records, issue/project metadata and local preservation/cleanup.
+Reuse the valid accepted checks rather than claiming a new regression run.
 
-Nonauthor source reviewers reproduced and rechecked the publication redirects,
-cached collection-root bypass, cache/work hardlinks and preview calendar bound.
-All actionable findings in the inspected change were resolved. Separate review
-checked the architecture/setup records. No whole-codebase 10/10, concurrent-writer
-exclusion, multi-instance service, full domain typing or owner acceptance is claimed.
+Preservation verified 3,093 regular files, four symlinks and 368 directories by
+SHA-256 contents, modes and symlink targets. One additional collection-directory
+metadata file was preserved with matching SHA-256 and mode before parent cleanup.
+Private artifacts remain ignored under the application's retired development
+evidence; no private content or machine paths are published in this handoff.
 
 </details>
-
-The owner proposes closing the old #3/#4 TypeScript plan as not planned after
-team/code preparation, then reassessing the backlog. Keep both open through the
-current implementation review. Their surviving obligations are explicitly retained:
-[#23](https://github.com/normenmueller/yap/issues/23) owns Python guided create/open,
-stable portfolio identity and safe empty-instance construction;
-[#24](https://github.com/normenmueller/yap/issues/24) owns remaining checked domain
-boundaries and source/presentation separation; #12 owns durable Act/Pfm/local
-definitions and care references. #23/#24 are Backlog, not Ready or delivered.
-A future closure must explain the superseded language premise and these transfers,
-not mark the missing product behavior completed.
-
-Backlog assessment recommends refining real quip identification (#8) as the next
-concrete product case, with the required typed boundaries, after this review and
-closeout. The owner still controls selection/order. #5's pause, #6/#11 deferrals
-and #13's hold remain effective; #7/#10 keep their separate effects/provider scopes.
-The current quip scene remains illustrative. No evidence provider, collection
-implementation, consumer revision, instance migration or activation is selected.

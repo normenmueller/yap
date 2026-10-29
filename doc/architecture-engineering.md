@@ -24,6 +24,12 @@ application operations for agreed management. Direct CLI/editor operation remain
 available. This does not require an accepted ai4X care binding. Instance assistance
 context and application development memory have different owners.
 
+The delivered Python baseline owns workspace bindings in activity/area YAML
+`wsp` maps, with named `wsp/NAME` navigation. Shared adapters must preserve that
+source owner and the [authoring contract](authoring.md#local-workspaces), including
+literal paths, bounded edits, explicit migration and exclusion from publication
+and source discovery. Private application discovery is a separate concern.
+
 The first practical separation retains the accepted Python implementation as one
 reusable application. Replace code-location-derived instance roots with explicit
 selection and resolve generic resources from the application. The personal

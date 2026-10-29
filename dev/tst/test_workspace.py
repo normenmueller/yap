@@ -88,20 +88,15 @@ class WorkspaceTests(unittest.TestCase):
                           'https://example.org', '#help'])
         self.assertEqual((site / 'yap.html').read_text(), original)
 
-    def test_durable_repo_binding_is_checkout_relative_and_not_authored(self):
-        config = self.root / '.yap/cfg/machine.json'
-        config.parent.mkdir(parents=True)
-        config.write_text(json.dumps({'links': {'area--task': {'repo': '.'}}}))
+    def test_source_owned_binding_is_root_relative_and_private_in_model(self):
+        source = self.root / 'pfo/act/area/task/task.md'
+        source.write_text(source.read_text().replace('title: Task', 'title: Task\nwsp: {code: "../../../missing workspace"}'))
         model = content.load(self.root)
         plan, warnings = files.link_plan(self.root)
-        self.assertFalse(warnings)
+        self.assertEqual(len(warnings), 1)
         files.sync_links(plan)
-        self.assertEqual((self.root / 'pfo/act/area/task/repo').resolve(), self.root)
-        self.assertFalse(any('work' in node['meta'] for node in model['nodes']))
-        config.write_text(json.dumps({'links': {'unknown': {'repo': '.'}}}))
-        with self.assertRaisesRegex(ValueError, 'unknown activities'):
-            files.link_plan(self.root)
-        source = self.root / 'pfo/act/area/task/task.md'
-        source.write_text(source_text('pfo/act/area/task/task.md', '---\ntitle: Task\nwork: /tmp\n---\n'))
-        with self.assertRaisesRegex(ValueError, 'machine.json'):
+        self.assertTrue((source.parent / 'wsp/code').is_symlink())
+        self.assertFalse(any('wsp' in node['meta'] for node in model['nodes']))
+        source.write_text(source.read_text().replace('wsp: {code: "../../../missing workspace"}', 'work: /tmp'))
+        with self.assertRaisesRegex(ValueError, 'source-owned wsp'):
             content.load(self.root)

@@ -61,9 +61,17 @@ before entering public tests or discussions.
 | Owner | Content and boundary |
 | --- | --- |
 | Application | Shared interpretation/operations, executable presenters, standard definitions/catalog and product assets. |
-| Portfolio | Manifest/identity, authored pfo sources, saved pov arrangements, branding, own definitions and assistance context. |
-| Private configuration | Explicit application discovery and external workspace bindings; no sibling-directory search or tracked machine paths. |
+| Portfolio | Manifest/identity, authored pfo sources including activity/area workspace maps, saved pov arrangements, branding, own definitions and assistance context. |
+| Private configuration | Explicit application discovery and other local settings; no sibling-directory search. |
 | External workspace | Actual project work, reached only through explicit bindings and authorized operations. |
+
+The delivered workspace contract is source-owned YAML `wsp` with named
+`wsp/NAME` navigation. The [authoring guide](authoring.md#local-workspaces) owns
+its exact rules, publication exclusions and explicit legacy migration. A binding
+may enter the instance's source history; its owner decides whether that is
+appropriate. The proposed architecture retains this owner rather than restoring
+a private override layer. Workspace targets are not portfolio source-discovery
+roots, and a declared binding grants no operation authority.
 
 The existing Python extraction is the current implementation. Its resource root
 belongs to the application; the process selects its instance explicitly. Keep
@@ -165,10 +173,11 @@ Definition identity differs from activity identity; creating a portfolio does no
 register artificial Act/Pfm activities in its authored corpus.
 
 One small JSON manifest owns the application pin and selections. The delivered
-Python application now uses `sources.aspirations` (default `pfo/asp`, accepted in
-#15 / PR #16). Reconcile the candidate source vocabulary below during the next
-design discussion. This candidate example contains placeholders and is not a
-runnable manifest:
+Python application uses `sources.aspirations` (default `pfo/asp`, accepted in
+#15 / PR #16). The candidate retains that vocabulary. Other source selectors,
+durable identity and yapic selections remain proposed; only the optional
+aspiration selector is delivered. This candidate example contains placeholders
+and is not a runnable manifest:
 
 ```json
 {
@@ -177,7 +186,7 @@ runnable manifest:
   "name": "My portfolio",
   "slug": "my-portfolio",
   "application": {"version": "<selected-release>", "revision": "<immutable-revision>"},
-  "sources": {"activities": "pfo/act", "goals": "pfo/okr"},
+  "sources": {"activities": "pfo/act", "aspirations": "pfo/asp"},
   "yapics": [{"kind": "standard", "key": "act"}, {"kind": "standard", "key": "pfm"}]
 }
 ```
@@ -238,16 +247,21 @@ my-portfolio/
 ├── .ai4x/                    # portfolio assistance context
 ├── .yap/
 │   ├── run.py                # thin invocation, no copied application rules
-│   ├── cfg/                  # ignored discovery and private bindings
+│   ├── cfg/                  # ignored application discovery/local settings
 │   └── local/                # ignored generated output
 ├── acc/                      # instance-owned branding/accompanying material
-├── doc/                      # instance operation, not a fork of app manuals
+├── doc/                      # optional existing human-facing instance guides
 ├── pfo/
 │   ├── act/
-│   ├── okr/
+│   ├── asp/                  # default; legacy okr requires explicit selection
 │   └── nts/
 └── pov/                      # saved arrangements and explicit local navigation
 ```
+
+An existing `pfo/okr` remains usable when explicitly selected through
+`sources.aspirations`; no automatic move or fallback lookup is delivered.
+Instance operation/recovery context belongs to `.ai4x`; an instance `doc/`
+directory is optional and does not duplicate reusable application manuals.
 
 Future TypeScript areas, not folders to create before their implementation:
 
@@ -290,11 +304,11 @@ my-portfolio/
 │   └── TEAM.md
 └── pfo/
     ├── act/act.md
-    └── okr/goals.md
+    └── asp/goals.md
 ```
 
 Add `pfo/nts`, saved `pov/<name>`, own `yapics`, branding `acc` and private
-`.yap/cfg`/generated `.yap/local` only when used. Ignore private bindings/runtime
+`.yap/cfg`/generated `.yap/local` only when used. Ignore private settings/runtime
 before creating them. Do not fabricate per-yapic team directories or accepted
 provider references. The concrete full constellation-context location remains an
 explicit design decision.

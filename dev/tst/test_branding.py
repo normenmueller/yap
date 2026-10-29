@@ -87,15 +87,20 @@ class BrandingTests(unittest.TestCase):
             self.assertIn('Example activities', homepage)
             self.assertIn('Example &lt;portfolio&gt;<span>.</span>', homepage)
             self.assertIn('Dein Wirkungsfeld umfasst deine Vorhaben, Ziele und Beiträge.', homepage)
-            self.assertIn('Arbeiten. Wirken. Nachlesen.', homepage)
-            self.assertIn('Dein Beitrag. An jedem Heute.', homepage)
+            self.assertNotIn('class="tiles"', homepage)
             collection = (site / 'views/yapics/index.html').read_text()
+            self.assertIn('Arbeiten. Wirken. Nachlesen.', collection)
+            self.assertIn('Dein Beitrag. An jedem Heute.', collection)
             self.assertIn('Seeds of Insight. Tailored to your needs.', collection)
             about = (site / 'about.html').read_text()
             self.assertIn('Kleine Spuren, die etwas erzählen.', about)
             self.assertIn('yap dein yapic mit mir!', about)
-            self.assertNotIn('<textarea', homepage)
-            self.assertNotIn('disabled', homepage)
+            self.assertIn('<textarea', homepage)
+            self.assertIn('type="button" disabled', homepage)
+            self.assertNotIn('<form', homepage)
+            self.assertNotIn('class="preview-badge"', homepage)
+            self.assertNotIn('class="yap-navigation"', homepage)
+            self.assertIn('class="yap-navigation"', collection)
             self.assertIn('Teil des Produktzielbilds', about)
             product_logo = next(image for image in Page(about).images if image['alt'] == 'yap.')
             self.assertEqual(base64.b64decode(product_logo['src'].split(',', 1)[1]),
@@ -117,6 +122,35 @@ class BrandingTests(unittest.TestCase):
                         self.assertTrue(target.is_relative_to(site.resolve()))
                 about_link = next(link for link in Page(page_path.read_text()).links if link.endswith('about.html'))
                 self.assertEqual((page_path.parent / about_link).resolve(), (site / 'about.html').resolve())
+
+    def test_assistant_display_is_explicit_escaped_and_survives_root_entry(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            branding = {'assistant': 'Example <helper>', 'assistant_credit': 'by Example <team>',
+                        'footer_link': {'text': 'Example <team>', 'url': 'https://example.org/assist'}}
+            manifest = {'schema': 1, 'slug': 'example', 'branding': branding}
+            (root / 'yap.json').write_text(json.dumps(manifest))
+            site = root / 'site'
+            with selected(root):
+                home.render(site)
+                home.root_entry(site, root / 'example.html')
+            homepage = (site / 'example.html').read_text()
+            entry = (root / 'example.html').read_text()
+            self.assertIn('Hi, ich bin Example &lt;helper&gt;.', homepage)
+            self.assertIn('by <a href="https://example.org/assist">Example &lt;team&gt;</a>', homepage)
+            self.assertIn('src="site/acc/img/gertrud-ai4x.png"', entry)
+            self.assertIn('href="site/views/yapics/index.html"', entry)
+            self.assertIn('href="https://example.org/assist"', entry)
+            self.assertNotIn('<helper>', homepage)
+            self.assertNotIn('<team>', homepage)
+            self.assertNotIn('<script', homepage)
+            self.assertNotIn('<form', homepage)
+            self.assertIn('type="button" disabled', homepage)
+            branding.pop('assistant_credit')
+            (root / 'yap.json').write_text(json.dumps(manifest))
+            with selected(root):
+                home.render(site)
+            self.assertNotIn('example.org/assist', (site / 'example.html').read_text())
 
     def test_default_footer_is_only_the_product_link_in_both_languages(self):
         with tempfile.TemporaryDirectory() as directory, selected(directory):

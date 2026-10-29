@@ -37,10 +37,29 @@ Use an issue-linked branch for engineering work. Keep local/remote branch names
 identical and match new worktree paths to the branch, preserving existing PR and
 review history. Use Git for history, not backup folders. Preserve assignees and
 owner order; relocated issues are not evidence of delivered functionality.
+
+Work on one selected Issue at a time. After completion, finish merge, cleanup
+and handoff, then end/delete that session before preparing the next Issue.
+An explicitly agreed interruption also requires a recorded return point and
+this session boundary. Start a fresh Codex CLI session in `trunk`, without resume,
+only to verify the selected Issue and base revision, create or verify its
+issue-linked branch and matching worktree, and record the verified handoff.
+Reuse existing preparation; do not recreate branches or worktrees blindly.
+
+Then end/delete the `trunk` preparation session and start another fresh session,
+without resume, in the selected `feat/...` or `fix/...` worktree. All Issue-specific
+analysis, refinement, decisions, implementation, tests and review belong in that
+Issue's worktree/session. Preparation does not approve implementation scope.
+Verify the session's actual working directory, branch, instructions and write
+scope before continuing; an individual command's working directory does not
+relocate the session. Keep implementation, tests and ignored development evidence
+in that worktree. Ordinary greetings follow these same boundaries.
+
 After a verified successful merge, delete the completed feature branch locally
 and remotely. Remove its worktree after preserving ignored/private material and
-verifying that no unmerged work remains. Remove empty parent directories left by
-that cleanup. Preserve active branches and PR history.
+verifying that no unmerged work remains. During preparation and cleanup, remove
+empty parent directories, including `fix/` and `feat/`. Preserve active branches
+and PR history.
 Use only the explicitly selected provider profile; never switch shared login.
 When creating a managed PR, request `normenmueller` as reviewer immediately,
 including documentation drafts. Preserve other reviewers; assignment is not a

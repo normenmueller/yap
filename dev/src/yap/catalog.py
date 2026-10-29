@@ -12,6 +12,7 @@ import unicodedata
 
 from . import content
 from .files import LOCAL_NAMES
+from . import workspace_links
 
 
 KINDS = {'act': ('area', 'activity'), 'nts': ('note',)}
@@ -98,6 +99,7 @@ def discover(root):
                 keys[folded(key)] = source
                 entries[key] = dict(key=key, kind=kind, title=title, folder=folder,
                                     source=source, document=document,
+                                    workspace=workspace_links.bindings(source.read_bytes(), source) if kind in {'area', 'activity'} else {},
                                     acronym=content.metadata(meta, 'acronym', source),
                                     caption=content.metadata(meta, 'board-caption', source))
     return entries

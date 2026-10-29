@@ -15,7 +15,7 @@ import unittest
 from unittest.mock import patch
 from urllib.parse import quote, unquote, urlsplit
 
-from yap import board, content, dgraph, documents, files, views
+from yap import board, content, dgraph, documents, files, views, workspace_links
 from yap import build as yap
 
 
@@ -73,6 +73,13 @@ A second goal.
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(source_text(name, value))
         return path
+
+    def workspace(self, values):
+        source = self.root / 'pfo/act/x/x.md'
+        text = source.read_text()
+        import re
+        text = re.sub(r'^wsp: .*\n', '', text, flags=re.M)
+        source.write_text(text.replace('\n---', '\nwsp: ' + json.dumps(values) + '\n---', 1))
 
     def load(self):
         return content.load(self.root)
@@ -202,11 +209,11 @@ A second goal.
         self.write('pfo/act/x/res/example.txt', 'Public resource')
         external = self.root / 'external'
         external.mkdir()
-        self.write('.yap/cfg/machine.json', json.dumps({'links': {'cpp/sfe': {'repo': 'external'}}}))
+        self.workspace({'code': 'external'})
         plan, warnings = files.link_plan(self.root)
         self.assertEqual(warnings, [])
         files.sync_links(plan)
-        self.assertEqual((self.root / 'pfo/act/x/repo').resolve(), external.resolve())
+        self.assertEqual((self.root / 'pfo/act/x/wsp/code').resolve(), external.resolve())
 
         model = self.load()
         self.assertEqual(model['members'], {})  # Prefixes never create membership.
@@ -497,12 +504,12 @@ A second goal.
         local = self.root / 'external'
         local.mkdir()
         node = self.root / 'pfo/act/x/x.md'
-        self.write('.yap/cfg/machine.json', json.dumps({'links': {'x': {'repo': 'external'}}}))
+        self.workspace({'code': 'external'})
         model = self.load()
         plan, messages = files.link_plan(self.root)
         self.assertEqual(messages, [])
         files.sync_links(plan)
-        self.assertTrue((node.parent / 'repo').is_symlink())
+        self.assertTrue((node.parent / 'wsp/code').is_symlink())
         self.write('external/new.md', 'Must not be read')
         self.assertEqual([n['key'] for n in self.load()['nodes']], ['x'])
         self.assertFalse(any('repo' in path.parts for path in files.source_files(self.root / 'pfo/act')))
@@ -517,26 +524,27 @@ A second goal.
         self.assertEqual(set(resources), {'res/x/shared file.pdf'})
         files.copy_resources(resources, self.root / 'stage')
         self.assertEqual((self.root / 'stage/res/x/shared file.pdf').read_text(), 'Public bytes')
-        self.write('.yap/cfg/machine.json', json.dumps({'links': {}}))
+        self.workspace({})
         files.sync_links(files.link_plan(self.root)[0])
-        self.assertFalse((node.parent / 'repo').is_symlink())
-        (node.parent / 'repo').mkdir()
-        self.write('.yap/cfg/machine.json', json.dumps({'links': {'x': {'repo': 'external'}}}))
+        self.assertTrue((node.parent / 'wsp/code').is_symlink())
+        (node.parent / 'wsp/code').unlink()
+        (node.parent / 'wsp/code').mkdir()
+        self.workspace({'code': 'external'})
         with self.assertRaisesRegex(ValueError, 'not a symlink'):
             files.link_plan(self.root)
-        self.assertTrue((node.parent / 'repo').is_dir())
-        (node.parent / 'repo').rmdir()
-        (node.parent / 'repo').write_text('Keep this file')
+        self.assertTrue((node.parent / 'wsp/code').is_dir())
+        (node.parent / 'wsp/code').rmdir()
+        (node.parent / 'wsp/code').write_text('Keep this file')
         with self.assertRaisesRegex(ValueError, 'not a symlink'):
             files.link_plan(self.root)
-        self.assertEqual((node.parent / 'repo').read_text(), 'Keep this file')
-        (node.parent / 'repo').unlink()
+        self.assertEqual((node.parent / 'wsp/code').read_text(), 'Keep this file')
+        (node.parent / 'wsp/code').unlink()
         shutil.rmtree(local)
         plan, messages = files.link_plan(self.root)
         self.assertEqual(len(messages), 1)
         files.sync_links(plan)
-        self.assertTrue((node.parent / 'repo').is_symlink())
-        self.assertFalse((node.parent / 'repo').exists())
+        self.assertTrue((node.parent / 'wsp/code').is_symlink())
+        self.assertFalse((node.parent / 'wsp/code').exists())
 
     def test_areas_keep_descriptions_without_becoming_work_or_goal_contributions(self):
         self.write('pfo/act/area/area.md', '---\nkind: area\nkey: area\ntitle: Area\n---\nAreaNarrative\n')
@@ -905,15 +913,16 @@ A second goal.
             node.write_text(original_node)
             local = self.root / 'external'
             local.mkdir()
-            self.write('.yap/cfg/machine.json', json.dumps({'links': {'x': {'repo': 'external'}}}))
+            self.workspace({'code': 'external'})
             run()
             self.assertEqual(calls, [])
             self.assertEqual(before, yap.hashes(files.source_files(Path('.yap/local/site'))))
-            self.assertEqual((node.parent / 'repo').resolve(), local.resolve())
-            self.write('.yap/cfg/machine.json', json.dumps({'links': {}}))
+            self.assertEqual((node.parent / 'wsp/code').resolve(), local.resolve())
+            self.workspace({})
             run()
             self.assertEqual(calls, [])
-            self.assertFalse((node.parent / 'repo').is_symlink())
+            self.assertTrue((node.parent / 'wsp/code').is_symlink())
+            (node.parent / 'wsp/code').unlink()
             self.write('pfo/act/x/res/attachment.txt', 'Original attachment')
             run()
             calls.clear()

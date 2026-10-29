@@ -10,7 +10,7 @@ the application tree, independently of the selected instance.
 | --- | --- |
 | Application | `dev/src/yap/`, `dev/acc/templates/`, `dev/acc/assets/`, tests and reusable documentation |
 | Instance | `yap.json`, authored `pfo/`, saved `pov/`, private `.yap/cfg/` and generated `.yap/local/` |
-| External workspace | Actual project work; accessed only through explicit private bindings and bounded operations |
+| External workspace | Actual project work; accessed only through source-owned YAML `wsp` bindings and bounded operations |
 
 The application does not search for a particular personal instance or copy itself
 into one. Loading configuration does not create directories, initialize Git or
@@ -81,8 +81,13 @@ not fetch or select another checkout; a launcher must select it explicitly.
 The shared Python model feeds activity reports, boards, maps and goal views.
 Entry points use the same source interpretation and operations. `pfo` owns facts;
 `pov` owns arrangements. Generated views do not write inferred facts back to either.
-Builds stage output before publishing a successful result. Private local bindings
-belong in instance `.yap/cfg/machine.json`, not public Markdown or branding.
+Builds stage output before publishing a successful result. Activity/area YAML
+`wsp` maps own local workspace bindings. Literal YAML parsing, bounded source
+edits and navigation validation are shared by link reconciliation and workspace
+setup. The explicit migration retires legacy machine bindings; there is no
+permanent override layer. Catalog discovery never follows workspace shortcuts,
+and parsed workspace metadata is removed before public models and caches.
+Instance owners control whether source paths belong in their own Git history.
 
 ## Agent-assisted direction
 

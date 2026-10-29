@@ -2,22 +2,16 @@
 
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
-import json
 import os
 import re
 import subprocess
 import tempfile
 
 from . import catalog
-from .files import LINK_ROLES
+from . import workspace_links
 
 
-def _safe(path):
-    for part in (path, *path.parents):
-        if part.is_symlink():
-            raise ValueError(f'{part}: symlinks are not allowed in setup paths.')
-        if part != path and part.exists() and not part.is_dir():
-            raise ValueError(f'{part}: expected a directory.')
+_safe = workspace_links.safe_path
 
 
 def _git(target, *args, check=True):
@@ -59,13 +53,7 @@ def _starter_files(files):
     return result
 
 
-def _snapshot(path):
-    _safe(path)
-    if not path.exists():
-        return None
-    if not path.is_file():
-        raise ValueError(f'{path}: expected a regular file.')
-    return path.read_bytes()
+_snapshot = workspace_links.snapshot
 
 
 def _target_state(target, operation, files, resume, allow_git):
@@ -154,64 +142,38 @@ def _git_state(target, initialize, branch, remote_url, remote_name):
     return (None, False, None)
 
 
-def _link_state(path):
-    _safe(path.parent)
-    if path.is_symlink():
-        return os.readlink(path)
-    if path.exists():
-        raise ValueError(f'{path}: navigation path contains real content.')
-    return None
-
-
-def _binding(root, key, role, target):
+def _binding(root, key, link_name, target):
     if key is None:
+        if link_name is not None:
+            raise ValueError('--name requires --bind.')
         return None
-    if target == root or target in root.parents:
-        raise ValueError('Binding to this checkout or its ancestors would create a navigation cycle.')
-    if role not in LINK_ROLES:
-        raise ValueError(f'{role}: expected repo, shlf or zbox.')
+    if link_name is None:
+        raise ValueError('--bind requires an explicit --name.')
+    workspace_links.name(link_name)
+    workspace_links.require_migrated(root)
     entries = catalog.discover(root)
     if key not in entries or entries[key]['kind'] not in {'area', 'activity'}:
         raise ValueError(f'{key}: expected a known activity or area key.')
-    config = root / '.yap/cfg/machine.json'
-    before = _snapshot(config)
-    settings = json.loads(before) if before is not None else {}
-    if not isinstance(settings, dict) or not isinstance(settings.get('links', {}), dict):
-        raise ValueError(f'{config}: expected a links mapping.')
-    links = settings.setdefault('links', {})
-    roles = links.setdefault(key, {})
-    if not isinstance(roles, dict) or set(roles) - set(LINK_ROLES):
-        raise ValueError(f'{key}: expected repo/shlf/zbox mapping.')
-    existing = roles.get(role)
-    if role in roles:
-        if not isinstance(existing, str) or not existing.strip():
-            raise ValueError(f'{key}/{role}: existing binding is invalid.')
-        bound = Path(existing).expanduser()
-        if not bound.is_absolute():
-            bound = root / bound
-        if Path(os.path.abspath(bound)) != target:
-            raise ValueError(f'{key}/{role}: already bound elsewhere; resolve explicitly.')
+    entry = entries[key]
+    for old in workspace_links.LEGACY_NAMES:
+        if (entry['folder'] / old).is_symlink():
+            raise ValueError(f'{key}: legacy navigation requires `workspace migrate`.')
+    source = entry['source']
+    before = _snapshot(source)
+    values = entry['workspace']
+    if any(item.casefold() == link_name.casefold() and item != link_name for item in values):
+        raise ValueError(f'{key}/{link_name}: case-insensitive workspace name collision.')
+    if link_name in values:
+        if workspace_links.target(root, values[link_name]) != target:
+            raise ValueError(f'{key}/{link_name}: already bound elsewhere; resolve explicitly.')
+        after = before
     else:
-        roles[role] = str(target)
-    folder = entries[key]['folder']
-    if target == folder or target in folder.parents:
-        raise ValueError('Binding target would contain its own navigation link.')
-    workspace = folder / 'wsp'
-    _safe(workspace)
-    if workspace.exists() and not workspace.is_dir():
-        raise ValueError(f'{workspace}: expected a directory.')
-    has_modules = any(entry['kind'] == 'activity' and folder / 'mod' in entry['folder'].parents
-                      for entry in entries.values())
-    active, inactive = (workspace, folder) if has_modules else (folder, workspace)
-    paths = (active / role, inactive / role)
-    if any(target == path or target in path.parents for path in paths):
-        raise ValueError('Binding target would contain its own navigation link.')
-    states = tuple(_link_state(path) for path in paths)
-    for path, state in zip(paths, states):
-        if state is not None and Path(os.path.abspath(path.parent / state)) != target:
-            raise ValueError(f'{path}: existing navigation points elsewhere; resolve explicitly.')
-    after = before if existing is not None else (json.dumps(settings, indent=2, ensure_ascii=False) + '\n').encode()
-    return dict(config=config, before=before, after=after, paths=paths, states=states)
+        after = workspace_links.add_bindings(before, source, {link_name: str(target)})
+    change = workspace_links.link_change(entry['folder'] / 'wsp' / link_name, target)
+    if change.before is not None and Path(os.path.abspath(change.path.parent / change.before)) != target:
+        raise ValueError(f'{change.path}: existing navigation points elsewhere; resolve explicitly.')
+    return dict(config=source, before=before, after=after, change=change,
+                legacy=workspace_links.legacy(root)[1])
 
 
 @dataclass
@@ -225,7 +187,7 @@ class Plan:
     remote_url: str | None
     remote_name: str
     binding_key: str | None
-    role: str
+    link_name: str | None
     resume: bool
     target_state: object
     git_state: object
@@ -243,7 +205,7 @@ class Plan:
         if self.remote_url is not None:
             details.append(f'Remote {self.remote_name}: {self.remote_url}')
         if self.binding_key is not None:
-            details.append(('Arbeitsort: ' if language == 'de' else 'Binding: ') + f'{self.binding_key}/{self.role}')
+            details.append(('Arbeitsort: ' if language == 'de' else 'Binding: ') + f'{self.binding_key}/{self.link_name}')
         return heading + ':\n' + '\n'.join(f'- {_label(step, language)}' for step in self.steps) + '\n' + '\n'.join(details)
 
 
@@ -276,7 +238,7 @@ class Result:
 
 
 def plan(root, operation, target, files=None, initialize_git=False, branch='trunk',
-         remote_url=None, remote_name='origin', binding_key=None, role='repo', resume=False,
+         remote_url=None, remote_name='origin', binding_key=None, link_name=None, resume=False,
          *, template_profile=None, template_inputs=None):
     """Validate all requested operations without changing files or Git state."""
     root, target = Path(root).resolve(), Path(os.path.abspath(Path(target).expanduser()))
@@ -297,7 +259,7 @@ def plan(root, operation, target, files=None, initialize_git=False, branch='trun
         raise ValueError('Attach does not generate files, initialize Git, configure remotes or resume creation.')
     state = _target_state(target, operation, files, resume, initialize_git or remote_url is not None)
     git_state = _git_state(target, initialize_git, branch, remote_url, remote_name)
-    binding = _binding(root, binding_key, role, target)
+    binding = _binding(root, binding_key, link_name, target)
     steps = []
     if operation == 'create':
         if state is None:
@@ -310,27 +272,14 @@ def plan(root, operation, target, files=None, initialize_git=False, branch='trun
     if binding:
         if binding['before'] != binding['after']:
             steps.append('save binding')
-        if binding['states'] != (str(target), None):
+        if binding['change'].before != str(target):
             steps.append('update navigation')
     return Plan(root, operation, target, files, initialize_git, branch, remote_url, remote_name,
-                binding_key, role, resume, state, git_state, binding, tuple(steps))
+                binding_key, link_name, resume, state, git_state, binding, tuple(steps))
 
 
 def _save_binding(binding):
-    config = binding['config']
-    _safe(config)
-    config.parent.mkdir(parents=True, exist_ok=True)
-    temporary = None
-    try:
-        with tempfile.NamedTemporaryFile(dir=config.parent, prefix='.machine-', delete=False) as stream:
-            temporary = Path(stream.name)
-            stream.write(binding['after'])
-        if _snapshot(config) != binding['before']:
-            raise ValueError('Private settings changed during setup; inspect and resume.')
-        temporary.replace(config)
-    finally:
-        if temporary is not None and temporary.exists():
-            temporary.unlink()
+    workspace_links.write(binding['config'], binding['before'], binding['after'])
 
 
 def apply(proposal):
@@ -339,7 +288,7 @@ def apply(proposal):
     try:
         fresh = plan(proposal.root, proposal.operation, proposal.target, proposal.files,
                      proposal.initialize_git, proposal.branch, proposal.remote_url, proposal.remote_name,
-                     proposal.binding_key, proposal.role, proposal.resume)
+                     proposal.binding_key, proposal.link_name, proposal.resume)
         if fresh != proposal:
             raise ValueError('Workspace state changed since planning; inspect and create a new plan.')
         for step in proposal.steps:
@@ -363,24 +312,18 @@ def apply(proposal):
                 if not state[1]:
                     _git(proposal.target, 'remote', 'add', '--', proposal.remote_name, proposal.remote_url)
             elif step in {'save binding', 'update navigation'}:
-                binding = _binding(proposal.root, proposal.binding_key, proposal.role, proposal.target)
+                binding = _binding(proposal.root, proposal.binding_key, proposal.link_name, proposal.target)
                 expected = proposal.binding
                 if step == 'save binding':
                     if binding != expected:
                         raise ValueError('Binding or navigation changed during setup; inspect and resume.')
                     _save_binding(binding)
                 else:
-                    if (binding['paths'] != expected['paths'] or binding['states'] != expected['states']
-                            or binding['before'] != expected['after']):
+                    if (binding['change'] != expected['change']
+                            or binding['before'] != expected['after']
+                            or binding['legacy'] != expected['legacy']):
                         raise ValueError('Binding or navigation changed during setup; inspect and resume.')
-                    active, inactive = binding['paths']
-                    if _link_state(active) != str(proposal.target):
-                        if active.is_symlink():
-                            active.unlink()
-                        active.parent.mkdir(parents=True, exist_ok=True)
-                        active.symlink_to(proposal.target, target_is_directory=True)
-                    if inactive.is_symlink():
-                        inactive.unlink()
+                    workspace_links.sync([binding['change']])
             completed.append(step)
             pending.pop(0)
     except (OSError, ValueError, subprocess.SubprocessError) as error:

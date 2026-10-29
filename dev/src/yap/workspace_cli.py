@@ -10,11 +10,13 @@ def add_parser(commands):
     operations = workspace.add_subparsers(dest='workspace_operation', required=True)
     defaults = operations.add_parser('defaults', help='Vorbelegung anzeigen / show suggested inputs')
     defaults.add_argument('--template', choices=('general', 'db-gitlab'), required=True)
+    migrate = operations.add_parser('migrate', help='Alte Bindungen überführen / migrate legacy bindings')
+    migrate.add_argument('--apply', action='store_true')
     for operation in ('create', 'attach'):
         parser = operations.add_parser(operation)
         parser.add_argument('destination', type=Path)
         parser.add_argument('--bind', dest='binding_key', metavar='ACTIVITY-KEY')
-        parser.add_argument('--role', choices=('repo', 'shlf', 'zbox'), default='repo')
+        parser.add_argument('--name', dest='link_name', metavar='NAME')
         parser.add_argument('--lang', choices=('de', 'en'), default='de',
                             help='Ausgabesprache / interface language')
         parser.add_argument('--apply', action='store_true',
@@ -32,6 +34,16 @@ def add_parser(commands):
 
 def run(root, args):
     from . import repo_templates, workspace_setup
+    if args.workspace_operation == 'migrate':
+        from . import workspace_migration
+        proposal = workspace_migration.plan(root)
+        print(proposal.preview())
+        if args.apply:
+            workspace_migration.apply(proposal)
+            print('Workspace-Migration abgeschlossen / Workspace migration complete.')
+        else:
+            print('Vorschau / Preview; --apply führt den Plan aus / executes the plan.')
+        return 0
     if args.workspace_operation == 'defaults':
         inputs = repo_templates.defaults()
         inputs.update(title='My project', languages=['de'], primary_language='de',
@@ -55,7 +67,7 @@ def run(root, args):
                        resume=args.resume)
     requested = workspace_setup.plan(
         root, args.workspace_operation, args.destination,
-        binding_key=args.binding_key, role=args.role, **options)
+        binding_key=args.binding_key, link_name=args.link_name, **options)
     if options.get('template_profile'):
         shown = repo_templates.resolved_inputs(inputs)
         heading = 'Template-Eingaben' if args.lang == 'de' else 'Template inputs'

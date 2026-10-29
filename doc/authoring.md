@@ -107,9 +107,77 @@ by default; they need explicit publication enrollment.
 
 Source-only Markdown blocks use `::: internal` fences. They are removed from
 published content; public links to their anchors are invalid. This mechanism
-does not make neighboring attachments private. Private workspace paths belong
-in `.yap/cfg/machine.json`, under `links` keyed by explicit activity/area identity,
-with selected `repo`, `shlf` or `zbox` roles. No role is inherited by modules.
+does not make neighboring attachments private. Local workspace bindings use the
+source-owned map described below; they are excluded from publication.
+
+## Local workspaces
+
+An activity or area can declare local working directories in its initial YAML
+front matter:
+
+```yaml
+wsp:
+  code: "~/Repositories/example"
+  proposal: "~/Repositories/example-proposal"
+  shared-material: "~/Shelves/example"
+  experiments: "../experiments"
+```
+
+Each name creates a shortcut at `wsp/NAME` beside that source document, including
+for activities with modules. Names identify navigation only; they imply no
+repository type, relationship, membership or tracking. Several names may share
+a target. Nothing is inherited by children. Notes, Objectives, Key Results and
+control documents do not own workspace maps.
+
+Names begin with an ASCII letter or digit and contain only ASCII letters,
+digits, hyphens or underscores. Duplicate names, including case variants, are
+invalid. Values must be nonempty YAML strings: absolute paths, `~/` paths or
+paths relative to the selected instance root. Relative paths retain that base
+when a source moves. Paths are literal; URLs, environment-variable expressions,
+other users' `~name` homes, backslashes and control characters are unsupported.
+Quote paths, especially those containing YAML punctuation. An absent `wsp` or
+`wsp: {}` declares no bindings.
+
+`links` and builds reconcile declared shortcuts. Missing directories or mounts
+produce local warnings and may leave dangling shortcuts; they do not prevent
+validation or publication. An existing file target, navigation cycle, symlinked
+`wsp` directory or collision with real content stops reconciliation. Workspace
+targets are never traversed to discover sources or publish resources.
+
+`wsp/` is reserved for local navigation. Undeclared shortcuts are preserved with
+a warning because their ownership is unknown. After removing or renaming a map
+entry, explicitly remove its obsolete shortcut. Real files and directories are
+always preserved. Removing a binding does not delete the target directory.
+
+The map is part of the instance's authored source and may enter its Git history;
+the instance owner decides whether that is appropriate. Workspace metadata and
+target contents are excluded from generated HTML, PDF, model caches and portable
+site exports. This does not remove paths from source files or their history.
+
+<details>
+<summary>Migrating older machine bindings and navigation</summary>
+
+Existing `.yap/cfg/machine.json` `links` entries are no longer a runtime source.
+Run `workspace migrate` first to inspect the entire plan, then repeat it with
+`--apply`. The migration copies `repo`, `shlf` and `zbox` bindings into each
+source's `wsp` map under the same names. Rename them deliberately afterwards if
+desired. It preserves relative path strings, unrelated YAML/body content and
+unrelated machine settings. Existing same-target YAML entries are accepted;
+conflicting values or shortcuts stop the preview before any write.
+
+Verified old root shortcuts move to `wsp/NAME`; already matching shortcuts there
+are reused. Real legacy-named files and unknown workspace shortcuts are retained.
+An old root shortcut without a corresponding declared binding needs manual
+resolution. No target directory is created, moved, scanned or deleted by migration.
+
+Apply rechecks source, configuration and shortcut state. Source YAML and navigation
+are completed before removing the old JSON `links` field. If an operation fails,
+completed work remains; inspect the error and preview the migration again to
+finish it. There is no automatic rollback over authored content. Automatic
+source additions refuse aliased/anchored maps or other syntax they cannot edit
+without changing existing meaning; edit those maps manually first.
+
+</details>
 
 ## Objectives and Key Results
 

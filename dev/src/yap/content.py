@@ -62,7 +62,20 @@ def read(path, reader="markdown-smart"):
     )
     if result.returncode:
         raise ValueError(f"{path}: Pandoc: {result.stderr.strip()}")
-    return json.loads(result.stdout)
+    document = json.loads(result.stdout)
+    if 'wsp' in document['meta']:
+        from . import workspace_links
+        source = Path(path)
+        collection = next((parent for parent in source.parents
+                           if parent.name == 'act' and parent.parent.name == 'pfo'), None)
+        if (metadata(document['meta'], 'kind', path) not in {'activity', 'area'}
+                or source.name != source.parent.name + '.md'
+                or collection is None or source.parent == collection):
+            raise ValueError(f'{path}: wsp belongs only in an activity or area source.')
+        workspace_links.bindings(Path(path).read_bytes(), path, required=True)
+        # No private path enters public_content traversal, model caches or renderers.
+        document['meta'].pop('wsp')
+    return document
 
 
 def public_content(value):
@@ -224,7 +237,7 @@ def entry_fields(meta, source, root):
               ("title", "acronym", "board-caption", "subtitle", "slogan", "url")}
     for field in (*LOCAL_NAMES, 'file'):
         if field in meta:
-            raise ValueError(f'{source.relative_to(root)}: {field} bindings belong in .yap/cfg/machine.json.')
+            raise ValueError(f'{source.relative_to(root)}: {field} bindings require a source-owned wsp mapping.')
     synonyms = meta.get('synonyms', {'t': 'MetaList', 'c': []})
     if synonyms['t'] != 'MetaList':
         raise ValueError(f'{source.relative_to(root)}: synonyms requires a list of alternative names.')

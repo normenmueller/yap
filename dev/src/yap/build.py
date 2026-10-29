@@ -170,7 +170,7 @@ def _main(command, ROOT):
         for message in messages:
             print('Note:', message)
         sync_links(links)
-        print('Lokale repo/shlf/zbox-Links abgeglichen / Local repo/shlf/zbox links reconciled.')
+        print('Lokale Workspace-Links abgeglichen / Local workspace links reconciled.')
         return
 
     state_path = BUILD / 'state.json'

@@ -1,14 +1,17 @@
 # Application context
 
 yap is a reusable activity-portfolio application. It reads one explicitly selected
-instance per process. The current extracted implementation is Python; a coherent
-TypeScript replacement is a future direction, not a delivered runtime.
+instance per process. The owner selected Python as the application/domain core
+until further notice. TypeScript can support browser presentation; a full
+TypeScript or Haskell replacement is not the selected direction.
 
 - [User guide](../doc/README.md): current commands and daily operation.
 - [Authoring](../doc/authoring.md): source owners, fields and synthetic examples.
 - [Architecture](../doc/architecture.md): application/instance boundary and target
   agent-assisted operation.
 - [TEAM.md](TEAM.md): development expertise and review routing.
+- [Python quality](python-quality.md): semantic design, typing, robustness,
+  performance and independent verification practices.
 
 `dev/src/yap/` owns implementation, `dev/acc/` application templates and assets,
 `dev/tst/` regression evidence and `doc/` reusable guidance. Root AGENTS.md is a

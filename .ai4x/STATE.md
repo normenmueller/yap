@@ -1,76 +1,67 @@
-# Return point — architecture discussion on the accepted Python baseline
+# Return point — review the Python quality foundation
 
-This is issue-linked `docs/3-architecture`, with the generic discussion proposal
-for [#3 / draft PR #14](https://github.com/normenmueller/yap/pull/14). The owner is
-requested as reviewer; no submitted GitHub review was present at recovery.
-[Proposal](../doc/architecture-proposal.md) owns future choices;
-[engineering appendix](../doc/architecture-engineering.md) owns candidate
-module/value/proof boundaries. [Current architecture](../doc/architecture.md)
-owns delivered Python behavior. No private instance data or history is imported.
+The owner selected Python as yap's application/domain core until further notice
+and authorized a specialist development team, independent assessment and justified
+code improvements. [TEAM.md](TEAM.md) owns the capabilities;
+[python-quality.md](python-quality.md) owns the working method. Their scoped
+independent review resolved its findings. This is application-development authority,
+not accepted provider curation or instance care.
 
-The owner selected #3 after completing #18. This fresh issue-worktree session
-verified clean local/remote `bc58022` and current `trunk` at `d19467d`, then
-integrated that baseline, including accepted #17 / PR #19, #20 / PR #21 and
-#18 / PR #22. The integration preserves the proposal, draft PR and review history,
-adopts current BEHAVIOR session rules and retains this #3 return point.
+The selected work is [#3 / PR #14](https://github.com/normenmueller/yap/pull/14)
+on `docs/3-architecture`. Next: support the owner's review of the delivered Python
+quality changes. The owner remains requested as reviewer; no implementation
+approval or merge has occurred. Follow BEHAVIOR's review/merge and session boundaries.
+Do not start another backlog implementation or infer acceptance from these checks.
 
-The proposal and engineering appendix now retain the delivered source-owned YAML
-`wsp` contract. The [authoring guide](../doc/authoring.md#local-workspaces) owns
-workspace details. The candidate manifest uses `sources.aspirations` and the
-`pfo/asp` default from accepted #15 / PR #16; other candidate selectors, identity
-and definition fields remain proposed. Existing `pfo/okr` needs explicit selection.
-No runtime changes beyond the integrated accepted baseline are introduced.
-
-Next: decide the technology direction, then discuss the smallest testable
-create/open and durable-definition slice with actual quip identification in view.
-Standard Act/Pfm, agent-assisted operation and one-way instance dependency remain
-product directions; identity, persistence and public APIs still need agreement.
-Publishing this draft does not approve implementation, migration, activation or
-full view replacement. [#4](https://github.com/normenmueller/yap/issues/4) remains
-separately scoped foundation work after the design decision. A continuation
-supports this design discussion; it does not repeat the completed integration.
-
-The owner also asks that #3 consider actual quip identification as a concrete
-use case. [#8](https://github.com/normenmueller/yap/issues/8) owns collection scope;
-the current `work_progress` scene uses explicitly illustrative data. Discuss what
-constitutes one quip, its evidence and activity association, stable identity and
-recognition on refresh before fixing relevant model/operation boundaries. This
-note selects no evidence provider, changes no queue order and approves no collection.
-
-The owner requests a concise PO-level technology recommendation for the entire
-planned yap, including real quip identification. Three independent assessments
-now cover all 11 open Issues (#3–#13), the five closed baselines, all 16 Project
-cards, comments and the proposal/engineering appendix; there are no additional
-Project draft items. The recommendation is to retain Python as the canonical
-application/domain core, using TypeScript for richer browser presentation when
-needed. No current requirement demands independent domain execution in the browser.
-A local browser-to-operations interface would still need design and delivery.
-Haskell offers no demonstrated product benefit that justifies replacement here.
-
-The owner's technology decision remains pending. The initial immediate-scope
-recommendation was explicitly provisional until this full review. The existing
-TypeScript proposal and #4 scope have not been accepted or rewritten by this advice;
-a decision to retain Python would require their reconciliation before implementation.
+The change protects generated build/publication trees against preexisting symlinks,
+hardlinks and special files, uses unique atomic text/publication writes, tightens
+schema/date/preview/target decoding, removes unused PDF dependencies from `check`,
+and reuses source catalogs safely. Cached navigation verifies collection roots and
+fresh source hashes; private workspace values stay outside public models/caches.
+Architecture/setup guidance now follows the accepted Python decision.
 
 <details>
-<summary>Integration verification and review scope</summary>
+<summary>Verification, independent review and limits</summary>
 
-All 283 existing tests passed on the integrated tree with PyYAML 6.0.3 in this
-worktree's ignored virtual environment and local browser access. Runtime, assets,
-tests and requirements match `d19467d`; only documentation/context differs from
-that baseline. Markdown parsing, JSON examples, local file references and diff
-whitespace checks pass. The first test attempt lacked PyYAML; the successful run
-used the declared dependency. No separate full PDF/export review is claimed here.
+All 312 tests passed on Python 3.15.2 with PyYAML 6.0.3 and local browser access.
+The pinned mypy 2.4.0 gate passes strict checks for `outputs.py`, `source_values.py`
+and a positive fixture; four invalid calls/assignments are rejected. The remaining
+application modules are outside the strict gate. Python 3.10 syntax parsing passes;
+other interpreter versions and Windows are not verified. The runtime uses POSIX.
 
-Independent recovery review verified the completed merge and its evidence.
-The findings about intermediate merge/review wording have been corrected. Earlier 254-test and synthetic
-HTML/PDF/browser checks at `cf57907` apply only to that earlier baseline. Earlier
-architecture review applies to its inspected proposal artifacts, not the current
-reconciliation or future API/runtime changes. PR #14 remains a draft.
+A synthetic full report produced 25 site files including five PDFs. Extracted PDF
+text, other generated files and model cache contained no private-workspace path or
+target-content markers. Sources and target content were preserved, portable-export
+SHA-256 inventories matched, and a repeated full build was up to date. The final
+hardlink preflight also accepted that real renderer work/output tree.
+
+On a synthetic 21-activity PipelineTests fixture, `resources` used 26 document
+reads cold and zero warm (0.9806s/0.0368s in this local run). This is bounded command
+and fixture evidence, not a general speed/scale or full-report one-pass claim.
+Markdown, JSON examples, relative file references and whitespace checks pass.
+
+Nonauthor source reviewers reproduced and rechecked the publication redirects,
+cached collection-root bypass, cache/work hardlinks and preview calendar bound.
+All actionable findings in the inspected change were resolved. Separate review
+checked the architecture/setup records. No whole-codebase 10/10, concurrent-writer
+exclusion, multi-instance service, full domain typing or owner acceptance is claimed.
 
 </details>
 
-The application Project owns live status/order. Care references remain #12 and
-README improvements #13; read their owning scope instead of duplicating a queue.
-BEHAVIOR distinguishes design acceptance, implementation acceptance and merge
-authority. No consumer revision or instance migration is selected here.
+The owner proposes closing the old #3/#4 TypeScript plan as not planned after
+team/code preparation, then reassessing the backlog. Keep both open through the
+current implementation review. Their surviving obligations are explicitly retained:
+[#23](https://github.com/normenmueller/yap/issues/23) owns Python guided create/open,
+stable portfolio identity and safe empty-instance construction;
+[#24](https://github.com/normenmueller/yap/issues/24) owns remaining checked domain
+boundaries and source/presentation separation; #12 owns durable Act/Pfm/local
+definitions and care references. #23/#24 are Backlog, not Ready or delivered.
+A future closure must explain the superseded language premise and these transfers,
+not mark the missing product behavior completed.
+
+Backlog assessment recommends refining real quip identification (#8) as the next
+concrete product case, with the required typed boundaries, after this review and
+closeout. The owner still controls selection/order. #5's pause, #6/#11 deferrals
+and #13's hold remain effective; #7/#10 keep their separate effects/provider scopes.
+The current quip scene remains illustrative. No evidence provider, collection
+implementation, consumer revision, instance migration or activation is selected.

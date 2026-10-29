@@ -12,11 +12,12 @@ paths alongside the interface, using the same sources and application operations
 
 This is the discussion proposal for [issue #3](https://github.com/normenmueller/yap/issues/3).
 The [current application boundary](architecture.md) owns delivered Python behavior.
-The full creation journey, generic saved yapic definitions and TypeScript
-replacement remain proposed. The next decision is the smallest testable foundation
-for [issue #4](https://github.com/normenmueller/yap/issues/4), including its explicit
-limits and any visual tradeoffs. No implementation or portfolio migration is
-approved by publishing this proposal.
+**Python remains the application/domain core until further notice.** The full
+creation journey and generic saved yapic definitions remain product goals; they
+do not require a language replacement. The current work strengthens the Python
+design and checks its concrete defects. The owner proposes considering closure
+of #3/#4 afterwards, with their unfinished product goals carried into the surviving
+backlog. That closure remains conditional. Publication approves no portfolio migration.
 
 <details>
 <summary>Architecture, technical choices and open decisions</summary>
@@ -73,11 +74,11 @@ appropriate. The proposed architecture retains this owner rather than restoring
 a private override layer. Workspace targets are not portfolio source-discovery
 roots, and a declared binding grants no operation authority.
 
-The existing Python extraction is the current implementation. Its resource root
-belongs to the application; the process selects its instance explicitly. Keep
-only a thin selected-version invocation in a portfolio. A later coherent
-TypeScript replacement must not leave synchronized Python/TypeScript business
-rules or a second UI-owned source store.
+The Python application's resource root belongs to the application; the process
+selects its instance explicitly. Keep only a thin selected-version invocation in
+a portfolio. Improve semantic boundaries within this application. A browser
+interface may use TypeScript, calling the same Python application operations;
+it must not maintain synchronized business rules or a second source store.
 
 Application development and portfolio assistance have independent `.ai4x` context
 and `.yap` runtime/configuration. Opening a portfolio neither copies the
@@ -116,6 +117,15 @@ rebase. Bulk selection, failure behavior and remote effects need explicit scope.
 A listed operation or saved definition grants no execution authority. Work
 observations need stable identity and provenance; a commit, Todo completion or
 quip does not establish achievement or personal causal impact.
+
+Actual quip identification is a concrete architecture use case, owned by
+[#8](https://github.com/normenmueller/yap/issues/8). The current scene contains
+explicitly illustrative data. The design must establish what qualifies as one
+quip, its evidence and activity association, stable identity and recognition on
+refresh. Several observed events may concern the same work; the identification
+rule remains to be agreed. Collection belongs behind shared operations, while
+Pfm selects and explains its evidence. No provider or collection implementation
+is selected by this discussion.
 
 ## Guided creation and opening
 
@@ -216,7 +226,7 @@ The current application uses `doc` and `dev/{src,tst,acc}` with its own `.ai4x` 
 ignored `.yap/local`. Create directories only for real content; aim for at most
 seven semantic child directories per level, nine as the design ceiling.
 
-Current Python source layout (existing application, before the proposed replacement):
+Current Python source layout:
 
 ```text
 application/
@@ -263,31 +273,10 @@ An existing `pfo/okr` remains usable when explicitly selected through
 Instance operation/recovery context belongs to `.ai4x`; an instance `doc/`
 directory is optional and does not duplicate reusable application manuals.
 
-Future TypeScript areas, not folders to create before their implementation:
-
-```text
-application/
-├── AGENTS.md
-├── README.md
-├── LICENSE
-├── Makefile
-├── package.json
-├── package-lock.json
-├── .ai4x/
-├── .yap/local/
-├── doc/
-└── dev/
-    ├── src/
-    │   ├── model/
-    │   ├── operations/
-    │   ├── adapters/
-    │   ├── presenters/
-    │   └── interfaces/
-    ├── tst/
-    └── acc/
-        ├── yapics/
-        └── assets/
-```
+The [engineering appendix](architecture-engineering.md) describes semantic values,
+shared operations, adapters and presenters as responsibilities within the Python
+application. Introduce directories or packages only when a real boundary warrants
+them. Standard-definition files under `dev/acc/yapics/` remain proposed content.
 
 A newly created portfolio needs only valid empty sources, its manifest, ignore
 rules and a thin assistance entry:
@@ -340,13 +329,16 @@ revisions and proposed/accepted status.
 
 ## Technology, compatibility and limits
 
-TypeScript-first is the recommendation for shared environment-independent models,
-interactive browser projections and a local CLI. Browser and Node have different
-capabilities; filesystem/provider effects remain explicit adapters. Haskell remains
-an alternative with explicit models/effects but adds an interface boundary with a
-TypeScript UI or a separate browser-toolchain decision. Python is the current
-implementation, not a permanent constraint or a second synchronized target.
-No UI framework, exact public API or implementation slice is approved here.
+Python is the selected core. Use precise semantic values, checked construction,
+cohesive modules and bounded effects to improve it. The existing codebase is not
+fully typed or separated into a completed target architecture; the engineering
+appendix identifies the bounded type gate and remaining design debt.
+
+TypeScript remains suitable for richer browser presentation. Shared application
+rules stay in Python; no independent browser domain runtime is required by the
+current backlog. TypeScript and Haskell were considered as replacement options;
+the owner selected neither. A future change needs concrete product evidence and
+a new decision. No UI framework or future public API is selected here.
 
 The [engineering appendix](architecture-engineering.md) owns candidate module/type
 boundaries, construction and proof limits. Preserve canonical IDs, source fields,
@@ -366,19 +358,23 @@ stronger external-editor write protocols remain separate requirements.
 
 | Owner | Scope |
 | --- | --- |
-| [#3](https://github.com/normenmueller/yap/issues/3) | Architecture decisions and the consolidated proposal. |
-| [#4](https://github.com/normenmueller/yap/issues/4) | Separately refined empty-instance TypeScript foundation. |
+| [#3](https://github.com/normenmueller/yap/issues/3) | Architecture decision, Python quality assessment and reconciliation of this proposal. |
+| [#4](https://github.com/normenmueller/yap/issues/4) | Existing TypeScript-specific foundation proposal; its replacement or closure remains conditional on preserving the product obligations. |
+| [#23](https://github.com/normenmueller/yap/issues/23) | Python create/open, stable portfolio identity, empty-source construction and safe retry carried forward from #3/#4. |
+| [#24](https://github.com/normenmueller/yap/issues/24) | Remaining checked Python domain boundaries and separation of source semantics from presentation. |
 | [#12](https://github.com/normenmueller/yap/issues/12) | Durable definitions and future care references. |
 | [#5](https://github.com/normenmueller/yap/issues/5) | Ordinary YAML authoring for saved perspectives; paused pending the relevant design. |
 | [#7](https://github.com/normenmueller/yap/issues/7), [#8](https://github.com/normenmueller/yap/issues/8) | Repository operations and work observations/provenance. |
 | [#10](https://github.com/normenmueller/yap/issues/10), [#11](https://github.com/normenmueller/yap/issues/11) | Separately scoped Todo integration and deferred graphical authoring. |
 
-First agree identity/reference rules, source/operation boundaries, writer/conflict
-behavior and the initial create/open definition slice. Then refine #4 with
-observable acceptance criteria, empty-instance demonstrations and failure checks.
-A foundation can prove creation/opening and definition resolution without
-claiming full Board/Performance parity or readiness to adopt existing portfolios.
-Live curation/activation and a universal plugin runtime stay outside it.
+Complete the bounded Python assessment and justified improvements, then reassess
+the backlog. Before any conditional closure of #3/#4, give create/open, durable
+identity, Act/Pfm definitions, shared operations and compatibility explicit surviving
+owners and next actions. Refinement still needs identity/reference rules,
+writer/conflict behavior, observable acceptance criteria and empty-instance failure
+checks. An initial delivery need not claim full Board/Performance parity or
+readiness to adopt existing portfolios. Live curation/activation and a universal
+plugin runtime remain separate concerns.
 
 Required boundary evidence includes unknown IDs, wrong pins, existing targets,
 interrupted creation, consistent interactive/noninteractive operations and

@@ -16,7 +16,8 @@ from .files import LOCAL_NAMES, source_files, source_shape, link_plan, sync_link
 
 
 from .resources import APPLICATION, TEMPLATES
-from . import instance as instance_config
+from . import instance as instance_config, catalog
+from .outputs import validate_tree, write_text
 
 ROOT = None
 BUILD = Path('.yap/local/build')
@@ -34,9 +35,7 @@ def hashes(paths):
 
 
 def write(path, text):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if not path.exists() or path.read_text() != text:
-        path.write_text(text)
+    write_text(path, text, root=Path.cwd())
 
 
 def run(arguments):
@@ -157,11 +156,13 @@ def main(command, instance=None):
 
 def _main(command, ROOT):
     os.chdir(ROOT)
+    validate_tree(ROOT, BUILD)
+    validate_tree(ROOT, SITE)
     os.environ['TEXINPUTS'] = str(TEMPLATES / 'tex') + os.pathsep + os.environ.get('TEXINPUTS', '')
     BUILD.mkdir(parents=True, exist_ok=True)
     os.environ['TEXMFVAR'] = str(ROOT / BUILD / 'tex-cache')
     os.environ['TEXMFCACHE'] = os.environ['TEXMFVAR']
-    for tool in ('pandoc',) if command == 'links' else ('pandoc', 'latexmk', 'lualatex', 'pdftocairo'):
+    for tool in ('pandoc',) if command in {'links', 'check'} else ('pandoc', 'latexmk', 'lualatex', 'pdftocairo'):
         if not shutil.which(tool):
             raise ValueError(f'Required tool not found: {tool}')
 
@@ -175,6 +176,7 @@ def _main(command, ROOT):
 
     state_path = BUILD / 'state.json'
     state = json.loads(state_path.read_text()) if state_path.exists() else {}
+    catalog.validate_collections(ROOT)
     from .aspirations import resolve
     aspiration_paths = resolve(ROOT)
     sources = hashes([*source_files(Path('pfo/act')), aspiration_paths.goals,
@@ -190,15 +192,16 @@ def _main(command, ROOT):
     cache = BUILD / 'model.json'
     if command != 'check' and state.get('source') == source_signature and cache.exists():
         model = json.loads(cache.read_text())
+        entries = catalog.workspace_entries(ROOT, model['nodes'], source_hashes=sources)
     else:
-        model = content.load(ROOT)
+        entries = catalog.discover(ROOT)
+        model = content.load(ROOT, entries=entries)
 
-    links, messages = link_plan(ROOT)
+    links, messages = link_plan(ROOT, entries=entries)
     resources = resource_plan(ROOT, model)
     for message in messages:
         print('Note:', message)
     if command == 'check':
-        entries = perspectives.catalog(ROOT)
         for path in sorted(Path('pov').glob('*/.perspective.yaml')):
             saved = json.loads(path.read_text())
             perspectives.validate(saved, entries)
@@ -296,7 +299,7 @@ def _main(command, ROOT):
             home.render(STAGE)
         elif group == 'perspectives':
             perspective_html.render(ROOT, destination=STAGE / 'views/perspectives', model=published)
-    publish(STAGE, Path('.yap/local/site'))
+    publish(STAGE, SITE, root=ROOT)
     home.root_entry(SITE, Path(instance_config.entry()))
     for group in dirty:
         outputs[group] = {'signature': signatures[group], 'files': hashes(group_files(Path('.yap/local/site'), group))}

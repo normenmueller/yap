@@ -6,6 +6,11 @@ The CLI changes its process working directory to that instance; it is not a
 multi-instance server. `dev/src/yap/resources.py` resolves templates and assets from
 the application tree, independently of the selected instance.
 
+Python is the selected application/domain core until further notice. TypeScript
+may support browser presentation through shared Python operations; a full runtime
+replacement is not the selected direction. The browser-to-operations interface
+still needs design and delivery.
+
 | Owner | Content |
 | --- | --- |
 | Application | `dev/src/yap/`, `dev/acc/templates/`, `dev/acc/assets/`, tests and reusable documentation |
@@ -70,9 +75,10 @@ with its source and is not rendered in the footer. No credit establishes agent
 execution or accepted curation. The slogan `yap. That’s right!` belongs in the
 user documentation rather than the footer. The product motto
 `yap dein yapic mit mir!` remains on the homepage and About, independently of the
-portfolio’s name; the current generic homepage does not add an inactive AI input.
-Generic pages do not introduce personal requests or pretend that future need-entry
-and trace collection are already available.
+portfolio’s name. The homepage's assistant request panel is a non-executing preview:
+it neither submits nor saves requests, and its creation button is disabled.
+Display identity does not establish accepted care. Generic pages do not pretend
+that future need-entry and real trace collection are already available.
 
 Optional `application.revision` is a full 40-character lowercase Git commit. When
 declared, it requires that exact clean application checkout. The manifest does
@@ -109,8 +115,8 @@ Operating Model containing Collaboration, Work Management and Governance Models.
 Those values and their evidence belong to their authoritative configuration; an
 instance should reference them rather than duplicate their ownership.
 
-The coherent TypeScript replacement, saved generic yapic-definition contract,
-guided instance creation and live ai4X curation adapter remain future work.
+Saved generic yapic definitions, guided instance creation, real quip collection
+and a live ai4X curation adapter remain future product work.
 Ordinary saved data or generated agent context is not accepted ai4X curation.
 Human acceptance, persistence, activation and individual assignment authority
 remain distinct. Neither opening a portfolio nor a branding footer activates
@@ -118,6 +124,6 @@ agents or proves acceptance. An unbound ai4X association can coexist with ordina
 AI assistance.
 
 The [next-architecture proposal](architecture-proposal.md) and its
-[engineering appendix](architecture-engineering.md) retain the proposed
-TypeScript and durable-definition design for issue #3. They are discussion
-artifacts; this document continues to own the delivered Python boundary.
+[engineering appendix](architecture-engineering.md) retain the product directions,
+Python design and unresolved definition/identity choices for issue #3. Proposed
+contracts remain discussion artifacts; this document owns delivered Python behavior.

@@ -267,7 +267,7 @@ def reject_objective_graph(meta, source, objective_folder):
                              'Objective assignments are derived from KR activities.')
 
 
-def load(root: Path) -> dict:
+def load(root: Path, *, entries=None) -> dict:
     root = Path(root).resolve()
     from . import portfolio, projection
     from .files import resource_plan
@@ -275,7 +275,7 @@ def load(root: Path) -> dict:
     aspiration_paths = resolve(root)
     goal_source = aspiration_paths.goals.as_posix()
     objective_folder = aspiration_paths.objectives.as_posix()
-    model = portfolio.load(root)
+    model = portfolio.load(root, entries=entries)
     nodes = model['nodes']
     main = {'meta': model['meta'], 'pandoc-api-version': model['api']}
     resources = resource_plan(root, model)

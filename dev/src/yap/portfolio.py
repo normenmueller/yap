@@ -109,10 +109,10 @@ def publication(meta, entries):
     return result
 
 
-def load(root):
+def load(root, *, entries=None):
     """Build canonical entries; display parents/depths belong only to projections."""
     root = Path(root).resolve()
-    entries = catalog.discover(root)
+    entries = catalog.discover(root) if entries is None else entries
     control = root / CONTROL
     if control.is_symlink():
         raise ValueError(f'{control}: source control cannot be a symlink.')

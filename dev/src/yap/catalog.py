@@ -6,6 +6,7 @@ or presentation roles.
 """
 
 from pathlib import Path
+import hashlib
 import os
 import re
 import unicodedata
@@ -46,19 +47,25 @@ def literal(meta, field, source):
     return content.metadata(meta, field, source)
 
 
+def validate_collections(root):
+    """Reject redirected/non-directory source roots before discovery or hashing."""
+    root = Path(root).resolve()
+    for base in (root / 'pfo', *(root / 'pfo' / name for name in KINDS)):
+        if base.is_symlink():
+            raise ValueError(f'{base}: source collection cannot be a symlink.')
+        if base.exists() and not base.is_dir():
+            raise ValueError(f'{base}: expected a source collection directory.')
+
+
 def discover(root):
     """Return the unique keyed catalog; never traverse local/external shortcuts."""
     root = Path(root).resolve()
+    validate_collections(root)
     entries, keys = {}, {}
     for collection, allowed_kinds in KINDS.items():
         base = root / 'pfo' / collection
-        for ancestor in (root / 'pfo', base):
-            if ancestor.is_symlink():
-                raise ValueError(f'{ancestor}: source collection cannot be a symlink.')
         if not base.exists():
             continue
-        if not base.is_dir():
-            raise ValueError(f'{base}: expected a source collection directory.')
 
         def fail(error):
             raise ValueError(f'Cannot scan source directory {error.filename}: {error.strerror}') from error
@@ -110,3 +117,36 @@ def entry_root(entry):
     return (entry['folder'] if entry['source'].name == entry['folder'].name + '.md'
             and entry['folder'].parent.name != 'pfo'
             else entry['source'])
+
+
+def workspace_entries(root, nodes, *, source_hashes):
+    """Read private bindings for a model with a verified unchanged source signature.
+
+    The caller owns full source/hash/shape validation before reusing cached
+    identities; each snapshot must still match its recorded source hash. This
+    is not source discovery or a substitute identity parser.
+    Only the existing literal workspace decoder reads fresh source bytes; its
+    ephemeral result must never enter the public model or its cache.
+    """
+    root = Path(root).resolve()
+    validate_collections(root)
+    result = {}
+    for node in nodes:
+        if node['kind'] not in {'area', 'activity'}:
+            continue
+        relative = Path(node['path'])
+        if (relative.is_absolute() or '..' in relative.parts
+                or not relative.is_relative_to('pfo/act')
+                or len(relative.parts) < 4
+                or relative.name != relative.parent.name + '.md'):
+            raise ValueError(f'{relative}: expected an instance-relative activity/area source.')
+        source = root / relative
+        data = workspace_links.snapshot(source)
+        if data is None:
+            raise ValueError(f'{relative}: expected an existing activity/area source.')
+        if hashlib.sha256(data).hexdigest() != source_hashes.get(str(relative)):
+            raise ValueError(f'{relative}: source changed since the build snapshot; run the command again.')
+        key = node['key']
+        result[key] = dict(key=key, kind=node['kind'], folder=source.parent,
+                           source=source, workspace=workspace_links.bindings(data, source))
+    return result

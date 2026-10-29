@@ -41,6 +41,9 @@ switching to TypeScript/Haskell. Independent architecture, runtime and language
 assessments recommend Python for the next product deliveries, including real
 quip identification; the owner's technology decision remains pending. The existing
 TypeScript proposal and #4 scope have not been accepted or rewritten by this advice.
+The owner asks for the recommendation to account for the entire planned yap
+backlog. The initial assessments covered the immediate scope, not a complete
+backlog audit; the recommendation is provisional pending that broader review.
 
 <details>
 <summary>Integration verification and review scope</summary>
@@ -52,8 +55,8 @@ that baseline. Markdown parsing, JSON examples, local file references and diff
 whitespace checks pass. The first test attempt lacked PyYAML; the successful run
 used the declared dependency. No separate full PDF/export review is claimed here.
 
-Independent recovery review is pending completion of the merge. Complete it
-before further substantive design changes. Earlier 254-test and synthetic
+Independent recovery review verified the completed merge and its evidence.
+The findings about intermediate merge/review wording have been corrected. Earlier 254-test and synthetic
 HTML/PDF/browser checks at `cf57907` apply only to that earlier baseline. Earlier
 architecture review applies to its inspected proposal artifacts, not the current
 reconciliation or future API/runtime changes. PR #14 remains a draft.

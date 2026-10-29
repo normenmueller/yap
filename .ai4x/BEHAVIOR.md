@@ -57,8 +57,9 @@ in that worktree. Ordinary greetings follow these same boundaries.
 
 After a verified successful merge, delete the completed feature branch locally
 and remotely. Remove its worktree after preserving ignored/private material and
-verifying that no unmerged work remains. Remove empty parent directories left by
-that cleanup. Preserve active branches and PR history.
+verifying that no unmerged work remains. During preparation and cleanup, remove
+empty parent directories, including `fix/` and `feat/`. Preserve active branches
+and PR history.
 Use only the explicitly selected provider profile; never switch shared login.
 When creating a managed PR, request `normenmueller` as reviewer immediately,
 including documentation drafts. Preserve other reviewers; assignment is not a

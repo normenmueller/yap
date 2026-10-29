@@ -1,27 +1,25 @@
-# Return point — #20 visually accepted; implementation review pending
+# Return point — #20 complete; #18 scope refinement next
 
-The owner accepted the visible homepage alignment for
-[#20](https://github.com/normenmueller/yap/issues/20) on October 29, 2026.
-[PR #21](https://github.com/normenmueller/yap/pull/21) contains the candidate on
-`fix/20-homepage-alignment`. GitHub implementation approval and merge remain
-pending. The [yap Project](https://github.com/users/normenmueller/projects/5)
-keeps #20 In review.
+The owner accepted the visible homepage alignment and approved the implementation
+for [#20](https://github.com/normenmueller/yap/issues/20) on October 29, 2026.
+[PR #21](https://github.com/normenmueller/yap/pull/21) was approved at `b7c8066`
+and merged into `trunk` as `cf461b0`. #20 is closed as completed and the
+[yap Project](https://github.com/users/normenmueller/projects/5) marks it Done.
 
-End/delete the current `trunk` session after this verified handoff. Start a fresh
-session in the matching `fix/20-homepage-alignment` worktree beside `trunk`.
+End/delete the completed Fix session after cleanup. Start a fresh session in
+the prepared `feat/18-named-workspace-links` worktree beside `trunk`.
 Read the entry records and verify the actual checkout and write scope there.
-The return point is the owner's GitHub implementation review of PR #21; support
-that review and wait for feedback. Do not repeat implementation or infer merge
-approval from the owner's visual agreement. BEHAVIOR owns the session boundary.
+The return point is owner refinement of #18's map contract and operation migration,
+not implementation approval. BEHAVIOR owns the session boundary.
 
 The owner selected one Issue at a time: #20 first, then
-[#18](https://github.com/normenmueller/yap/issues/18). #18 remains in Backlog,
-with no feature branch or implementation started. Its workspace-map contract
-and migration need refinement before implementation. When #18 starts, prepare
-its own `feat/18-...` branch, matching worktree and fresh session.
+[#18](https://github.com/normenmueller/yap/issues/18). With #20 complete, #18
+enters Refinement on `feat/18-named-workspace-links`, with a matching worktree
+prepared for a fresh session. No implementation or user-data migration has
+started. Agree its workspace-map contract and migration before coding.
 
-`trunk` retains the accepted Python baseline: #17 / merged PR #19, #15 / merged
-PR #16 and #1 / merged PR #2. The #20 runtime change remains on its Fix branch.
+`trunk` includes #20 / merged PR #21, #17 / merged PR #19, #15 / merged
+PR #16 and #1 / merged PR #2 as the accepted Python application baseline.
 Consumer revision selection and integration remain separate and require
 instance-owned verification. No consumer revision has been changed here.
 

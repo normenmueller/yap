@@ -1,80 +1,67 @@
-# Return point — #17 merged; boards current; await owner direction
+# Return point — #20 visually accepted; implementation review pending
 
-[#17](https://github.com/normenmueller/yap/issues/17) is complete. The owner
-approved [PR #19](https://github.com/normenmueller/yap/pull/19), which was merged
-into `trunk` on October 29, 2026. The Issue is closed. The accepted application
-baseline includes #17, #15 and #1 / merged PR #2.
+The owner accepted the visible homepage alignment for
+[#20](https://github.com/normenmueller/yap/issues/20) on October 29, 2026.
+[PR #21](https://github.com/normenmueller/yap/pull/21) contains the candidate on
+`fix/20-homepage-alignment`. GitHub implementation approval and merge remain
+pending. The [yap Project](https://github.com/users/normenmueller/projects/5)
+keeps #20 In review.
 
-The [yap Project](https://github.com/users/normenmueller/projects/5) is reconciled:
-accepted #15 and #17 are Done; open proposal #18 is in Backlog. Existing item order,
-assignees and statuses were preserved. No board task remains from this delivery.
+End/delete the current `trunk` session after this verified handoff. Start a fresh
+session in the matching `fix/20-homepage-alignment` worktree beside `trunk`.
+Read the entry records and verify the actual checkout and write scope there.
+The return point is the owner's GitHub implementation review of PR #21; support
+that review and wait for feedback. Do not repeat implementation or infer merge
+approval from the owner's visual agreement. BEHAVIOR owns the session boundary.
 
-The owner chose to end this session and start a fresh session from `trunk`.
-No next implementation item or consumer revision has been selected. Wait for
-the owner's choice; create an issue-linked branch
-and matching worktree for selected engineering work. Preserve the separate
-`docs/3-architecture` discussion and local development evidence. BEHAVIOR owns
-fresh-session recovery; no old chat or resume is needed.
+The owner selected one Issue at a time: #20 first, then
+[#18](https://github.com/normenmueller/yap/issues/18). #18 remains in Backlog,
+with no feature branch or implementation started. Its workspace-map contract
+and migration need refinement before implementation. When #18 starts, prepare
+its own `feat/18-...` branch, matching worktree and fresh session.
 
-The homepage now has a linked portfolio heading, product introduction and the
-assistant request-panel design. The heading opens the existing Activity/Performance
-collection. Optional `branding.assistant` and `branding.assistant_credit` supply
-explicit display metadata only. The input does not submit or save text, and
-creation remains disabled; no assistant/provider is activated. German remains
-the delivered interface baseline; #6 owns localization.
-
+`trunk` retains the accepted Python baseline: #17 / merged PR #19, #15 / merged
+PR #16 and #1 / merged PR #2. The #20 runtime change remains on its Fix branch.
 Consumer revision selection and integration remain separate and require
-instance-owned verification.
-
-The Python application still defaults to `pfo/asp`, with an optional
-instance-relative `sources.aspirations` setting in `yap.json`. Selected sources
-share reading, validation, change detection and publication-reference handling.
-There is no implicit `pfo/okr` lookup or source creation. Instances still using
-that path need their own explicit selection or manual move/reference repair.
-The [authoring guide](../doc/authoring.md#objectives-and-key-results) owns usage.
-#15 / [PR #16](https://github.com/normenmueller/yap/pull/16) owns the accepted
-aspiration-source delivery and its verification evidence.
+instance-owned verification. No consumer revision has been changed here.
 
 [#3 / draft PR #14](https://github.com/normenmueller/yap/pull/14) remains separate
-on `docs/3-architecture`. Its TypeScript and broader directory contracts remain
-proposals. #4 still needs its own approved foundation scope; README work remains
-#13. [#18](https://github.com/normenmueller/yap/issues/18) separately records the
-proposed workspace map. None is selected by this acceptance.
+on `docs/3-architecture`; preserve that work and its return point. Its TypeScript
+and broader directory contracts remain proposals. #4 still needs an approved
+foundation scope; README work remains #13. Neither is selected by this handoff.
 
 <details>
-<summary>Delivery and verification evidence</summary>
+<summary>Implementation and verification evidence</summary>
 
-The owner `normenmueller` approved PR #19 at
-`d9c721edd473fe73662477a91c2c0d8f988d001f`. The verified merge is
-`ce721ff86ec1f9a55fb88425a6b9e2d9377a6d36`. Issue #17 is Done in the yap Project.
-Verify actual Git/remote state before continuing; completion-note changes are
-memory only.
+PR #21's runtime commit is `74f6230ffcffcbc43e11bf11cfa1663c7336ce51`.
+Portfolio heading, introduction and request panel share a centered responsive
+780px width and matching edges. Assistant display credits can wrap. Copy,
+artwork, markup, reading order and section padding are preserved. The request
+remains a non-executing preview with disabled creation.
 
-The Board, Backlog, Focus and Overview views share the yap Project. After the
-owner granted the required Project write scope to the existing GitHub CLI
-profile, #15 and #17 were added as Done and #18 as Backlog. The active account
-remained `gertrud-ai4x`; no shared-login switch was made. A fresh read verified
-15 unique Project items and preserved all 12 prior entries, their relative order,
-assignees and statuses. #3 remains In progress, #5 Paused and #1 Done. Other
-users' or repositories' boards were not audited.
+The 255-test regression suite passed for the alignment change. After the final
+credit-wrapping adjustment, all 9 branding tests and the browser matrix passed.
+The matrix covered 1440x900, 390x844, 320x700, 1440x400 and 320px with a 200% root
+font size: matching widths/edges, no horizontal overflow or footer overlap,
+local artwork, label association, keyboard order and visible focus. A full
+synthetic report built; homepage, collection and About links/assets resolve.
+These are implementation checks, not GitHub approval or consumer integration.
+No independent implementation review is claimed.
 
-The completed feature branch was deleted locally and remotely, its clean worktree
-removed and its empty parent directory removed. All 118 ignored review files were
-moved unchanged to the application's ignored
-`.yap/local/build/homepage-review-pr19/` under `trunk`, with SHA-256 comparison.
-The relocated `nap.html` and its local links/assets were checked.
+The previous session created the Fix worktree but continued from a session rooted
+in `trunk`. Its 134 local review files were subsequently moved unchanged into
+that Fix worktree's ignored `.yap/local/`, with SHA-256 inventory comparison;
+17 homepage/collection/About links and assets were checked after relocation.
+Optional ignored `.yap/cfg/session.md` supplies exact local review navigation.
+The owner approved the session-boundary correction; this closeout changes
+engineering records only and adds no runtime work.
 
-PR #19 records 255 passing regression tests, synthetic full-report/incremental
-checks and offline desktop/narrow checks at 1440px and 390px at the implementation
-head. In this acceptance session, a synthetic report was freshly generated from
-that head and homepage/collection link and asset targets were checked. The owner
-reviewed the local preview and approved the unchanged implementation on GitHub.
-No separate independent implementation review is claimed. Consumer revision
-selection and integration remain separate and require instance-owned verification.
-
-
-#15 / [PR #16](https://github.com/normenmueller/yap/pull/16) was accepted at
-`a3c7f09` and merged as `f8d2d3bc16d675786e7d6bd75ea439526631f25d`; its
-254-test implementation evidence remains in that delivery record.
+#17's accepted implementation was `d9c721e`, merged as `ce721ff` through PR #19.
+#15 was accepted at `a3c7f09`, merged as `f8d2d3b` through PR #16. Their Issues
+remain Done. German remains the delivered interface baseline; #6 owns localization.
+Optional assistant branding supplies display metadata only, without activating
+a provider. Aspirations default to `pfo/asp`, with optional instance-relative
+`sources.aspirations`; the [authoring guide](../doc/authoring.md#objectives-and-key-results)
+owns that accepted contract. No implicit `pfo/okr` fallback is delivered.
 
 </details>

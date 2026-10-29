@@ -15,12 +15,17 @@ Inhalte bleiben von der Anwendung getrennt.
 Run from the application checkout, replacing the example instance path:
 
 ```sh
+python3 -m venv .yap/local/venv
+source .yap/local/venv/bin/activate
+python3 -m pip install -r requirements.txt
 PYTHONPATH="$PWD/dev/src" python3 -B -m yap --help
 PYTHONPATH="$PWD/dev/src" python3 -B -m yap --instance /path/to/portfolio check
 PYTHONPATH="$PWD/dev/src" python3 -B -m yap --instance /path/to/portfolio open
 ```
 
-`check` validates sources. `open` builds the selected portfolio and opens its
+Python requires the dependencies in `requirements.txt` (PyYAML reads workspace
+paths literally, without Markdown formatting). `check` validates sources.
+`open` builds the selected portfolio and opens its
 homepage. `all` builds the full output; `report` builds reports. Full report
 generation requires Pandoc, LaTeX with `latexmk`, PDF utilities and a supported
 Chromium-family browser. Python is the current runtime; the proposed TypeScript
@@ -52,6 +57,7 @@ Useful commands after `--instance /path/to/portfolio`:
 | `init` | Restores existing saved perspectives and builds; it is not a new-instance wizard. |
 | `links` | Reconciles private workspace-navigation shortcuts. |
 | `workspace --help` | Lists explicit workspace setup operations and previews. |
+| `workspace migrate` | Previews moving legacy machine bindings into source YAML; `--apply` executes it. |
 | `export /path/to/new-export` | Builds and copies a portable site to a new directory outside the instance. |
 
 Use the module's `--help` and command-specific `--help` for current syntax.
@@ -59,6 +65,18 @@ Workspace creation is a separate explicit operation; a build does not provision
 external working directories. Check the command's preview and intended effects
 before applying a write. Moving sources may require repairing relative links;
 `check` diagnoses invalid references.
+
+To bind a directory, choose the activity/area key and link name explicitly:
+
+```sh
+PYTHONPATH="$PWD/dev/src" python3 -B -m yap --instance /path/to/portfolio workspace attach /path/to/project --bind design --name code
+```
+
+Add `--apply` after reviewing the preview. `workspace create` accepts the same
+binding options; `--template`/`--inputs` and `--git` are independent choices.
+The command edits only the selected source binding and navigation; attach does
+not modify the target directory. See [local workspaces](authoring.md#local-workspaces)
+for path rules and migration.
 
 The homepage opens with the portfolio heading and an assistant request-panel
 preview. The linked heading and the introduction's yapic link open the existing

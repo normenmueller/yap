@@ -31,6 +31,9 @@ class WorkspaceSetupTests(unittest.TestCase):
         self.config.parent.mkdir(parents=True, exist_ok=True)
         self.config.write_text(json.dumps(settings))
 
+    def source_bindings(self, values):
+        (self.folder / 'task.md').write_text('---\nkind: activity\nkey: task\ntitle: Task\n# Keep this comment.\nwsp: ' + json.dumps(values) + '\n---\n\nAuthored body.\n')
+
     def test_preview_and_template_only_creation_are_independent_of_git_and_capture(self):
         proposal = self.plan(files=self.files)
         self.assertFalse(self.target.exists())
@@ -178,7 +181,7 @@ class WorkspaceSetupTests(unittest.TestCase):
         self.assertEqual(setup._git(self.target, 'symbolic-ref', '--short', 'HEAD').stdout.strip(), 'main')
 
     def test_binding_failure_leaves_repository_for_explicit_resume(self):
-        proposal = self.plan(files=self.files, binding_key='task')
+        proposal = self.plan(files=self.files, binding_key='task', link_name='code')
         with patch.object(setup, '_save_binding', side_effect=OSError('simulated settings failure')):
             result = setup.apply(proposal)
         self.assertFalse(result.success)
@@ -186,9 +189,9 @@ class WorkspaceSetupTests(unittest.TestCase):
         self.assertEqual((self.target / 'README.md').read_bytes(), self.files['README.md'])
         self.assertTrue((self.folder / 'task.md').is_file())
         self.assertFalse(self.config.exists())
-        result = setup.apply(self.plan(files=self.files, binding_key='task', resume=True))
+        result = setup.apply(self.plan(files=self.files, binding_key='task', link_name='code', resume=True))
         self.assertTrue(result.success, result.error)
-        self.assertEqual((self.folder / 'repo').resolve(), self.target)
+        self.assertEqual((self.folder / 'wsp/code').resolve(), self.target)
 
     def test_shared_template_plan_owns_db_branch_consistency(self):
         inputs = {'db_metadata': {'protected-branches': ['trunk']}}
@@ -203,60 +206,62 @@ class WorkspaceSetupTests(unittest.TestCase):
         (self.target / 'real.txt').write_text('Preserve')
         unrelated = self.folder.parent / 'other'
         unrelated.mkdir()
-        (unrelated / 'other.md').write_text('---\nkind: activity\nkey: other\ntitle: Other\n---\n')
-        (unrelated / 'repo').symlink_to(self.base / 'missing')
-        settings = {'other_setting': {'keep': True}, 'links': {'other': {'repo': 'broken'}, 'task': {'shlf': 'also missing'}}}
-        self.configure(settings)
-        result = setup.apply(setup.plan(self.root, 'attach', self.target, binding_key='task'))
+        (unrelated / 'other.md').write_text('---\nkind: activity\nkey: other\ntitle: Other\nwsp: {code: broken}\n---\n')
+        (unrelated / 'wsp').mkdir()
+        (unrelated / 'wsp/code').symlink_to(self.base / 'missing')
+        self.source_bindings({'materials': 'also missing'})
+        self.configure({'other_setting': {'keep': True}})
+        original_config = self.config.read_bytes()
+        result = setup.apply(setup.plan(self.root, 'attach', self.target, binding_key='task', link_name='code'))
         self.assertTrue(result.success, result.error)
         self.assertEqual(list(p.name for p in self.target.iterdir()), ['real.txt'])
         self.assertEqual((self.target / 'real.txt').read_text(), 'Preserve')
-        current = json.loads(self.config.read_text())
-        self.assertEqual(current['other_setting'], settings['other_setting'])
-        self.assertEqual(current['links']['other'], settings['links']['other'])
-        self.assertEqual(current['links']['task']['shlf'], 'also missing')
-        self.assertEqual(os.readlink(unrelated / 'repo'), str(self.base / 'missing'))
-        self.assertEqual((self.folder / 'repo').resolve(), self.target)
-        self.assertFalse((self.folder / 'shlf').exists())
+        self.assertEqual(self.config.read_bytes(), original_config)
+        self.assertEqual(os.readlink(unrelated / 'wsp/code'), str(self.base / 'missing'))
+        self.assertEqual((self.folder / 'wsp/code').resolve(), self.target)
+        self.assertFalse((self.folder / 'wsp/materials').exists())
+        self.assertIn('also missing', (self.folder / 'task.md').read_text())
         with self.assertRaises(ValueError):
             setup.plan(self.root, 'attach', self.target, initialize_git=True)
 
-    def test_binding_conflicts_and_concurrent_settings_prevent_creation(self):
+    def test_binding_conflicts_and_concurrent_source_prevent_creation(self):
         for value in [None, '', str(self.base / 'elsewhere')]:
-            self.configure({'links': {'task': {'repo': value}}})
+            self.source_bindings({'code': value})
             with self.subTest(value=value), self.assertRaises(ValueError):
-                self.plan(binding_key='task')
+                self.plan(binding_key='task', link_name='code')
             self.assertFalse(self.target.exists())
-        self.configure({'links': {}})
-        proposal = self.plan(binding_key='task')
-        self.configure({'links': {}, 'concurrent': True})
+        self.source_bindings({})
+        proposal = self.plan(binding_key='task', link_name='code')
+        source = self.folder / 'task.md'
+        source.write_text(source.read_text() + '\nConcurrent authored change.\n')
         result = setup.apply(proposal)
         self.assertFalse(result.success)
         self.assertFalse(self.target.exists())
-        self.assertTrue(json.loads(self.config.read_text())['concurrent'])
+        self.assertIn('Concurrent authored change.', source.read_text())
 
-    def test_identical_relative_binding_retains_authored_settings_bytes(self):
+    def test_identical_relative_binding_retains_authored_source_bytes(self):
         self.target.mkdir()
-        self.configure({'links': {'task': {'repo': '../new project'}}})
-        original = self.config.read_bytes()
-        result = setup.apply(setup.plan(self.root, 'attach', self.target, binding_key='task'))
+        self.source_bindings({'code': '../new project'})
+        source = self.folder / 'task.md'
+        original = source.read_bytes()
+        result = setup.apply(setup.plan(self.root, 'attach', self.target, binding_key='task', link_name='code'))
         self.assertTrue(result.success, result.error)
-        self.assertEqual(self.config.read_bytes(), original)
-        self.assertEqual((self.folder / 'repo').resolve(), self.target)
+        self.assertEqual(source.read_bytes(), original)
+        self.assertEqual((self.folder / 'wsp/code').resolve(), self.target)
 
-    def test_scoped_navigation_moves_only_selected_role_for_modules(self):
+    def test_scoped_navigation_updates_only_selected_name_for_modules(self):
         self.target.mkdir()
-        self.configure({'links': {'task': {'repo': str(self.target), 'shlf': 'untouched'}}})
-        (self.folder / 'repo').symlink_to(self.target)
-        (self.folder / 'shlf').symlink_to(self.base / 'elsewhere')
+        self.source_bindings({'code': str(self.target), 'materials': 'untouched'})
+        (self.folder / 'wsp').mkdir()
+        (self.folder / 'wsp/materials').symlink_to(self.base / 'elsewhere')
         module = self.folder / 'mod/child'
         module.mkdir(parents=True)
         (module / 'child.md').write_text('---\nkind: activity\nkey: child\ntitle: Child\n---\n')
-        result = setup.apply(setup.plan(self.root, 'attach', self.target, binding_key='task'))
+        result = setup.apply(setup.plan(self.root, 'attach', self.target, binding_key='task', link_name='code'))
         self.assertTrue(result.success, result.error)
-        self.assertFalse((self.folder / 'repo').is_symlink())
-        self.assertEqual((self.folder / 'wsp/repo').resolve(), self.target)
-        self.assertEqual(os.readlink(self.folder / 'shlf'), str(self.base / 'elsewhere'))
+        self.assertEqual((self.folder / 'wsp/code').resolve(), self.target)
+        self.assertEqual(os.readlink(self.folder / 'wsp/materials'), str(self.base / 'elsewhere'))
+        self.assertFalse((module / 'wsp').exists())
 
     def test_symlink_config_parent_target_and_self_binding_are_rejected(self):
         self.target.symlink_to(self.root, target_is_directory=True)
@@ -267,9 +272,10 @@ class WorkspaceSetupTests(unittest.TestCase):
         (self.root / '.yap').mkdir()
         (self.root / '.yap/cfg').symlink_to(self.base)
         with self.assertRaises(ValueError):
-            setup.plan(self.root, 'attach', self.target, binding_key='task')
+            setup.plan(self.root, 'attach', self.target, binding_key='task', link_name='code')
+        (self.root / '.yap/cfg').unlink()
         with self.assertRaisesRegex(ValueError, 'cycle'):
-            setup.plan(self.root, 'attach', self.root, binding_key='task')
+            setup.plan(self.root, 'attach', self.root, binding_key='task', link_name='code')
 
     def test_invalid_git_choices_fail_before_creation(self):
         for kwargs in [{'branch': '-bad', 'initialize_git': True},

@@ -3,12 +3,11 @@
 from pathlib import Path
 import os
 import shutil
-import json
+from . import workspace_links
 
 
-LINK_ROLES = ('repo', 'shlf', 'zbox')
 # The retired work name remains private; its old configuration is not supported.
-LOCAL_NAMES = (*LINK_ROLES, 'wsp', 'work')
+LOCAL_NAMES = (*workspace_links.LEGACY_NAMES, 'wsp', 'work')
 
 
 def source_files(directory, local_names=LOCAL_NAMES):
@@ -40,63 +39,12 @@ def source_shape(directory, local_names=LOCAL_NAMES):
 
 def link_plan(root):
     """Plan private area/activity locations without loading goals or presentations."""
-    plan, messages = [], []
     from .catalog import discover
-    from .perspectives import real_path
-    root = Path(root).resolve()
-    config = real_path(root, '.yap/cfg/machine.json')
-    settings = json.loads(config.read_text()) if config.exists() else {}
-    if not isinstance(settings, dict) or set(settings) - {'links'} or not isinstance(settings.get('links', {}), dict):
-        raise ValueError('.yap/cfg/machine.json: expected links: {activity: {repo/shlf/zbox: path}}.')
-    entries = {key: entry for key, entry in discover(root).items() if entry['kind'] in {'area', 'activity'}}
-    bindings = settings.get('links', {})
-    unknown = set(bindings) - set(entries)
-    if unknown:
-        raise ValueError('.yap/cfg/machine.json: unknown activities: ' + ', '.join(sorted(unknown)))
-    for key, entry in sorted(entries.items()):
-        roles = bindings.get(key, {})
-        if not isinstance(roles, dict) or set(roles) - set(LINK_ROLES):
-            raise ValueError(f'.yap/cfg/machine.json: links[{key}] allows only repo, shlf and zbox.')
-        folder = entry['folder']
-        workspace = real_path(root, (folder / 'wsp').relative_to(root))
-        if workspace.exists() and not workspace.is_dir():
-            raise ValueError(f'{workspace.relative_to(root)}: expected a workspace directory.')
-        has_modules = any(other['kind'] == 'activity' and folder / 'mod' in other['folder'].parents
-                          for other in entries.values())
-        active, inactive = (workspace, folder) if has_modules else (folder, workspace)
-        for role in LINK_ROLES:
-            link = active / role
-            value = roles.get(role)
-            if role in roles and (not isinstance(value, str) or not value.strip() or '\0' in value):
-                raise ValueError(f'.yap/cfg/machine.json: links[{key}][{role}] requires a nonempty path.')
-            target = None
-            if value:
-                target = Path(value).expanduser()
-                if not target.is_absolute():
-                    target = root / target
-                target = target.absolute()
-                if link.exists() and not link.is_symlink():
-                    raise ValueError(f'{link.relative_to(root)}: already exists and is not a symlink.')
-                if not target.is_dir():
-                    messages.append(f'{key}/{role}: local target unavailable ({value}).')
-            plan.append((link, target))
-            plan.append((inactive / role, None))
-    return plan, messages
+    return workspace_links.plan(root, discover(root))
 
 
 def sync_links(plan):
-    for link, target in plan:
-        if target is None:
-            if link.is_symlink():
-                link.unlink()
-        elif not link.is_symlink() or os.readlink(link) != str(target):
-            if link.is_symlink():
-                link.unlink()
-            link.parent.mkdir(parents=True, exist_ok=True)
-            link.symlink_to(target, target_is_directory=True)
-    for directory in {link.parent for link, _ in plan if link.parent.name == 'wsp'}:
-        if directory.is_dir() and not any(directory.iterdir()):
-            directory.rmdir()
+    workspace_links.sync(plan)
 
 
 def resource_plan(root, model):

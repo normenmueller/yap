@@ -81,8 +81,13 @@ not fetch or select another checkout; a launcher must select it explicitly.
 The shared Python model feeds activity reports, boards, maps and goal views.
 Entry points use the same source interpretation and operations. `pfo` owns facts;
 `pov` owns arrangements. Generated views do not write inferred facts back to either.
-Builds stage output before publishing a successful result. Private local bindings
-belong in instance `.yap/cfg/machine.json`, not public Markdown or branding.
+Builds stage output before publishing a successful result. Activity/area YAML
+`wsp` maps own local workspace bindings. Literal YAML parsing, bounded source
+edits and navigation validation are shared by link reconciliation and workspace
+setup. The explicit migration retires legacy machine bindings; there is no
+permanent override layer. Catalog discovery never follows workspace shortcuts,
+and parsed workspace metadata is removed before public models and caches.
+Instance owners control whether source paths belong in their own Git history.
 
 ## Agent-assisted direction
 

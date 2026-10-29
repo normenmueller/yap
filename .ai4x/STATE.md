@@ -1,4 +1,4 @@
-# Return point — fresh trunk session before #18 preparation
+# Return point — fresh trunk session for #18 worktree handoff
 
 The owner accepted the visible homepage alignment and approved the implementation
 for [#20](https://github.com/normenmueller/yap/issues/20) on October 29, 2026.
@@ -12,11 +12,12 @@ a status greeting reports the observed state and waits; a continuation greeting
 follows the preparation return point below. BEHAVIOR owns their exact behavior.
 
 The owner selected [#18](https://github.com/normenmueller/yap/issues/18) after #20.
-#18 is in Refinement. In the fresh `trunk` session, verify #20's completed cleanup
-and the existing #18 preparation, refine the workspace-map contract and operation
-migration with the owner, and prepare the verified handoff. Then end/delete that
-preparation session and start another fresh session, without resume, in the
-matching `feat/18-named-workspace-links` worktree before implementation.
+#18 is in Refinement. The fresh `trunk` session only verifies the selected Issue,
+base revision, existing issue-linked branch and matching worktree, and records
+the handoff. Then end/delete that preparation session and start another fresh
+session, without resume, in `feat/18-named-workspace-links`. Begin #18's analysis
+and owner refinement of the workspace-map contract and operation migration
+there; agree scope before implementation.
 
 The issue-linked branch and matching worktree already exist; they were prepared
 before the owner clarified the mandatory fresh `trunk` preparation session.

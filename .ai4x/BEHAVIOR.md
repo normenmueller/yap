@@ -42,13 +42,14 @@ Work on one selected Issue at a time. After completion, finish merge, cleanup
 and handoff, then end/delete that session before preparing the next Issue.
 An explicitly agreed interruption also requires a recorded return point and
 this session boundary. Start a fresh Codex CLI session in `trunk`, without resume,
-to verify the current state, refine the next Issue with the owner and prepare its
-issue-linked branch, matching worktree and verified handoff. Verify and reuse
-any existing preparation; do not recreate branches or worktrees blindly.
+only to verify the selected Issue and base revision, create or verify its
+issue-linked branch and matching worktree, and record the verified handoff.
+Reuse existing preparation; do not recreate branches or worktrees blindly.
 
 Then end/delete the `trunk` preparation session and start another fresh session,
-without resume, in the selected `feat/...` or `fix/...` worktree before working
-on its implementation. Preparation does not approve implementation scope.
+without resume, in the selected `feat/...` or `fix/...` worktree. All Issue-specific
+analysis, refinement, decisions, implementation, tests and review belong in that
+Issue's worktree/session. Preparation does not approve implementation scope.
 Verify the session's actual working directory, branch, instructions and write
 scope before continuing; an individual command's working directory does not
 relocate the session. Keep implementation, tests and ignored development evidence

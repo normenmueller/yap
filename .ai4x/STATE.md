@@ -1,17 +1,25 @@
-# Return point — fresh trunk session after #18 completion
+# Return point — resume #3 after #18 completion
 
 The owner approved [PR #22](https://github.com/normenmueller/yap/pull/22) at
 `0c2a7c5` on October 29, 2026. It merged into `trunk` as `13da252`.
 [#18](https://github.com/normenmueller/yap/issues/18) is closed as completed;
-the yap Project marks it Done. No next engineering Issue has been selected.
+the yap Project marks it Done. The owner selected #3 as the next work item.
 
-End/delete the completed feature session. Start a fresh Codex CLI session in
-`trunk`, without resume, and read the entry records. A status greeting reports
-the observed state and waits. A continuation greeting recovers this completion
-state; agree the next selected Issue with the owner before preparation. The
-fresh trunk session only verifies the selection, base and matching issue-linked
-branch/worktree and records its handoff. Then use a separate fresh Issue session.
-BEHAVIOR owns those session boundaries; this closeout starts no further work.
+This fresh `trunk` preparation session verified the existing clean
+`docs/3-architecture` branch and matching worktree at `9284173`; the accepted
+`trunk` baseline was `70552d0` before this handoff. Reuse that worktree and
+preserve draft PR #14 and its review history.
+
+End/delete this preparation session. Start a fresh Codex CLI session, without
+resume, in `docs/3-architecture`. Its first authorized work is to verify and merge
+the then-current `trunk`, including accepted #17, #20 and #18, while preserving
+#3's architecture proposal and return point. Reconcile the current BEHAVIOR rules
+and source-owned workspace contract; do not replace #3's STATE with trunk's
+handoff. Then continue #3's design discussion and agree the first testable
+foundation slice for separately scoped #4. No merge, architecture refinement,
+implementation approval or consumer migration occurred in this preparation.
+A status greeting reports and waits; a continuation greeting follows this return
+point. BEHAVIOR owns the session boundaries.
 
 The approved Python baseline now includes named source-owned YAML `wsp` maps,
 consistent `wsp/NAME` navigation, explicit named create/attach and previewed

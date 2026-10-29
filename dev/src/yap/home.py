@@ -69,7 +69,7 @@ main{display:flex;flex-direction:column;width:100%;max-width:1000px;margin:0 aut
 def _page(current, body):
     return ('<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             + navigation.head(current) + '<style>' + STYLE + navigation.STYLE + footer.STYLE + '</style></head><body class="yap-page">'
-            + navigation.render(current, theme='dark') + '<main>' + body + '</main>'
+            + (navigation.render(current, theme='dark') if current != 'home' else '') + '<main>' + body + '</main>'
             + footer.render(about_href='../../about.html' if current == 'yapics' else 'about.html') + '</body></html>')
 
 
@@ -83,6 +83,33 @@ def _cards(prefix=''):
             '<p>Ziele zeigen die Richtung. Dein Beitrag zählt heute. Doch was bewirkt deine Arbeit für dein Unternehmen? Lies es nach — und nutze die Erkenntnisse, um morgen <span class="insight-emphasis">wirkungsvoller</span> zu arbeiten.</p></a></nav>')
 
 
+
+def _request():
+    """Render display metadata only; no assistant/provider is activated."""
+    assistant = instance.brand('assistant', '').strip()
+    credit = instance.brand('assistant_credit', '').strip()
+    identity = '<span>' + escape(assistant) + '</span>' if assistant else ''
+    if credit:
+        identity += (' · ' if identity else '') + footer._credit(credit, instance.brand('footer_link', None))
+    badge = '<span class="preview-badge">' + identity + '</span>' if identity else ''
+    greeting = ('Hi, ich bin ' + assistant + '.\n' if assistant else '') + product.MOTTO
+    mark = ('<svg class="request-mark" viewBox="0 0 28 28" fill="currentColor" aria-hidden="true" focusable="false">'
+            '<path d="M10 5 12.6 12.4 20 15 12.6 17.6 10 25 7.4 17.6 0 15 7.4 12.4Z"/>'
+            '<path d="m23 0 1.3 3.7L28 5l-3.7 1.3L23 10l-1.3-3.7L18 5l3.7-1.3Z" opacity=".75"/>'
+            '<path d="m24 19 .8 2.2L27 22l-2.2.8L24 25l-.8-2.2L21 22l2.2-.8Z" opacity=".55"/></svg>')
+    portrait = '<img src="' + PORTRAIT.as_posix() + '" alt="" width="44" height="44">' if assistant else mark
+    return ('<section class="ai-preview" aria-label="yapic — Konzeptvorschau">'
+            '<div class="request-heading"><label for="view-request">' + mark
+            + '<span class="request-question">Was in deinem <span class="request-scope">Wirkungsfeld</span> willst Du klarer sehen?</span>'
+            '</label>' + badge + '</div><div class="request-box">'
+            '<textarea id="view-request" rows="2" aria-describedby="request-note" placeholder="'
+            + escape(greeting, quote=True) + '"></textarea>'
+            '<button type="button" disabled aria-label="yapic erstellen (Konzeptvorschau)" '
+            'title="Konzeptvorschau — Erstellung noch ohne Funktion">' + portrait + '</button></div>'
+            '<p class="request-note" id="request-note">Ein <em>yapic</em> verbindet deinen Bedarf mit passenden Perspektiven und '
+            'Darstellungen auf dein Wirkungsfeld — eine Saat für neue Einsichten und klare Orientierung.</p></section>')
+
+
 def _product_logo():
     # Embed unchanged application bytes: instance assets cannot replace this identity.
     data = base64.b64encode((RESOURCE_ASSETS / Path(navigation.LOGO).name).read_bytes()).decode('ascii')
@@ -94,10 +121,10 @@ def render(destination):
     if title.endswith('.'):
         title = title[:-1] + '<span>.</span>'
     tagline = escape(instance.brand('tagline', 'your activity portfolio'))
-    homepage = _page('home', '<p class="eyebrow">' + tagline + '</p><header class="intro"><h1>'
+    homepage = _page('home', '<p class="eyebrow"><a href="views/yapics/index.html" title="Alle yapics öffnen">'
+                     + tagline + '</a></p><header class="intro"><h1>'
                      + title + '</h1><p class="lead">' + product.MISSION + '</p><p class="description">'
-                     + product.DESCRIPTION + '</p><p class="product-motto">'
-                     + product.MOTTO + '</p></header>' + _cards())
+                     + product.DESCRIPTION + '</p></header>' + _request())
     portfolio = _page('yapics', '<header class="portfolio-intro"><h1>yapic Portfolio</h1><p>'
                       + product.COLLECTION + '</p></header>' + _cards('../../'))
     about = _page('about', '<article class="about">' + _product_logo() + product.ABOUT + '</article>')

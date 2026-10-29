@@ -60,6 +60,20 @@ external working directories. Check the command's preview and intended effects
 before applying a write. Moving sources may require repairing relative links;
 `check` diagnoses invalid references.
 
+The homepage opens with the portfolio heading and an assistant request-panel
+preview. The linked heading and the introduction's yapic link open the existing
+Activity/Performance collection. The request field does not submit or save text;
+its creation button remains disabled. Assistant display text does not configure
+or activate a provider.
+
+Optional `branding.assistant` supplies the displayed assistant name. Optional
+`branding.assistant_credit` supplies an explicit display credit; when it contains
+the configured `branding.footer_link.text` once, the existing safe credit-link
+rules apply. Neither identity nor credit is inferred for an unconfigured instance.
+For example, `"assistant": "Example helper"` and
+`"assistant_credit": "by Example team"` are ordinary branding text, not a care
+relationship or executable integration.
+
 The retained interface currently uses German labels. Authored text retains its
 language independently of future interface localization. Generated views and
 work traces do not themselves prove goal achievement. Record measurements only

@@ -38,15 +38,21 @@ identical and match new worktree paths to the branch, preserving existing PR and
 review history. Use Git for history, not backup folders. Preserve assignees and
 owner order; relocated issues are not evidence of delivered functionality.
 
-Treat a change of the selected implementation worktree as a session boundary.
-The current session may prepare the issue-linked branch, matching worktree and
-verified handoff, then must stop before implementation. The owner ends/deletes
-that session and starts a fresh session in the selected worktree. Verify its
-actual working directory, branch, instructions and write scope before continuing;
-an individual command's working directory does not relocate the session.
-Keep implementation, tests and ignored development evidence in that worktree.
-Work on one selected Issue at a time; queued work starts only after completion
-or an explicitly agreed interruption and its own worktree/session handoff.
+Work on one selected Issue at a time. After completion, finish merge, cleanup
+and handoff, then end/delete that session before preparing the next Issue.
+An explicitly agreed interruption also requires a recorded return point and
+this session boundary. Start a fresh Codex CLI session in `trunk`, without resume,
+to verify the current state, refine the next Issue with the owner and prepare its
+issue-linked branch, matching worktree and verified handoff. Verify and reuse
+any existing preparation; do not recreate branches or worktrees blindly.
+
+Then end/delete the `trunk` preparation session and start another fresh session,
+without resume, in the selected `feat/...` or `fix/...` worktree before working
+on its implementation. Preparation does not approve implementation scope.
+Verify the session's actual working directory, branch, instructions and write
+scope before continuing; an individual command's working directory does not
+relocate the session. Keep implementation, tests and ignored development evidence
+in that worktree. Ordinary greetings follow these same boundaries.
 
 After a verified successful merge, delete the completed feature branch locally
 and remotely. Remove its worktree after preserving ignored/private material and

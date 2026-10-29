@@ -1,4 +1,4 @@
-# Return point — #20 complete; #18 scope refinement next
+# Return point — fresh trunk session before #18 preparation
 
 The owner accepted the visible homepage alignment and approved the implementation
 for [#20](https://github.com/normenmueller/yap/issues/20) on October 29, 2026.
@@ -6,17 +6,23 @@ for [#20](https://github.com/normenmueller/yap/issues/20) on October 29, 2026.
 and merged into `trunk` as `cf461b0`. #20 is closed as completed and the
 [yap Project](https://github.com/users/normenmueller/projects/5) marks it Done.
 
-End/delete the completed Fix session after cleanup. Start a fresh session in
-the prepared `feat/18-named-workspace-links` worktree beside `trunk`.
-Read the entry records and verify the actual checkout and write scope there.
-The return point is owner refinement of #18's map contract and operation migration,
-not implementation approval. BEHAVIOR owns the session boundary.
+End/delete the completed Fix session. Start a fresh Codex CLI session in `trunk`,
+without resume, and read the entry records. Both ordinary greetings work there:
+a status greeting reports the observed state and waits; a continuation greeting
+follows the preparation return point below. BEHAVIOR owns their exact behavior.
 
-The owner selected one Issue at a time: #20 first, then
-[#18](https://github.com/normenmueller/yap/issues/18). With #20 complete, #18
-enters Refinement on `feat/18-named-workspace-links`, with a matching worktree
-prepared for a fresh session. No implementation or user-data migration has
-started. Agree its workspace-map contract and migration before coding.
+The owner selected [#18](https://github.com/normenmueller/yap/issues/18) after #20.
+#18 is in Refinement. In the fresh `trunk` session, verify #20's completed cleanup
+and the existing #18 preparation, refine the workspace-map contract and operation
+migration with the owner, and prepare the verified handoff. Then end/delete that
+preparation session and start another fresh session, without resume, in the
+matching `feat/18-named-workspace-links` worktree before implementation.
+
+The issue-linked branch and matching worktree already exist; they were prepared
+before the owner clarified the mandatory fresh `trunk` preparation session.
+Preserve and verify them rather than creating duplicates. No implementation or
+user-data migration has started. Agree scope before coding; neither greeting nor
+an existing branch grants implementation approval.
 
 `trunk` includes #20 / merged PR #21, #17 / merged PR #19, #15 / merged
 PR #16 and #1 / merged PR #2 as the accepted Python application baseline.
@@ -46,13 +52,15 @@ synthetic report built; homepage, collection and About links/assets resolve.
 These are implementation checks, not GitHub approval or consumer integration.
 No independent implementation review is claimed.
 
-The previous session created the Fix worktree but continued from a session rooted
-in `trunk`. Its 134 local review files were subsequently moved unchanged into
-that Fix worktree's ignored `.yap/local/`, with SHA-256 inventory comparison;
-17 homepage/collection/About links and assets were checked after relocation.
+The original implementation session created the Fix worktree but continued from
+`trunk`; its local review evidence was subsequently relocated into that worktree.
+After the approved merge, the Fix branch was deleted locally and remotely and
+its clean worktree was removed. All 140 ignored files were preserved under
+`trunk`'s ignored local development evidence with matching SHA-256 inventories;
+17 active homepage/collection/About links and assets passed after relocation.
 Optional ignored `.yap/cfg/session.md` supplies exact local review navigation.
-The owner approved the session-boundary correction; this closeout changes
-engineering records only and adds no runtime work.
+The current session-flow correction changes engineering records only and adds
+no runtime work or #18 implementation.
 
 #17's accepted implementation was `d9c721e`, merged as `ce721ff` through PR #19.
 #15 was accepted at `a3c7f09`, merged as `f8d2d3b` through PR #16. Their Issues

@@ -7,6 +7,7 @@ import re
 
 from . import palette, kr_activities, work_progress
 from .publication_links import activity_pdf, objective_pdf
+from .source_values import canonical_date
 
 
 def parse(fields, nodes, where):
@@ -24,10 +25,7 @@ def parse(fields, nodes, where):
             if not row[key]:
                 raise ValueError(f'{where}: {key} must not be empty.')
     if 'deadline' in row:
-        try:
-            date.fromisoformat(row['deadline'])
-        except ValueError:
-            raise ValueError(f'{where}: deadline requires a date in YYYY-MM-DD format.') from None
+        canonical_date(row['deadline'], f'{where}: deadline')
     for key in ('target', 'current', 'previous'):
         if key not in fields and key != 'target':
             continue

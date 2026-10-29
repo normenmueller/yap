@@ -23,6 +23,23 @@ def selected(path):
 
 
 class InstanceBoundaryTests(unittest.TestCase):
+    def test_manifest_schema_requires_the_integer_version_without_rewriting(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'yap.json'
+            for schema in (True, False, 1.0, '1', None, [], {}, 2):
+                with self.subTest(schema=schema):
+                    path.write_text(json.dumps({'schema': schema, 'slug': 'portfolio'}))
+                    before = path.read_bytes()
+                    with self.assertRaisesRegex(ValueError, 'schema 1'):
+                        instance.manifest(root)
+                    self.assertEqual(path.read_bytes(), before)
+            value = {'schema': 1, 'slug': 'portfolio'}
+            path.write_text(json.dumps(value))
+            before = path.read_bytes()
+            self.assertEqual(instance.manifest(root), value)
+            self.assertEqual(path.read_bytes(), before)
+
     def test_external_empty_instance_checks_without_embedded_application(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()

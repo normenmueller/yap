@@ -1,8 +1,8 @@
 # yap — your activity portfolio
 
 Reusable portfolio rendering and local operations, separated from instance data.
-This candidate retains the accepted Python implementation; the planned TypeScript
-replacement and guided onboarding are separate work.
+Python remains the application core until further notice. Guided onboarding and
+saved generic yapic definitions remain separate product work.
 
 Run from this application checkout:
 
@@ -17,6 +17,10 @@ PYTHONPATH="$PWD/dev/src" python3 -B -m yap --instance /absolute/path/to/portfol
 `open` validates the selected application pin, builds the portfolio and opens its
 instance homepage. A declared `application.revision` requires the exact clean Git
 checkout; private application-path discovery belongs to the instance launcher.
+
+The runtime uses Python 3.10-or-later syntax and POSIX facilities, including
+`fcntl`. Execution has been validated on Python 3.15.2; a broader Python-version
+or Windows compatibility matrix has not been established.
 
 The existing Pandoc, LaTeX, PDF utilities and Chromium-family browser are required
 for full reports. Application code and templates stay here; authored portfolio data,
@@ -38,6 +42,26 @@ in `.yap/local/`.
 
 Run regression tests with `make test`. The CLI supports one selected local instance
 per process; it retains the baseline process working-directory model.
+
+<details>
+<summary>Development checks</summary>
+
+In the activated virtual environment, install the development requirements:
+
+```sh
+python3 -m pip install -r requirements-dev.txt
+make typecheck
+make test
+```
+
+`requirements-dev.txt` includes runtime dependencies and pins mypy 2.4.0.
+The strict type gate covers `outputs.py`, `source_values.py` and positive/negative
+contract fixtures. The remaining application modules are not statically checked
+by this gate. Passing checks apply to their inspected scope; they do not certify
+the entire codebase or approve an implementation. See the
+[Python engineering design](doc/architecture-engineering.md).
+
+</details>
 
 ## License
 

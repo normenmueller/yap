@@ -10,7 +10,8 @@ def manifest(root=None):
     if not path.is_file():
         return {}
     value = json.loads(path.read_text())
-    if not isinstance(value, dict) or value.get('schema') != 1:
+    if (not isinstance(value, dict) or type(value.get('schema')) is not int
+            or value['schema'] != 1):
         raise ValueError('yap.json: expected an object with schema 1.')
     if not isinstance(value.get('slug'), str) or not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9_-]*', value['slug']):
         raise ValueError('yap.json: slug must be a simple file name.')

@@ -10,17 +10,23 @@ import tempfile
 
 from . import palette
 from .publication_links import activity_pdf
+from .source_values import canonical_date
 
 PREVIEW = '.yap/cfg/progress-preview.json'
 WEEKDAYS = ('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun')
 
 
+def _window_end(value: object, where: str) -> date:
+    end = canonical_date(value, where)
+    if end < date.min + timedelta(days=6):
+        raise ValueError(f'{where}: a seven-day preview requires an end date on or after 0001-01-07.')
+    return end
+
+
 def refresh_date(root, value, *, apply=False):
     """Explicitly re-date the illustrative scene; dry run unless requested."""
     from . import content
-    end = date.fromisoformat(value)
-    if value != end.isoformat():
-        raise ValueError('Use YYYY-MM-DD for the demo date.')
+    end = _window_end(value, 'Demo date')
     model = content.load(Path(root))  # Includes fixture/domain validation before any write.
     data = deepcopy(model.get('work_preview'))
     if data is None:
@@ -62,7 +68,7 @@ def load_preview(root, nodes, key_results=None):
     data = json.loads(path.read_text())
     if not isinstance(data, dict) or set(data) - {'provenance', 'as_of', 'quips', 'results'} or not {'provenance', 'as_of', 'quips'} <= set(data) or data['provenance'] != 'illustrative-not-collected':
         raise ValueError(PREVIEW + ': expected explicitly illustrative provenance, as_of and quips.')
-    end = date.fromisoformat(data['as_of'])
+    end = _window_end(data['as_of'], PREVIEW + ': as_of')
     known, seen = {n['key'] for n in nodes}, set()
     if not isinstance(data['quips'], list):
         raise ValueError(PREVIEW + ': quips must be a list.')
@@ -70,12 +76,13 @@ def load_preview(root, nodes, key_results=None):
         required = {'id', 'activity', 'date', 'kind', 'title'}
         if not isinstance(row, dict) or not required <= set(row) or set(row) - required - {'weekday'} or any(not isinstance(v, str) or not v.strip() for v in row.values()):
             raise ValueError(PREVIEW + ': each quip needs id, activity, date, kind and title.')
+        day = canonical_date(row['date'], PREVIEW + f': quip {row["id"]} date')
         if 'weekday' in row and (row['weekday'] not in WEEKDAYS or
-                                WEEKDAYS[date.fromisoformat(row['date']).weekday()] != row['weekday']):
+                                WEEKDAYS[day.weekday()] != row['weekday']):
             raise ValueError(PREVIEW + ': weekday must match the quip date (mon–sun).')
         if row['id'] in seen or row['activity'] not in known:
             raise ValueError(PREVIEW + ': duplicate quip ID or unknown activity.')
-        if not end - timedelta(days=6) <= date.fromisoformat(row['date']) <= end:
+        if not end - timedelta(days=6) <= day <= end:
             raise ValueError(PREVIEW + ': quip date must fall within the seven-day window ending at as_of.')
         seen.add(row['id'])
     results = data.get('results', {})

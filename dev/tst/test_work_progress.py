@@ -182,3 +182,75 @@ class WorkProgressTests(unittest.TestCase):
                 path.write_text(json.dumps(bad))
                 with self.assertRaises(ValueError):
                     work_progress.load_preview(root,self.model['nodes'])
+
+    def test_preview_rejects_noncanonical_and_mistyped_dates_without_rewriting(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            path = root / work_progress.PREVIEW
+            path.parent.mkdir(parents=True)
+            for field, values in (
+                ('as_of', (None, True, 20261013, [], {}, '20261013', '2026-W42-2')),
+                ('date', (None, True, 20261012, [], {}, '20261012', '2026-W42-1')),
+            ):
+                for value in values:
+                    with self.subTest(field=field, value=value):
+                        data = deepcopy(self.model['work_preview'])
+                        target = data if field == 'as_of' else data['quips'][0]
+                        target[field] = value
+                        path.write_text(json.dumps(data))
+                        before = path.read_bytes()
+                        with self.assertRaises(ValueError):
+                            work_progress.load_preview(root, self.model['nodes'])
+                        self.assertEqual(path.read_bytes(), before)
+            data = self.model['work_preview']
+            path.write_text(json.dumps(data))
+            before = path.read_bytes()
+            self.assertEqual(work_progress.load_preview(root, self.model['nodes']), data)
+            self.assertEqual(path.read_bytes(), before)
+
+    def test_empty_preview_window_stays_within_the_supported_calendar(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            path = root / work_progress.PREVIEW
+            path.parent.mkdir(parents=True)
+            data = dict(self.model['work_preview'], quips=[])
+            for day in range(1, 7):
+                with self.subTest(day=day):
+                    data['as_of'] = f'0001-01-{day:02}'
+                    path.write_text(json.dumps(data))
+                    before = path.read_bytes()
+                    with self.assertRaisesRegex(ValueError, 'as_of.*seven-day preview'):
+                        work_progress.load_preview(root, self.model['nodes'])
+                    self.assertEqual(path.read_bytes(), before)
+            data['as_of'] = '0001-01-07'
+            path.write_text(json.dumps(data))
+            before = path.read_bytes()
+            loaded = work_progress.load_preview(root, self.model['nodes'])
+            self.assertEqual(loaded, data)
+            scene = work_progress.project(dict(self.model, work_preview=loaded))
+            self.assertEqual((scene['days'][0], scene['days'][-1]),
+                             ('0001-01-01', '0001-01-07'))
+            self.assertEqual(scene['total'], 0)
+            self.assertEqual(path.read_bytes(), before)
+
+    def test_refresh_rejects_an_incomplete_calendar_window_before_writing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            path = root / work_progress.PREVIEW
+            path.parent.mkdir(parents=True)
+            model = deepcopy(self.model)
+            model['work_preview']['quips'] = []
+            path.write_text(json.dumps(model['work_preview']))
+            before = path.read_bytes()
+            for day in range(1, 7):
+                with self.subTest(day=day), patch('yap.content.load') as load:
+                    with self.assertRaisesRegex(ValueError, 'Demo date.*seven-day preview'):
+                        work_progress.refresh_date(root, f'0001-01-{day:02}', apply=True)
+                    load.assert_not_called()
+                    self.assertEqual(path.read_bytes(), before)
+            with patch('yap.content.load', return_value=model):
+                work_progress.refresh_date(root, '0001-01-07', apply=True)
+            updated = work_progress.load_preview(root, self.model['nodes'])
+            self.assertEqual(updated['as_of'], '0001-01-07')
+            self.assertEqual(updated['quips'], [])
+            self.assertEqual(model['work_preview']['as_of'], '2026-10-13')

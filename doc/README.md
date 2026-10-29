@@ -28,8 +28,14 @@ paths literally, without Markdown formatting). `check` validates sources.
 `open` builds the selected portfolio and opens its
 homepage. `all` builds the full output; `report` builds reports. Full report
 generation requires Pandoc, LaTeX with `latexmk`, PDF utilities and a supported
-Chromium-family browser. Python is the current runtime; the proposed TypeScript
-replacement and guided instance-creation wizard are not delivered here.
+Chromium-family browser. Python remains the application core until further notice;
+the guided instance-creation wizard and saved generic yapic definitions remain
+undelivered product work.
+
+The runtime uses Python 3.10-or-later syntax and POSIX facilities, including
+`fcntl`. Python 3.15.2 has been validated; other Python versions and Windows do
+not yet have a verified compatibility matrix. Development setup and bounded
+type checking are described in the [application README](../README.md).
 
 Aspiration sources default to `pfo/asp`. Existing instances using `pfo/okr` need a
 manual move or an explicit `sources.aspirations` setting before using this revision;

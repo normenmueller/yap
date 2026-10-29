@@ -107,6 +107,7 @@ def capture(root, title):
 
 def target_path(entries, target):
     if (not isinstance(target, dict) or set(target) - {'entry', 'path'}
+            or not isinstance(target.get('entry'), str)
             or target.get('entry') not in entries):
         raise ValueError(f'Unknown canonical target: {target!r}')
     entry = entries[target['entry']]
@@ -214,7 +215,8 @@ def literal(items):
 
 
 def validate(definition, entries):
-    if (not isinstance(definition, dict) or definition.get('schema') != 1
+    if (not isinstance(definition, dict) or type(definition.get('schema')) is not int
+            or definition['schema'] != 1
             or set(definition) - {'schema', 'title', 'entries', 'presentation'}
             or not isinstance(definition.get('title'), str)):
         raise ValueError('Expected schema 1 perspective with title and entries')

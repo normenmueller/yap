@@ -2,6 +2,7 @@
 
 from fixtures import source_text
 
+import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -53,6 +54,24 @@ class KeyResultFilesTests(unittest.TestCase):
         self.write('pfo/asp/obj/a/two.md', self.kr)
         with self.assertRaisesRegex(ValueError, r'a/two.md: duplicate KR key'):
             self.load()
+
+    def test_deadline_requires_canonical_calendar_spelling_and_preserves_sources(self):
+        path = self.write('pfo/asp/obj/a/result.md', self.kr)
+        for deadline in ('20261029', '2026-W44-4', '2026-02-29'):
+            with self.subTest(deadline=deadline):
+                path.write_text(self.kr.replace('key: result',
+                    'key: result\ndeadline: ' + json.dumps(deadline)))
+                before = path.read_bytes()
+                with self.assertRaisesRegex(ValueError, r'a/result.md: deadline.*YYYY-MM-DD'):
+                    self.load()
+                self.assertEqual(path.read_bytes(), before)
+        for deadline in ('2024-02-29', '2026-10-29'):
+            with self.subTest(deadline=deadline):
+                path.write_text(self.kr.replace('key: result',
+                    'key: result\ndeadline: ' + json.dumps(deadline)))
+                before = path.read_bytes()
+                self.assertEqual(self.load()['key_results']['a'][0]['deadline'], deadline)
+                self.assertEqual(path.read_bytes(), before)
 
     def test_order_rejects_stale_duplicate_empty_and_structured_entries(self):
         self.write('pfo/asp/obj/a/result.md', self.kr)

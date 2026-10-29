@@ -294,6 +294,23 @@ class PerspectiveTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'duplicate entry key'):
             p.catalog(self.root)
 
+    def test_schema_requires_the_integer_version_and_targets_require_text(self):
+        saved = self.save()
+        entries = p.catalog(self.root)
+        before = self.definition().read_bytes()
+        for schema in (True, False, 1.0, '1', None, [], {}, 2):
+            with self.subTest(schema=schema), self.assertRaisesRegex(ValueError, 'schema 1'):
+                p.validate(dict(saved, schema=schema), entries)
+        p.validate(saved, entries)
+        for key in ([], {}, None, True, 1):
+            invalid = json.loads(p.encode(saved))
+            invalid['entries'][0]['target']['entry'] = key
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, 'Unknown canonical target'):
+                p.validate(invalid, entries)
+        self.assertEqual(p.target_path(entries, {'entry': 'alpha'}),
+                         self.root / 'pfo/act/alpha')
+        self.assertEqual(self.definition().read_bytes(), before)
+
     def test_symlink_control_files_and_parent_directories_are_rejected(self):
         target = self.root / 'pfo/act/alpha/alpha.md'
         self.definition().symlink_to(target)

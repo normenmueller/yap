@@ -4,6 +4,7 @@ from pathlib import Path
 import os
 import shutil
 from . import workspace_links
+from .outputs import publish as publish
 
 
 # The retired work name remains private; its old configuration is not supported.
@@ -37,10 +38,10 @@ def source_shape(directory, local_names=LOCAL_NAMES):
     return sorted(result)
 
 
-def link_plan(root):
+def link_plan(root, entries=None):
     """Plan private area/activity locations without loading goals or presentations."""
     from .catalog import discover
-    return workspace_links.plan(root, discover(root))
+    return workspace_links.plan(root, discover(root) if entries is None else entries)
 
 
 def sync_links(plan):
@@ -80,21 +81,3 @@ def copy_resources(plan, stage):
         target = stage / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(source, target)
-
-
-def publish(stage, destination):
-    """Reconcile the generated site only after selected renderers succeeded."""
-    expected = {path.relative_to(stage) for path in stage.rglob('*') if path.is_file()}
-    destination.mkdir(exist_ok=True)
-    for relative in sorted(expected):
-        source, target = stage / relative, destination / relative
-        target.parent.mkdir(parents=True, exist_ok=True)
-        if not target.exists() or target.read_bytes() != source.read_bytes():
-            temporary = target.with_name('.' + target.name + '.tmp')
-            shutil.copyfile(source, temporary)
-            temporary.replace(target)
-    for path in sorted(destination.rglob('*'), key=lambda p: len(p.parts), reverse=True):
-        if path.is_file() and path.relative_to(destination) not in expected:
-            path.unlink()
-        elif path.is_dir() and not any(path.iterdir()):
-            path.rmdir()

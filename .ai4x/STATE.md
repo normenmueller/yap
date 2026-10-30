@@ -1,4 +1,4 @@
-# Return point — Issue #27 implemented; owner review next
+# Return point — Issue #27 owner review; vertical spacing comparison next
 
 The owner accepted the final quiet-flow design and explicitly authorized its
 implementation in [#27](https://github.com/normenmueller/yap/issues/27).
@@ -7,7 +7,17 @@ existing [PR #28](https://github.com/normenmueller/yap/pull/28). The earlier
 placement-only delivery was superseded during owner-led visual refinement.
 Design approval does not accept this implementation or authorize merge.
 
-Next: support the owner's PR implementation review and wait for feedback.
+During implementation review the owner found the composition too top-oriented
+on a tall window and requested UX advice, possibly moving the personal question
+lower. Local comparisons retain all content and behavior: the current 38px request
+gap; an 80px gap with the header unchanged; or the whole block 64px lower with a
+56px gap. The UX recommendation favors the 80px gap, with compact spacing on
+narrow/short windows. These are proposals only; no spacing change is selected or
+implemented. Application revision and valid delivery evidence below are unchanged.
+
+Next: compare the spacing proposals with the owner, then follow the explicit
+choice within #27 or continue implementation review. Do not infer a selection
+or result acceptance from the UX recommendation.
 The Issue owns scope/next action; the
 [application Project](https://github.com/users/normenmueller/projects/5) owns live
 status/order. Verify both on recovery. GitHub Approve on the delivered PR

@@ -1,85 +1,58 @@
-# Return point — Issue #27 reviewing the explanation overlay
+# Return point — Issue #27 implemented; owner review next
 
-The original placement scope of [#27](https://github.com/normenmueller/yap/issues/27)
-was implemented as `5ec0872` and delivered in
-[PR #28](https://github.com/normenmueller/yap/pull/28), but the owner has not
-accepted the live composition. The Issue remains in visual refinement.
+The owner accepted the final quiet-flow design and explicitly authorized its
+implementation in [#27](https://github.com/normenmueller/yap/issues/27).
+Implementation `a8b4cac` on `fix/27-yapic-explanation` is delivered through the
+existing [PR #28](https://github.com/normenmueller/yap/pull/28). The earlier
+placement-only delivery was superseded during owner-led visual refinement.
+Design approval does not accept this implementation or authorize merge.
 
-Keep “Vorhaben bewegen. Wirkung sichtbar machen.” and, below the input,
-“Dein Bedarf gibt die Richtung vor.” exactly. The owner now requests the entire
-visible content block centered horizontally as one unit. The current prototype
-keeps its internal text left-aligned and its input aligned to the mission's end.
-The definition and linked yapics sentence form one paragraph without a forced
-break; the yapics link is explicitly underlined. The owner requested tighter
-intro leading; the prototype now uses 1.5 line height. The inline trigger is only
-“yapic?” after “Orientierung.”, with the pointer cue retained and no trailing arrow.
-The owner rejected the plain expanded paragraph and supplied longer explanatory
-copy, recorded verbatim in #27. The latest local proposal presents it in three
-paragraphs inside a Need-inspired bubble with a fine lavender edge, pointer tip
-and restrained seed motif. The owner now requests an overlay over the following
-elements, replacing the earlier in-flow behavior: question, input, closing line
-and footer stay in place. The latest local proposal uses an opaque positioned
-bubble, dismissed by trigger, Escape, outside click or focus moving to another
-control. The treatment remains a design proposal awaiting review.
-
-The owner requested the display footer “Curated by ai4X. Focused with yap.”,
-with ai4X linking to the exact public target recorded in #27, in the same purple
-as yap and underlined. The discreet “to yap ≈ quasseln” help remains. This is
-requested display copy, not new integration/curation authority; application
-implementation must preserve existing About navigation.
-
-Native vertical resizing through the textarea's lower-right grip remains the
-selected local interaction; the rejected enlarge arrow/dialog is not restored.
-The same draft, collection links and two fixed lines are preserved. Earlier
-comparison concepts are superseded as the active return point.
-
-Next: review the updated local composition/copy with the owner, then refine and
-obtain approval of the changed application implementation scope. These ignored
-visual proposals do not accept the original PR or deliver an application replacement.
-Application code and consumer revisions are unchanged by this exploration.
-The Issue owns scope/next action; the [application Project](https://github.com/users/normenmueller/projects/5)
-owns live status/order. Verify both on recovery. Acceptance and merge remain
-pending; do not merge from the original scope approval or start another Issue.
-BEHAVIOR owns review, merge, cleanup and session boundaries. Existing holds and
-deferrals remain effective.
+Next: support the owner's PR implementation review and wait for feedback.
+The Issue owns scope/next action; the
+[application Project](https://github.com/users/normenmueller/projects/5) owns live
+status/order. Verify both on recovery. GitHub Approve on the delivered PR
+authorizes merge after required checks. Do not start another Issue or change
+a consumer revision during review. BEHAVIOR owns merge, cleanup and the session
+boundary; existing holds and deferrals remain effective.
 
 <details>
-<summary>Issue #27 implementation, verification and limits</summary>
+<summary>Issue #27 delivery, verification and limits</summary>
 
-The actual issue worktree, branch, instructions and write scope were verified.
-Preparation commit `dacf295` was present locally and on both remote `trunk` and
-`fix/27-yapic-explanation`; the issue session started from this handoff.
-The owner's scope approval was recorded in #27 and only its Project status was
-advanced through Ready to In progress. Assignees, other item states/order and
-existing holds/deferrals are preserved.
+The application now renders the centered quiet-flow layout, continuous tighter
+introduction with underlined collection link, arrowless native yapic disclosure,
+exact authored definition in a styled overlay, and native textarea resizing.
+Mission and closing copy are retained. UI-only JavaScript adds the floating
+bubble/tip and outside-click, Escape and focus dismissal. Without JavaScript,
+the native disclosure opens readably in page flow. Creation remains inactive;
+there is no new provider execution, draft persistence or instance migration.
 
-At implementation `5ec0872`, all 317 regressions passed: 316 in the full suite,
-with the sole sandbox-blocked Chrome startup test passing in an isolated rerun
-with browser access. The pinned mypy 2.4.0 gate passed its four declared files and
-rejected six invalid calls; `home.py` remains outside that gate. The independent
-source reviewer reran all nine branding checks, the browser matrix and portable
-output/preservation checks and found no actionable findings. These checks do not
-establish owner acceptance.
+Existing explicit branding owns assistant identity and footer credits. The
+selected synthetic preview configures the approved display values; unconfigured
+instances acquire no curation identity. The homepage credit formatting, word
+help and real About anchor preserve the generic boundary. The guide owns editing
+instructions. Independent source review resolved and rechecked custom-title
+alignment and long-credit wrapping findings, including narrow/enlarged text.
+
+All 319 regression tests passed at `a8b4cac`; scoped browser/publication evidence
+is recorded in #27/PR #28. The existing pinned mypy 2.4.0 gate passed four
+declared files and rejected six invalid calls; homepage/footer modules remain
+outside that gate. JavaScript syntax and diff checks passed.
+
+Twenty isolated Chrome layout/mode cases cover desktop/mobile widths, 16/32px
+root fonts, normal/short windows and scripts on/off. Native keyboard disclosure,
+CSS-owned centering/mission width, no-shift overlay and no-script flow fallback
+passed. Real root-entry checks cover native dragging, preserved text/Enter,
+outside-click/Tab dismissal, word help and actual About/collection navigation.
+Desktop/mobile closed/open screenshots were inspected. This is scoped local
+evidence, not whole-codebase typing or cross-browser/device certification.
 
 The real synthetic CLI report generated 25 site files, including five PDFs.
-An unchanged repeat and the public CLI export rebuilt no outputs. Complete site
-and export SHA-256 inventories matched. The exact explanation occurs once, after
-the introduction and before the request section, in site, root entry and export.
-All 237 inspected local href/src paths resolved (path existence, not fragment
-validation). Seven authored/configuration/unsaved files retained matching SHA-256;
-the synthetic private marker was absent from published files.
-
-An isolated Chrome comparison verified unchanged computed font size, color, line
-height, italic emphasis and text against the baseline. Twelve layout combinations
-covered 1200/390/320px widths, 16/32px root fonts and normal/240px window heights:
-paragraph/section spacing, wrapping, scrolling, no horizontal document overflow or
-footer overlap. Native keyboard focus and Enter navigation to the collection passed;
-six desktop/mobile/enlarged-text screenshots were visually inspected. The preview
-remains a disabled creation button without form/script submission. The browser
-fixture uses the default product heading and synthetic display branding. A long
-custom heading already overflowed the unchanged baseline at enlarged text sizes;
-this bounded change does not claim arbitrary branding layout support or a general
-accessibility audit. Browser/CLI evidence remains ignored in this worktree.
+An unchanged repeat/export rebuilt no outputs; full site/export SHA-256 inventories
+match. Seven authored/configuration/unsaved files were preserved. All 237 local
+href/src paths exist (fragments unchecked); the private fixture marker is absent
+from publication, model JSON and extracted PDF text. Evidence and selected preview
+configuration remain ignored in this worktree. No real instance or consumer
+revision changed. Accepted delivery/cleanup histories below are unchanged.
 
 </details>
 

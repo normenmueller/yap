@@ -15,8 +15,11 @@ class HomeTests(unittest.TestCase):
             root = Path(directory)
             page = root / 'site/example.html'
             for title in ('yap.', 'Example portfolio.'):
+                branding = {'title': title, 'tagline': 'An explicitly selected activity portfolio'}
+                if title != 'yap.':
+                    branding['assistant_credit'] = 'https://example.org/' + 'long-fragment-' * 15
                 (root / 'yap.json').write_text(json.dumps({'schema': 1, 'slug': 'example',
-                    'branding': {'title': title, 'tagline': 'An explicitly selected activity portfolio'}}))
+                                                       'branding': branding}))
                 previous = Path.cwd()
                 try:
                     os.chdir(root)

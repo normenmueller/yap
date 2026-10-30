@@ -1,4 +1,4 @@
-# Return point — Issue #27 refining centered quiet flow and inline help
+# Return point — Issue #27 refining the explanation bubble and copy
 
 The original placement scope of [#27](https://github.com/normenmueller/yap/issues/27)
 was implemented as `5ec0872` and delivered in
@@ -10,9 +10,14 @@ Keep “Vorhaben bewegen. Wirkung sichtbar machen.” and, below the input,
 visible content block centered horizontally as one unit. The current prototype
 keeps its internal text left-aligned and its input aligned to the mission's end.
 The definition and linked yapics sentence form one paragraph without a forced
-break; the yapics link is explicitly underlined. A small inline “yapic? >” control
-immediately after “Orientierung.” replaces the separate disclosure prompt.
-It expands the perspective explanation without leaving the page.
+break; the yapics link is explicitly underlined. The owner requested tighter
+intro leading; the prototype now uses 1.5 line height. The inline trigger is only
+“yapic?” after “Orientierung.”, with the pointer cue retained and no trailing arrow.
+The owner rejected the plain expanded paragraph and supplied longer explanatory
+copy, recorded verbatim in #27. The latest local proposal presents it in three
+paragraphs inside a Need-inspired bubble with a fine lavender edge, pointer tip
+and restrained seed motif. It expands in document flow; Escape or the trigger
+closes it. The bubble treatment is a design proposal awaiting review.
 
 The owner requested the display footer “Curated by ai4X. Focused with yap.”,
 with ai4X linking to the exact public target recorded in #27, in the same purple

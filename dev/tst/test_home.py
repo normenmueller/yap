@@ -16,8 +16,11 @@ class HomeTests(unittest.TestCase):
             page = root / 'site/example.html'
             for title in ('yap.', 'Example portfolio.'):
                 branding = {'title': title, 'tagline': 'An explicitly selected activity portfolio'}
-                if title != 'yap.':
-                    branding['assistant_credit'] = 'https://example.org/' + 'long-fragment-' * 15
+                if title == 'yap.':
+                    branding.update(assistant='Example helper', assistant_credit='by Example team',
+                                    footer='Curated by Example.')
+                else:
+                    branding['assistant'] = 'Example helper ' + 'long-name-' * 15
                 (root / 'yap.json').write_text(json.dumps({'schema': 1, 'slug': 'example',
                                                        'branding': branding}))
                 previous = Path.cwd()

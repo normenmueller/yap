@@ -60,7 +60,7 @@ h1{margin:0;font-size:clamp(5rem,13vw,8.5rem);line-height:1;letter-spacing:-.08e
 .lead{width:max-content;max-width:100%;font-size:1.75rem;line-height:1.35;margin:var(--home-mission-gap,25px) 0 0;letter-spacing:-.035em;font-weight:500}
 .home-description{contain:inline-size;position:relative;min-width:0;margin-top:6px;color:var(--muted);font-size:1rem;line-height:1.5;overflow-wrap:anywhere}.description{display:inline;margin:0}.yapic-explanation{display:inline}.yapic-explanation summary{display:inline;padding:0;font-size:.85em;white-space:nowrap;list-style:none;cursor:pointer}.yapic-explanation summary::-webkit-details-marker{display:none}.yapic-explanation summary:hover,.yapic-explanation[open] summary{color:@namBrand}
 .definition-bubble{--bubble-line:color-mix(in srgb,@namBrand 38%,var(--line));position:relative;margin:16px 0 0;padding:22px 24px;border:1px solid var(--bubble-line);border-radius:14px;background:@namPanel;box-shadow:0 12px 30px #00000044;color:var(--muted);font-size:.875rem;line-height:1.8}.home-enhanced .definition-bubble{position:absolute;z-index:10;top:calc(100% + 16px);left:0;width:100%;margin:0}.definition-bubble::before{content:"";position:absolute;top:-6px;left:var(--tip-left,22%);width:10px;height:10px;transform:translateX(-50%) rotate(45deg);border-left:1px solid var(--bubble-line);border-top:1px solid var(--bubble-line);background:@namPanel}.definition-bubble p{margin:0 0 14px}.definition-bubble p:first-child{color:var(--ink);font-size:.9375rem;line-height:1.75}.definition-bubble p:last-child{margin-bottom:0}.definition-bubble em{color:var(--ink)}.definition-bubble .definition-seed{display:flex;align-items:flex-start;gap:9px;color:@namBrand;font-size:.8125rem;line-height:1.7}.definition-seed svg{width:17px;height:17px;flex:none;margin-top:2px}.definition-seed em{color:inherit}
-.ai-preview{contain:inline-size;min-width:0;margin:var(--home-request-gap,38px) 0 0;width:100%}.request-question{display:block;margin:0 0 15px;font-size:1.0625rem;line-height:1.65;font-weight:500}.request-scope{color:@namBrand}.request-box{position:relative;min-width:0}.request-box textarea{display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;height:calc(3.25em + 30px);min-height:calc(3.25em + 30px);resize:vertical;overflow:auto;border:1px solid #786992;border-radius:16px;padding:14px 68px 14px 18px;background:linear-gradient(110deg,#211f32,@namPanel);color:var(--ink);font:inherit;line-height:1.625}.request-box textarea::placeholder{color:#c3b6ed;opacity:1}.request-box button{position:absolute;right:18px;top:23px;display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid @namBrand;border-radius:50%;overflow:hidden;background:#faf6fc;cursor:default}.request-box button img{display:block;width:100%;height:100%;object-fit:contain}.request-mark{width:26px;height:26px;color:@namBrand}.request-note{margin:15px 0 0;color:var(--muted);font-size:.8125rem;line-height:1.7}.assistant-credit{display:block;margin-top:6px;font-size:.75rem;overflow-wrap:anywhere}.assistant-credit a{color:@namBrand;text-underline-offset:3px}
+.ai-preview{contain:inline-size;min-width:0;margin:var(--home-request-gap,38px) 0 0;width:100%}.request-question{display:flex;align-items:center;gap:10px;margin:0 0 15px;font-size:1.0625rem;line-height:1.65;font-weight:500}.request-question>.request-mark{flex:none;height:26px}.request-scope{color:@namBrand}.request-box{position:relative;min-width:0}.request-box textarea{display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;height:calc(3.25em + 30px);min-height:calc(3.25em + 30px);resize:vertical;overflow:auto;border:1px solid #786992;border-radius:16px;padding:14px 68px 14px 18px;background:linear-gradient(110deg,#211f32,@namPanel);color:var(--ink);font:inherit;line-height:1.625}.request-box textarea::placeholder{color:#c3b6ed;opacity:1}.request-box button{position:absolute;right:18px;top:23px;display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid @namBrand;border-radius:50%;overflow:hidden;background:#faf6fc;cursor:default}.request-box button img{display:block;width:100%;height:100%;object-fit:contain}.request-mark{width:26px;height:26px;color:@namBrand}.request-note{margin:15px 0 0;color:var(--muted);font-size:.8125rem;line-height:1.7}
 
 .portfolio-intro{padding:24px 0 30px}.portfolio-intro h1{font-size:clamp(2rem,5vw,3rem);letter-spacing:-.05em;line-height:1.15;color:@namBrand}.portfolio-intro p{margin:10px 0 0;color:var(--muted);font-size:.9rem}
 .description a,.about a{color:@namBrand;text-decoration:underline;text-underline-offset:4px}.description a:hover,.about a:hover{color:var(--ink)}.description a:focus-visible,.about a:focus-visible{outline:2px solid @namBrand;outline-offset:4px}.about{max-width:65ch;margin:24px auto}.about h1{font-size:clamp(2rem,5vw,3rem);letter-spacing:-.04em;line-height:1.2}.about h2{font-size:1.2rem;margin:32px 0 12px}.about p{color:var(--muted)}.about .product-term{color:@namBrand}.about .product-logo{display:block;width:64px;height:auto;margin:0 0 18px}
@@ -140,26 +140,26 @@ def _cards(prefix=''):
 
 
 
-def _request():
-    """Render display metadata only; no assistant/provider is activated."""
-    assistant = instance.brand('assistant', '').strip()
-    credit = instance.brand('assistant_credit', '').strip()
-    byline = ('<span class="assistant-credit">'
-              + footer._credit(credit, instance.brand('footer_link', None)) + '</span>') if credit else ''
-    greeting = ('Hi, ich bin ' + assistant + '.\n' if assistant else '') + product.MOTTO
-    mark = ('<svg class="request-mark" viewBox="0 0 28 28" fill="currentColor" aria-hidden="true" focusable="false">'
+def _stars():
+    return ('<svg class="request-mark" viewBox="0 0 28 28" fill="currentColor" aria-hidden="true" focusable="false">'
             '<path d="M10 5 12.6 12.4 20 15 12.6 17.6 10 25 7.4 17.6 0 15 7.4 12.4Z"/>'
             '<path d="m23 0 1.3 3.7L28 5l-3.7 1.3L23 10l-1.3-3.7L18 5l3.7-1.3Z" opacity=".75"/>'
             '<path d="m24 19 .8 2.2L27 22l-2.2.8L24 25l-.8-2.2L21 22l2.2-.8Z" opacity=".55"/></svg>')
-    portrait = '<img src="' + PORTRAIT.as_posix() + '" alt="" width="44" height="44">' if assistant else mark
+
+
+def _request():
+    """Render display metadata only; no assistant/provider is activated."""
+    assistant = instance.brand('assistant', '').strip()
+    greeting = ('Hi, ich bin ' + assistant + '.\n' if assistant else '') + product.MOTTO
+    portrait = '<img src="' + PORTRAIT.as_posix() + '" alt="" width="44" height="44">' if assistant else _stars()
     return ('<section class="ai-preview" aria-label="yapic — Konzeptvorschau">'
-            '<label class="request-question" for="view-request">Was in deinem '
-            '<span class="request-scope">Wirkungsfeld</span> willst Du klarer sehen?</label>'
+            '<label class="request-question" for="view-request">' + _stars() + '<span>Was in deinem '
+            '<span class="request-scope">Wirkungsfeld</span> willst Du klarer sehen?</span></label>'
             '<div class="request-box"><textarea id="view-request" rows="2" aria-describedby="request-note" placeholder="'
             + escape(greeting, quote=True) + '"></textarea>'
             '<button type="button" disabled aria-label="yapic erstellen (Konzeptvorschau)" '
             'title="Konzeptvorschau — Erstellung noch ohne Funktion">' + portrait + '</button></div>'
-            '<p class="request-note" id="request-note">' + product.REQUEST_CLOSING + byline + '</p></section>')
+            '<p class="request-note" id="request-note">' + product.REQUEST_CLOSING + '</p></section>')
 
 
 def _explanation():

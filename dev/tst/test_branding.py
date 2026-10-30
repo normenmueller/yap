@@ -133,6 +133,7 @@ class BrandingTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             branding = {'assistant': 'Example <helper>', 'assistant_credit': 'by Example <team>',
+                        'footer': 'Curated by Example <team>.',
                         'footer_link': {'text': 'Example <team>', 'url': 'https://example.org/assist'}}
             manifest = {'schema': 1, 'slug': 'example', 'branding': branding}
             (root / 'yap.json').write_text(json.dumps(manifest))
@@ -143,7 +144,7 @@ class BrandingTests(unittest.TestCase):
             homepage = (site / 'example.html').read_text()
             entry = (root / 'example.html').read_text()
             self.assertIn('Hi, ich bin Example &lt;helper&gt;.', homepage)
-            self.assertIn('by <a href="https://example.org/assist">Example &lt;team&gt;</a>', homepage)
+            self.assertIn('Curated by <a href="https://example.org/assist">Example &lt;team&gt;</a>.', homepage)
             self.assertIn('src="site/acc/img/gertrud-ai4x.png"', entry)
             self.assertIn('href="site/views/yapics/index.html"', entry)
             self.assertIn('href="https://example.org/assist"', entry)
@@ -155,6 +156,11 @@ class BrandingTests(unittest.TestCase):
             explanation = ('Ein <em>yapic</em> zeigt dir dein Wirkungsfeld aus der Perspektive, die du gerade brauchst.')
             for page in (homepage, entry):
                 with self.subTest(output='root entry' if page == entry else 'site'):
+                    self.assertNotIn('assistant-credit', page)
+                    self.assertNotIn('assistant-name', page)
+                    question_label = page.split('<label class="request-question"', 1)[1].split('</label>', 1)[0]
+                    self.assertIn('<svg', question_label)
+                    self.assertIn('aria-hidden="true" focusable="false"', question_label)
                     self.assertEqual(page.count(explanation), 1)
                     self.assertEqual(page.count('id="request-note"'), 1)
                     introduction = page.index('Deine Vorhaben, Ziele und Beiträge bilden dein Wirkungsfeld.')
@@ -170,11 +176,22 @@ class BrandingTests(unittest.TestCase):
                     self.assertIn('for="view-request"', page)
                     self.assertIn('<details class="yapic-explanation">', page)
                     self.assertIn('<em>yapic?</em></summary>', page)
-            branding.pop('assistant_credit')
-            (root / 'yap.json').write_text(json.dumps(manifest))
-            with selected(root):
-                home.render(site)
-            self.assertNotIn('example.org/assist', (site / 'example.html').read_text())
+    def test_request_omits_legacy_assistant_credit(self):
+        with tempfile.TemporaryDirectory() as directory, selected(directory):
+            for assistant, credit in (
+                ('', ''), ('Example helper', ''), ('', 'by Example team'),
+                ('Example helper', 'by Example team'), ('  ', '\t'),
+            ):
+                with self.subTest(assistant=assistant, credit=credit):
+                    Path('yap.json').write_text(json.dumps({'schema': 1, 'slug': 'example', 'branding': {
+                        'assistant': assistant, 'assistant_credit': credit}}))
+                    rendered = home._request()
+                    self.assertNotIn('assistant-credit', rendered)
+                    self.assertNotIn('by Example team', rendered)
+                    if assistant.strip():
+                        self.assertIn('Hi, ich bin Example helper.', rendered)
+                    else:
+                        self.assertNotIn('Hi, ich bin', rendered)
 
     def test_default_footer_is_only_the_product_link_in_both_languages(self):
         with tempfile.TemporaryDirectory() as directory, selected(directory):

@@ -96,13 +96,12 @@ the spacing so the normal closed view includes its footer. Enlarged text, long
 configured content, an expanded no-script explanation or a manually enlarged
 textarea can still make the page grow naturally.
 
-Optional `branding.assistant` supplies the displayed assistant name. Optional
-`branding.assistant_credit` supplies an explicit display credit; when it contains
-the configured `branding.footer_link.text` once, the existing safe credit-link
-rules apply. Neither identity nor credit is inferred for an unconfigured instance.
-For example, `"assistant": "Example helper"` and
-`"assistant_credit": "by Example team"` are ordinary branding text, not a care
-relationship or executable integration.
+The decorative star cluster marks the request question. Optional
+`branding.assistant` supplies the assistant name in the input's greeting, for
+example `"assistant": "Example helper"`. The request area has no separate assistant
+attribution; legacy `branding.assistant_credit` values are ignored. Neither
+identity nor credit is inferred for an unconfigured instance. Display branding
+does not establish a care relationship or executable integration.
 
 The homepage keeps the footer's product link to About and adds the discreet
 `to yap ≈ quasseln` explanation on hover/focus. Use existing `branding.footer`

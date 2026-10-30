@@ -1,25 +1,39 @@
-# Return point — Issue #29 prepared; start a fresh fix session
+# Return point — Issue #29 delivered for owner review
 
-The owner selected [#29](https://github.com/normenmueller/yap/issues/29) on
-October 30, 2026: restore the homepage star cluster and configured assistant
-attribution shown in two private visual references. #27 remains completed.
+[PR #30](https://github.com/normenmueller/yap/pull/30) delivers
+[#29](https://github.com/normenmueller/yap/issues/29) at `d3b25ad` on
+`fix/29-homepage-stars-credit`. The homepage again shows the lavender stars beside
+the request question and the explicitly configured assistant name plus linked
+credit above the input. Missing branding remains omitted. The existing
+introduction, native input, footer and generic application boundary are preserved.
+The reviewer request is for `normenmueller`; owner acceptance and merge are pending.
 
-Preparation verified clean `trunk` at
-`861f5dcf29166a0a060eb933a4f649f362c8209b`, matching the remote base, and created
-branch `fix/29-homepage-stars-credit` with its matching worktree. The new Project
-item is in Refinement; other item states/order, assignees and holds are unchanged.
-No application implementation, rendering diagnosis or new verification has run.
+Next: support the owner's visual review of this bounded restoration and wait for
+feedback or GitHub approval. Do not merge or select another Issue. The ignored
+optional session note points to this worktree's synthetic desktop/mobile preview
+and evidence. No real instance, consumer revision or provider execution changed.
+Other Project states/order, assignees and holds remain unchanged.
 
-Next: end/delete the trunk preparation session and start a fresh session, without
-resume, in the `fix/29-homepage-stars-credit` worktree. Verify actual cwd, branch,
-instructions and write scope there. Read its ignored `.yap/cfg/session.md` for
-private screenshot navigation. Inspect the selected request and existing branding
-there, then complete refinement and the requested restoration under BEHAVIOR.
-This preparation does not accept a delivered change or authorize merge.
+<details>
+<summary>Issue #29 verification and review</summary>
 
-The preparation base above precedes this handoff-only commit. The sections below
-retain the accepted prior delivery and cleanup evidence; their former return
-point is historical and does not replace the current #29 selection.
+All 11 branding tests and the extended homepage browser regression passed at
+`d3b25ad`, including configured name/credit, short desktop windows and true fresh
+no-script navigation. The existing mypy 2.4.0 gate passed four files and rejected
+six invalid calls; homepage code remains outside that static gate. A synthetic
+root-entry preview passed 42 layout cases covering default/configured/long
+branding, desktop/mobile widths and enlarged text. Desktop, 390px and 320px
+screenshots were inspected. Evidence is scoped to the affected Chromium-family
+rendering; no new full-report/export or whole-suite run is claimed. Independent
+nonauthor review and final recheck found no actionable findings. The reviewer
+inspected affected screenshots/geometry and independently reran the homepage
+regression and all 11 branding tests successfully.
+
+</details>
+
+Earlier completed-delivery history is retained below; its old return points do
+not replace the current owner review. Issue #29 preparation remains in Git
+history and its owning Issue.
 
 ---
 

@@ -1,18 +1,31 @@
-# Return point — Issue #27 implemented; owner review next
+# Return point — Issue #27 in visual refinement after owner feedback
 
-The owner approved the refined scope of [#27](https://github.com/normenmueller/yap/issues/27)
-on October 30, 2026 in this fresh `fix/27-yapic-explanation` session. Implementation
-`5ec0872` moves the unchanged yapic explanation directly after the homepage
-introduction and before the request section's first divider. Its existing CSS,
-italic emphasis, input description reference and preview behavior are retained.
+The owner approved the original placement scope of
+[#27](https://github.com/normenmueller/yap/issues/27), implemented as `5ec0872`
+and delivered in [PR #28](https://github.com/normenmueller/yap/pull/28).
+The owner has not accepted that result: live review found the composition restless,
+the relocated definition out of place and the area below the input incomplete.
+On October 30, 2026 the owner requested visual alternatives, including radical
+options, while retaining yap's lean, modern, clear and understated style.
+The owner also requested a discreet homepage explanation of “to yap ≈ quasseln”,
+suggesting a tooltip on “yap” in the footer. Concepts show hover/focus help; a later
+implementation must retain the existing footer About navigation.
 
-Next: support the owner's implementation review of the delivered PR linked from #27
-and wait for feedback. The Issue owns the PR link and next action;
-the [application Project](https://github.com/users/normenmueller/projects/5) owns
-live status/order. Verify both on recovery. Scope approval is not result acceptance.
-GitHub Approve on the delivered PR authorizes merge after required checks;
-BEHAVIOR owns merge, cleanup and the session boundary before another Issue.
-Do not start another queue item or change a consumer revision while review is pending.
+Three comparison concepts explore a dialogue-first layout, a single merged
+introduction with a short closing line, and a two-column desktop composition that
+stacks on mobile. They retain the product palette and identity while proposing
+shorter copy and fewer separators. These are design proposals in ignored local
+evidence, not accepted copy or an implemented replacement. Application code and
+consumer revisions are unchanged by this exploration.
+
+Next: support the owner's comparison and choice of design/copy, then refine and
+obtain approval of the changed implementation scope before revising the application.
+The Issue owns scope/next action and the PR link; the
+[application Project](https://github.com/users/normenmueller/projects/5) owns live
+status/order. Verify both on recovery. Existing PR acceptance and merge remain
+pending; do not start another Issue or merge from the original scope approval.
+BEHAVIOR owns review, merge, cleanup and session boundaries. Existing holds and
+deferrals remain effective.
 
 <details>
 <summary>Issue #27 implementation, verification and limits</summary>

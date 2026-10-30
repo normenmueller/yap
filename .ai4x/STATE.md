@@ -1,31 +1,33 @@
-# Return point — Issue #27 owner implementation review
+# Return point — Issue #27 complete; end this session
 
-The owner accepted the final quiet-flow design and explicitly authorized its
-implementation in [#27](https://github.com/normenmueller/yap/issues/27).
-Implementation `72fc103` on `fix/27-yapic-explanation` is delivered through the
-existing [PR #28](https://github.com/normenmueller/yap/pull/28). The earlier
-placement-only delivery was superseded during owner-led visual refinement.
-Design approval does not accept this implementation or authorize merge.
+The owner approved [PR #28](https://github.com/normenmueller/yap/pull/28) at
+`51ed76c7063ceb893cc46a6771fc61c10e5bf256` on October 30, 2026. It merged into
+`trunk` as `207dabe0aaedb9698b6c489f66a35d85c1fa2cd1`; the merge tree matches
+the approved head. [#27](https://github.com/normenmueller/yap/issues/27) is closed
+as completed and its Project item is Done. Other item states/order and all
+assignees are preserved. This closeout changes records and metadata only.
 
-The owner selected the deeper entry during visual review and required the footer
-to remain visible without scrolling on normal desktop/laptop views. The homepage
-now uses a lower entry position on tall windows and compact spacing on shorter desktops.
-The fixed 1100px comparison stage is not an application height requirement.
-Normal closed views fit the checked desktop sizes; enlarged text, long configured
-content, a manually enlarged textarea or the open no-script definition may grow
-naturally. No content is clipped and the footer remains in normal page flow.
+The accepted homepage includes the quiet-flow design, deeper entry and
+height-aware desktop spacing. Normal closed views fit the checked desktop sizes;
+enlarged text, long configured content, a manually enlarged textarea or the open
+no-script definition may grow naturally. No consumer or real instance changed.
 
-Next: the owner reviews the refreshed implementation in PR #28. Design and
-spacing choices do not accept the delivered result or authorize merge.
-The Issue owns scope/next action; the
+The completed local/remote branch and its worktree were removed after merge and
+preservation checks; the empty collection directory was removed. At the owner's
+explicit request, obsolete local previews, duplicate exports, draft metadata and
+generated caches were cleared from ignored development storage. The final
+preview, fixture sources/private settings and scoped verification evidence remain
+ignored. Archived records are historical, not current runtime or authority.
+
+Next: end/delete this completed Issue session. No next Issue is selected. A fresh
+session in `trunk`, without resume, may verify the owner's next selection and
+prepare its branch/worktree as BEHAVIOR defines. Do not begin another Issue here.
+Existing holds, deferrals and owner order remain effective. The
 [application Project](https://github.com/users/normenmueller/projects/5) owns live
-status/order. Verify both on recovery. GitHub Approve on the delivered PR
-authorizes merge after required checks. Do not start another Issue or change
-a consumer revision during review. BEHAVIOR owns merge, cleanup and the session
-boundary; existing holds and deferrals remain effective.
+status/order; Issues own scope and next action. Verify them on recovery.
 
 <details>
-<summary>Issue #27 delivery, verification and limits</summary>
+<summary>Accepted Issue #27 delivery, verification and cleanup</summary>
 
 The application now renders the centered quiet-flow layout, continuous tighter
 introduction with underlined collection link, arrowless native yapic disclosure,
@@ -70,6 +72,17 @@ href/src paths exist (fragments unchecked); the private fixture marker is absent
 from publication, model JSON and extracted PDF text. Evidence and selected preview
 configuration remain ignored in this worktree. No real instance or consumer
 revision changed. Accepted delivery/cleanup histories below are unchanged.
+
+Before cleanup, 3,500 regular files, four symlinks and 591 directories were
+preserved and verified by SHA-256 contents, modes and symlink targets. The owner
+explicitly requested removal of obsolete local development material. The
+classified purge removed 6,434 files (234,315,867 bytes) across the current and
+prior delivery's generated caches and obsolete outputs; private sources/settings
+were excluded. The retained current delivery has 96 files, one symlink and 33
+directories, checked against the preservation and removal inventories. Collection
+metadata was separately preserved before its empty directory was removed.
+Historical preservation records below describe their original closeouts; this
+explicit later cleanup supersedes retention of those generated caches.
 
 </details>
 

@@ -1,28 +1,56 @@
-# Return point — Issue #27 selected; worktree preparation complete
+# Return point — Issue #27 implemented; owner review next
 
-The owner selected [#27](https://github.com/normenmueller/yap/issues/27): move
-the existing yapic explanation after the homepage introduction and before the
-first divider. It is in Refinement in the
-[application Project](https://github.com/users/normenmueller/projects/5).
-Preparation accepts neither implementation scope nor result.
+The owner approved the refined scope of [#27](https://github.com/normenmueller/yap/issues/27)
+on October 30, 2026 in this fresh `fix/27-yapic-explanation` session. Implementation
+`5ec0872` moves the unchanged yapic explanation directly after the homepage
+introduction and before the request section's first divider. Its existing CSS,
+italic emphasis, input description reference and preview behavior are retained.
 
-Next: end/delete this `trunk` preparation session. Start a fresh Codex CLI session,
-without resume, in `fix/27-yapic-explanation` beside `trunk`. Verify the actual
-working directory, branch, instructions and write scope, then assess and refine
-#27 with the owner there before implementation. The Issue owns scope and next
-action; the Project owns live status and order. BEHAVIOR owns review, merge and
-cleanup boundaries. Existing holds and deferrals remain effective.
+Next: support the owner's implementation review of the delivered PR linked from #27
+and wait for feedback. The Issue owns the PR link and next action;
+the [application Project](https://github.com/users/normenmueller/projects/5) owns
+live status/order. Verify both on recovery. Scope approval is not result acceptance.
+GitHub Approve on the delivered PR authorizes merge after required checks;
+BEHAVIOR owns merge, cleanup and the session boundary before another Issue.
+Do not start another queue item or change a consumer revision while review is pending.
 
 <details>
-<summary>Verified preparation and session boundary</summary>
+<summary>Issue #27 implementation, verification and limits</summary>
 
-Branch and matching worktree `fix/27-yapic-explanation` were created at verified
-remote `trunk` revision `6b018726235e17433763258e1384806f024665ea` and receive
-this preparation-only handoff. The working session remains in `trunk`.
-Existing Project item order, statuses and issue assignees are preserved.
-No application code or consumer revision changed. Analysis, decisions,
-implementation and tests belong in the issue worktree/session; its Issue owns
-the detailed requested behavior and verification.
+The actual issue worktree, branch, instructions and write scope were verified.
+Preparation commit `dacf295` was present locally and on both remote `trunk` and
+`fix/27-yapic-explanation`; the issue session started from this handoff.
+The owner's scope approval was recorded in #27 and only its Project status was
+advanced through Ready to In progress. Assignees, other item states/order and
+existing holds/deferrals are preserved.
+
+At implementation `5ec0872`, all 317 regressions passed: 316 in the full suite,
+with the sole sandbox-blocked Chrome startup test passing in an isolated rerun
+with browser access. The pinned mypy 2.4.0 gate passed its four declared files and
+rejected six invalid calls; `home.py` remains outside that gate. The independent
+source reviewer reran all nine branding checks, the browser matrix and portable
+output/preservation checks and found no actionable findings. These checks do not
+establish owner acceptance.
+
+The real synthetic CLI report generated 25 site files, including five PDFs.
+An unchanged repeat and the public CLI export rebuilt no outputs. Complete site
+and export SHA-256 inventories matched. The exact explanation occurs once, after
+the introduction and before the request section, in site, root entry and export.
+All 237 inspected local href/src paths resolved (path existence, not fragment
+validation). Seven authored/configuration/unsaved files retained matching SHA-256;
+the synthetic private marker was absent from published files.
+
+An isolated Chrome comparison verified unchanged computed font size, color, line
+height, italic emphasis and text against the baseline. Twelve layout combinations
+covered 1200/390/320px widths, 16/32px root fonts and normal/240px window heights:
+paragraph/section spacing, wrapping, scrolling, no horizontal document overflow or
+footer overlap. Native keyboard focus and Enter navigation to the collection passed;
+six desktop/mobile/enlarged-text screenshots were visually inspected. The preview
+remains a disabled creation button without form/script submission. The browser
+fixture uses the default product heading and synthetic display branding. A long
+custom heading already overflowed the unchanged baseline at enlarged text sizes;
+this bounded change does not claim arbitrary branding layout support or a general
+accessibility audit. Browser/CLI evidence remains ignored in this worktree.
 
 </details>
 

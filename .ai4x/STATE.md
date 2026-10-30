@@ -1,4 +1,20 @@
-# Return point — Python delivery accepted; choose the next Issue
+# Return point — Issue #25 selected; worktree preparation complete
+
+The owner selected [#25](https://github.com/normenmueller/yap/issues/25) on
+October 30, 2026. Its issue-linked branch is `fix/25-yapics-cards`; the matching
+worktree is `fix/25-yapics-cards` beside `trunk`. Both started at verified remote
+`trunk` revision `2dfa38c173135c5d0d47a2623417dccae5be0ded`. This preparation
+records selection and recovery only; no implementation scope or result is accepted.
+#25 was added to the [application Project](https://github.com/users/normenmueller/projects/5)
+in Refinement; the existing backlog order and other item statuses were preserved.
+
+Next: end/delete the `trunk` preparation session. Start a fresh Codex CLI session,
+without resume, in the selected worktree. Verify its actual working directory,
+branch, instructions and write scope, then refine #25 with the owner there before
+implementation. The Issue owns scope and next action; the Project owns live status
+and order. BEHAVIOR owns review, merge and cleanup boundaries.
+
+## Accepted Python delivery and retained backlog context
 
 The owner approved [PR #14](https://github.com/normenmueller/yap/pull/14) at
 `3fd0ba3` on October 29, 2026. It merged into `trunk` as `6862c53`; the merge tree
@@ -14,22 +30,16 @@ create/open and stable portfolio identity, #12 durable standard/local definition
 and care references, and #24 further typed domain/model and module separation.
 #8, #12, #23 and #24 remain Backlog; none is selected or Ready by this handoff.
 
-The accepted feature branch was deleted locally/remotely, its worktree was removed
-and the empty worktree collection parent was removed after preserving its directory
-metadata. BEHAVIOR now states the cleanup rule generically, without fixed folder
+The previous handoff records preservation and cleanup of the accepted delivery.
+This preparation still found legacy local/remote-tracking refs and prunable worktree
+registrations; they were left unchanged. Their remote state was not reverified. BEHAVIOR now states the cleanup rule generically, without fixed folder
 names: remove empty worktree collection directories and recreate them when needed.
 Ignored/private artifacts were preserved and verified before removal; archived
 configuration, virtual environments and old navigation are historical, not active.
 
-Next: end/delete the completed Issue session. Start a fresh Codex CLI session in
-`trunk`, without resume, to verify the owner's next Issue selection and prepare its
-matching branch/worktree. Then end that preparation session and start a fresh one
-in the selected worktree for Issue-specific refinement. Do not begin another Issue
-in this session. BEHAVIOR owns these session boundaries.
-
-The backlog assessment recommends #8, actual quip identification, as the next
-concrete product case with its required typed boundaries; this is a recommendation,
-not an owner selection or Project reorder. #5 remains Paused; #6/#11 deferrals and
+The earlier backlog assessment recommended #8, actual quip identification, as a
+concrete product case with its required typed boundaries. The owner has now selected
+#25 instead; that recommendation does not override the selection. #5 remains Paused; #6/#11 deferrals and
 #13's hold remain effective. #7/#10 retain their separately bounded effect/provider
 scopes. The current quip scene is illustrative. No real collection, provider
 activation, consumer revision or instance migration is selected here.

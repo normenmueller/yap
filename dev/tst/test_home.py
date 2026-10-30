@@ -20,7 +20,7 @@ class HomeTests(unittest.TestCase):
                     branding.update(assistant='Example helper', assistant_credit='by Example team',
                                     footer='Curated by Example.')
                 else:
-                    branding['assistant_credit'] = 'https://example.org/' + 'long-fragment-' * 15
+                    branding['assistant'] = 'Example helper ' + 'long-name-' * 15
                 (root / 'yap.json').write_text(json.dumps({'schema': 1, 'slug': 'example',
                                                        'branding': branding}))
                 previous = Path.cwd()

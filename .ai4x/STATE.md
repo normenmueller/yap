@@ -1,44 +1,53 @@
-# Return point — Issue #25 implementation checkpoint; terminal restart
+# Return point — Issue #25 owner implementation review
 
 The owner approved [#25](https://github.com/normenmueller/yap/issues/25)'s refined
-scope on October 30, 2026. Work remains on `fix/25-yapics-cards`, based on verified
-`trunk` revision `2dfa38c173135c5d0d47a2623417dccae5be0ded`. The owner now needs a
-terminal restart and explicitly authorized resuming this same session for that
-restart; the ordinary fresh-session boundaries remain unchanged.
+scope on October 30, 2026. Its implementation is on `fix/25-yapics-cards`, based
+on verified `trunk` revision `2dfa38c173135c5d0d47a2623417dccae5be0ded`.
+Implementation revision `2b41b65c419ecd89578776a18d1a315aae1ac0f3` restores the two
+full collection cards and separate native Need disclosures. Optional `yap.json`
+`illustrative_cards` inputs supply per-card paragraphs, optional sender/recipient
+and fixed growth labels. Missing values are omitted; external values are validated
+and escaped, and authored language is retained. The user guide owns the format
+and editing instructions. This delivers neither genuine quip identification (#8)
+nor durable yapic definitions/evolution (#12).
 
-The current implementation restores the two full collection cards and separate
-native Need disclosures. Optional `yap.json` `illustrative_cards` inputs supply
-per-card Need paragraphs, optional sender/recipient, and fixed growth labels.
-Absent values are omitted, external input is validated/escaped, and paragraphs
-retain their language. The change includes mobile spacing, enlarged-title wrapping
-and a keyboard-scrollable region containing both the byline and Need text.
-The user guide owns the exact supported format and editing instructions.
+Verification at that implementation revision: all 317 regression tests passed on
+Python 3.15.2/PyYAML 6.0.3 before the restart checkpoint. Pinned mypy 2.4.0 passed
+the strict gate (four source files, including its positive fixture); six invalid
+static calls were rejected. The final nonauthor independently reran the five
+card-input tests, the incremental pipeline regression and both type checks.
+An earlier independent finding about a long byline displacing the Need body was
+fixed and rechecked; the entire bubble content is keyboard scrollable.
 
-Verification against the implementation tree before this checkpoint: all 317
-regression tests pass on Python 3.15.2/PyYAML 6.0.3. Pinned mypy 2.4.0 passes the
-strict gate (four source files, including its positive fixture); six invalid
-static calls are rejected. An independent nonauthor reviewed code, input
-semantics, types, documentation and regression logic. Its one actionable finding,
-a long byline displacing the Need body, was fixed and independently rechecked at
-320/390px with 16/32px root fonts; the entire bubble content stays keyboard
-scrollable without horizontal document overflow. This is scoped evidence, not
-whole-application certification or owner acceptance.
+The real synthetic full build passed: 34 site files including seven PDFs. An
+unchanged repeat rebuilt no outputs. Editing Need and a label triggered the normal
+rebuild, the next repeat was up to date, and restoring the manifest reproduced the
+original SHA-256 inventory. The public CLI portable export matched that inventory.
+All 340 inspected local href/src paths in the root entry, site and export resolved;
+this checks path existence, not fragment destinations. Eight authored, saved,
+unsaved and private files were byte-for-byte preserved; a private marker was absent
+from generated text, model cache and extracted PDFs.
 
-Next: resume in this worktree, verify branch/status, and finish the real synthetic
-full build, incremental rebuild, portable export, local links, desktop/mobile
-visual inspection and native keyboard/JavaScript-disabled interaction checks.
-The first full-build attempt stopped on an invalid priority in the temporary
-synthetic fixture, before rendering. The fixture helper now omits that invalid
-priority; rerun setup and build without changing application validation.
-Then obtain the final independent evidence/revision review and deliver an
-issue-linked PR with the required owner review request. No implementation has
-been accepted and merge is not authorized. After reference use, remove only the
-owner-supplied temporary reference directory as explicitly requested; optional
-ignored session navigation retains its exact location. No reference source was
-edited. Keep private navigation and authored reference content out of commits.
+On the exported local files, isolated Chromium-family browser checks passed at
+1200/390/320px widths and 16/32px root fonts, with JavaScript enabled and disabled:
+native Enter/Space disclosure, independent opening, Tab access, keyboard scrolling
+to the end, card navigation and no horizontal document overflow. Pointer checks
+without JavaScript confirmed Need isolation and card-body navigation at the same
+six size combinations. Desktop/mobile closed/open screenshots were visually
+inspected. This is scoped evidence, not whole-application certification or owner
+acceptance. No application code changed during these final checks.
 
-The Issue owns current scope/next action; the Project owns status/order. Preserve
-other items and the accepted architecture/backlog boundaries below.
+Next: the owner reviews [PR #26](https://github.com/normenmueller/yap/pull/26)
+and gives feedback or a GitHub review. No implementation acceptance or merge is
+authorized. Stay on #25; do not start another queue item. The Issue owns scope/next action; the Project
+owns live status/order. Preserve other items and the boundaries below.
+
+Temporary reference cleanup is still pending: automatic approval review rejected
+recursive deletion outside the worktree because the prior owner instruction was
+available only in recovered context. No reference source was edited or removed.
+Ask the owner for renewed explicit deletion approval; the optional ignored local
+session navigation retains the exact target and verification evidence. Keep all
+private navigation and authored reference content out of commits.
 
 ## Accepted Python delivery and retained backlog context
 

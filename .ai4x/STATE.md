@@ -39,15 +39,15 @@ acceptance. No application code changed during these final checks.
 
 Next: the owner reviews [PR #26](https://github.com/normenmueller/yap/pull/26)
 and gives feedback or a GitHub review. No implementation acceptance or merge is
-authorized. Stay on #25; do not start another queue item. The Issue owns scope/next action; the Project
-owns live status/order. Preserve other items and the boundaries below.
+authorized. Stay on #25; do not start another queue item. The Issue owns scope/next
+action; the Project owns live status/order. Preserve other items and the boundaries below.
 
-Temporary reference cleanup is still pending: automatic approval review rejected
-recursive deletion outside the worktree because the prior owner instruction was
-available only in recovered context. No reference source was edited or removed.
-Ask the owner for renewed explicit deletion approval; the optional ignored local
-session navigation retains the exact target and verification evidence. Keep all
-private navigation and authored reference content out of commits.
+Temporary reference cleanup is complete. After renewed explicit owner approval
+on October 30, 2026, only the supplied temporary reference directory was removed;
+its exact path and symlink boundaries were checked, and its absence was verified.
+No reference source was edited before removal. Private navigation and authored
+reference content remain outside commits. Owner implementation review remains
+the return point; this cleanup approval does not accept or authorize merging #25.
 
 ## Accepted Python delivery and retained backlog context
 

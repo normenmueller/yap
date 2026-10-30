@@ -881,6 +881,44 @@ A second goal.
             run()
             self.assertTrue(collection.is_file())
             self.assertEqual(before, yap.hashes(files.source_files(Path('.yap/local/site'))))
+            manifest = {'schema': 1, 'slug': 'yap', 'illustrative_cards': {
+                'activity': {'need': {'paragraphs': ['First question.']}, 'growth_label': 'v0.42.7'},
+                'performance': {'growth_label': 'v0.3.2'}}}
+            configuration = self.write('yap.json', json.dumps(manifest))
+            private = self.write('.yap/cfg/session.md', 'PRIVATE-NAVIGATION-CARD-TEST')
+            run()
+            self.assertIn('First question.', collection.read_text())
+            self.assertIn('v0.42.7', collection.read_text())
+            manifest['illustrative_cards']['activity']['need']['paragraphs'] = ['Edited question.']
+            configuration.write_text(json.dumps(manifest))
+            run()
+            self.assertIn('Edited question.', collection.read_text())
+            self.assertNotIn('First question.', collection.read_text())
+            stable = yap.hashes(files.source_files(Path('.yap/local/site')))
+            calls.clear()
+            with patch.object(yap, 'publish') as publish:
+                run()
+                publish.assert_not_called()
+            self.assertEqual(calls, [])
+            self.assertEqual(stable, yap.hashes(files.source_files(Path('.yap/local/site'))))
+            self.assertIn('v0.42.7', collection.read_text())
+            self.assertIn('v0.3.2', collection.read_text())
+            self.assertNotIn('PRIVATE-NAVIGATION-CARD-TEST', collection.read_text())
+            build_before = yap.hashes(files.source_files(Path('.yap/local/build')))
+            manifest['illustrative_cards']['activity']['growth_label'] = 42
+            configuration.write_text(json.dumps(manifest))
+            with patch.object(yap, 'sync_links') as links, patch.object(yap, 'publish') as publish:
+                with self.assertRaisesRegex(ValueError, 'illustrative_cards.activity.growth_label'):
+                    run()
+                links.assert_not_called()
+                publish.assert_not_called()
+            self.assertEqual(stable, yap.hashes(files.source_files(Path('.yap/local/site'))))
+            self.assertEqual(build_before, yap.hashes(files.source_files(Path('.yap/local/build'))))
+            configuration.unlink()
+            run()
+            self.assertEqual(before, yap.hashes(files.source_files(Path('.yap/local/site'))))
+            self.assertEqual(private.read_text(), 'PRIVATE-NAVIGATION-CARD-TEST')
+            calls.clear()
             for asset in yap.home.ASSETS:
                 source = self.root / yap.home.asset_source(asset)
                 published = self.root / '.yap/local/site' / asset

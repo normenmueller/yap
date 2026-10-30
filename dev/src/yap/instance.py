@@ -2,6 +2,7 @@
 import json
 from pathlib import Path, PurePosixPath
 import re
+from . import card_inputs
 
 
 def manifest(root=None):
@@ -37,6 +38,7 @@ def manifest(root=None):
     prefix = value.get('publication_prefix', 'yap-')
     if not isinstance(prefix, str) or not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]*', prefix):
         raise ValueError('yap.json: publication_prefix must be an ASCII destination prefix.')
+    card_inputs.decode(value.get('illustrative_cards', {}))
     return value
 
 

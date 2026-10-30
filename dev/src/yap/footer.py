@@ -14,6 +14,7 @@ body.yap-page{display:flex;flex-direction:column;min-height:100vh}
 .yap-footer a{color:@namBrand;text-underline-offset:3px}
 .yap-footer a:hover{color:@namInk}
 .yap-footer a:focus-visible{outline:2px solid @namBrand;outline-offset:4px}
+.footer-product{position:relative;display:inline-block}.footer-gloss{position:absolute;z-index:20;bottom:calc(100% + 8px);right:0;width:max-content;max-width:calc(100vw - 48px);padding:6px 10px;border:1px solid @namLine;border-radius:7px;background:@namPanel;color:@namInk;font-size:.75rem;line-height:1.6;visibility:hidden;pointer-events:none;white-space:normal}.footer-product:hover .footer-gloss,.footer-product:focus-within .footer-gloss{visibility:visible}
 @media print{.yap-footer{display:none}.yap-page{display:block!important;min-height:0!important}}
 ''')
 
@@ -42,10 +43,14 @@ def _credit(text, link):
             + escape(label) + '</a>' + escape(after))
 
 
-def render(language='de', *, about_href='../../about.html'):
+def render(language='de', *, about_href='../../about.html', homepage=False):
     """Keep the product name unchanged in both interface languages."""
     credit = instance.brand('footer', '')
-    prefix = _credit(credit, instance.brand('footer_link', None)) + ' · ' if credit.strip() else ''
-    return ('<footer class="yap-footer">' + prefix + 'Focused with '
-            + '<a class="footer-signoff" href="' + escape(about_href, quote=True)
-            + '">yap</a></footer>')
+    separator = ' ' if homepage and credit.rstrip().endswith('.') else ' · '
+    prefix = _credit(credit, instance.brand('footer_link', None)) + separator if credit.strip() else ''
+    signoff = ('<a class="footer-signoff" href="' + escape(about_href, quote=True) + '"'
+               + (' aria-describedby="footer-gloss"' if homepage else '') + '>yap</a>')
+    if homepage:
+        signoff = ('<span class="footer-product">' + signoff
+                   + '<span class="footer-gloss" id="footer-gloss" role="tooltip">to yap ≈ quasseln</span></span>.')
+    return '<footer class="yap-footer">' + prefix + 'Focused with ' + signoff + '</footer>'

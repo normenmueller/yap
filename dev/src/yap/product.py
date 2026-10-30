@@ -2,10 +2,16 @@
 MOTTO = 'yap dein yapic mit mir!'
 MISSION = 'Vorhaben bewegen. Wirkung sichtbar machen.'
 COLLECTION = 'Seeds of Insight. Tailored to your needs.'
-DESCRIPTION = ('Dein Wirkungsfeld umfasst deine Vorhaben, Ziele und Beiträge. '
-               'Du bestimmst, was du darin verstehen möchtest — deine '
+DESCRIPTION = ('Deine Vorhaben, Ziele und Beiträge bilden dein Wirkungsfeld. Deine '
                '<a href="views/yapics/index.html">yapics</a> machen passende '
                'Zusammenhänge sichtbar und geben dir Orientierung.')
+YAPIC_EXPLANATION = (
+    'Ein <em>yapic</em> zeigt dir dein Wirkungsfeld aus der Perspektive, die du gerade brauchst.',
+    'Oder anders formuliert, ein <em>yapic</em> verbindet deinen Bedarf mit passenden '
+    'Perspektiven und Darstellungen auf dein Wirkungsfeld.',
+    '<em>yapics</em> — eine Saat für neue Einsichten und klare Orientierung.',
+)
+REQUEST_CLOSING = 'Dein Bedarf gibt die Richtung vor.'
 
 ABOUT = f'''<h1>Dein Bedarf wird zum <span class="product-term">yapic</span>.</h1>
 <p>Dein Wirkungsfeld umfasst deine Vorhaben, Ziele und Beiträge. Ein <strong class="product-term">yapic</strong> erschließt dir dieses Feld passend zu dem, was du verstehen möchtest: mit ausgewählten Perspektiven und Darstellungen, die Zusammenhänge sichtbar machen und Orientierung geben.</p>

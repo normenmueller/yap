@@ -12,7 +12,7 @@ result = subprocess.run([
 ], capture_output=True, text=True)
 errors = re.findall(r'^dev/tst/typecheck/negative.py:\d+: error: .*\[([^\]]+)\]$',
                     result.stdout, re.M)
-if result.returncode != 1 or sorted(errors) != ['arg-type', 'arg-type', 'arg-type', 'assignment']:
+if result.returncode != 1 or sorted(errors) != ['arg-type'] * 5 + ['assignment']:
     print(result.stdout + result.stderr)
-    raise SystemExit('The negative type fixture did not reject all four invalid calls.')
-print('Type contracts: four invalid calls rejected; no type ignores or casts.')
+    raise SystemExit('The negative type fixture did not reject all six invalid calls.')
+print('Type contracts: six invalid calls rejected; no type ignores or casts.')

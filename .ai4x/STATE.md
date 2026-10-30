@@ -1,18 +1,44 @@
-# Return point — Issue #25 selected; worktree preparation complete
+# Return point — Issue #25 implementation checkpoint; terminal restart
 
-The owner selected [#25](https://github.com/normenmueller/yap/issues/25) on
-October 30, 2026. Its issue-linked branch is `fix/25-yapics-cards`; the matching
-worktree is `fix/25-yapics-cards` beside `trunk`. Both started at verified remote
-`trunk` revision `2dfa38c173135c5d0d47a2623417dccae5be0ded`. This preparation
-records selection and recovery only; no implementation scope or result is accepted.
-#25 was added to the [application Project](https://github.com/users/normenmueller/projects/5)
-in Refinement; the existing backlog order and other item statuses were preserved.
+The owner approved [#25](https://github.com/normenmueller/yap/issues/25)'s refined
+scope on October 30, 2026. Work remains on `fix/25-yapics-cards`, based on verified
+`trunk` revision `2dfa38c173135c5d0d47a2623417dccae5be0ded`. The owner now needs a
+terminal restart and explicitly authorized resuming this same session for that
+restart; the ordinary fresh-session boundaries remain unchanged.
 
-Next: end/delete the `trunk` preparation session. Start a fresh Codex CLI session,
-without resume, in the selected worktree. Verify its actual working directory,
-branch, instructions and write scope, then refine #25 with the owner there before
-implementation. The Issue owns scope and next action; the Project owns live status
-and order. BEHAVIOR owns review, merge and cleanup boundaries.
+The current implementation restores the two full collection cards and separate
+native Need disclosures. Optional `yap.json` `illustrative_cards` inputs supply
+per-card Need paragraphs, optional sender/recipient, and fixed growth labels.
+Absent values are omitted, external input is validated/escaped, and paragraphs
+retain their language. The change includes mobile spacing, enlarged-title wrapping
+and a keyboard-scrollable region containing both the byline and Need text.
+The user guide owns the exact supported format and editing instructions.
+
+Verification against the implementation tree before this checkpoint: all 317
+regression tests pass on Python 3.15.2/PyYAML 6.0.3. Pinned mypy 2.4.0 passes the
+strict gate (four source files, including its positive fixture); six invalid
+static calls are rejected. An independent nonauthor reviewed code, input
+semantics, types, documentation and regression logic. Its one actionable finding,
+a long byline displacing the Need body, was fixed and independently rechecked at
+320/390px with 16/32px root fonts; the entire bubble content stays keyboard
+scrollable without horizontal document overflow. This is scoped evidence, not
+whole-application certification or owner acceptance.
+
+Next: resume in this worktree, verify branch/status, and finish the real synthetic
+full build, incremental rebuild, portable export, local links, desktop/mobile
+visual inspection and native keyboard/JavaScript-disabled interaction checks.
+The first full-build attempt stopped on an invalid priority in the temporary
+synthetic fixture, before rendering. The fixture helper now omits that invalid
+priority; rerun setup and build without changing application validation.
+Then obtain the final independent evidence/revision review and deliver an
+issue-linked PR with the required owner review request. No implementation has
+been accepted and merge is not authorized. After reference use, remove only the
+owner-supplied temporary reference directory as explicitly requested; optional
+ignored session navigation retains its exact location. No reference source was
+edited. Keep private navigation and authored reference content out of commits.
+
+The Issue owns current scope/next action; the Project owns status/order. Preserve
+other items and the accepted architecture/backlog boundaries below.
 
 ## Accepted Python delivery and retained backlog context
 

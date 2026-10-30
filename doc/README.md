@@ -102,3 +102,72 @@ The retained interface currently uses German labels. Authored text retains its
 language independently of future interface localization. Generated views and
 work traces do not themselves prove goal achievement. Record measurements only
 when their stated evidence supports them.
+
+### Illustrative collection cards / Illustrative Kartenangaben
+
+The Yapics collection contains the existing Activities and Performance cards.
+An instance can supply optional, explicitly authored **illustrative presentation
+values** in its `yap.json`; they are not saved yapic definitions, collected quips,
+measured growth or evidence of achievement. Only these selected display values
+are rendered into the portable site; private `.yap/cfg/` settings are not a card
+input. Use synthetic text for a public example:
+
+```json
+{
+  "schema": 1,
+  "slug": "example",
+  "illustrative_cards": {
+    "activity": {
+      "need": {
+        "paragraphs": [
+          "Hello, example helper!",
+          "Help me see which initiatives need my attention."
+        ],
+        "sender": "Example owner",
+        "recipient": "Example helper"
+      },
+      "growth_label": "v0.42.7"
+    },
+    "performance": {
+      "need": {
+        "paragraphs": ["Welchen Beitrag kann ich nachvollziehen?"]
+      },
+      "growth_label": "v0.3.2"
+    }
+  }
+}
+```
+
+Merge `illustrative_cards` into the existing manifest; keep its slug, branding,
+application pin and other settings. Only `activity` and `performance` are
+supported. Each card may have `need`, `growth_label`, both, or neither. A supplied
+Need requires a nonempty `paragraphs` array of nonempty strings; optional `sender`
+and `recipient` supply its byline without borrowing branding or another instance's
+identity. Supplied names and labels must also be nonempty strings. Unknown fields,
+`null` and wrong types are errors, reported before generated output is replaced.
+
+Edit paragraphs in their original language; each array item remains a paragraph,
+and line breaks within it remain line breaks. All values are plain text, never
+HTML or Markdown. Missing Need, byline or label is omitted without invented
+content. `growth_label` is the literal suffix in **Gewachsen bis …**; builds,
+refreshes, application releases and work traces never update it. The field name
+and this documentation record the illustrative provenance; no extra visible demo
+badge is added. Future authoritative definitions/revisions remain #12's scope;
+genuine quip identification remains #8's scope.
+
+**Deutsch:** Ergänze den Block in der vorhandenen `yap.json`. Bearbeite für jede
+Karte die Absätze unter `need.paragraphs`, bei Bedarf `sender`/`recipient` und das
+feste `growth_label`. Entferne optionale Felder, um sie auszublenden. Die Angaben
+sind bewusst verfasste Beispiele und werden mit der Website veröffentlicht.
+
+**English:** Add the block to your existing `yap.json`. Edit each card's
+`need.paragraphs`, optional `sender`/`recipient`, and fixed `growth_label`. Remove
+optional fields to hide them. These deliberately authored examples are published
+with the website.
+
+Run the usual `report` build (or `open`/`export`) after editing. Configuration
+changes participate in the existing incremental rebuild; unchanged inputs keep
+the same labels. Need uses separate native disclosures: Tab to the control and
+press Enter or Space. Tab into its text to scroll a long Need with the keyboard.
+Both cards can be open together; opening one does not follow the card link and
+works without JavaScript.

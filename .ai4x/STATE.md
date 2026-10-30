@@ -1,31 +1,32 @@
-# Return point — Issue #27 refining the preferred quiet-flow design
+# Return point — Issue #27 refining quiet flow with a native resize grip
 
 The original placement scope of [#27](https://github.com/normenmueller/yap/issues/27)
 was implemented as `5ec0872` and delivered in
 [PR #28](https://github.com/normenmueller/yap/pull/28), but the owner has not
 accepted the live composition. The Issue remains in visual refinement.
 
-The owner currently prefers the “Ruhiger Fluss” concept. Keep the mission
-“Vorhaben bewegen. Wirkung sichtbar machen.” and the closing line below the input,
-“Dein Bedarf gibt die Richtung vor.”, exactly. The owner proposed additional yapic
-copy, noted that the question needs an explanation of “Wirkungsfeld”, and requested
-minimal initial text with discreet expandable explanations. A shorter/compact
-editor with a bottom-right enlargement control is also under exploration.
+The owner prefers the quiet-flow direction and refined it using screenshots.
+Keep “Vorhaben bewegen. Wirkung sichtbar machen.” and, below the input,
+“Dein Bedarf gibt die Richtung vor.” exactly. Place the visible Wirkungsfeld
+definition very close below the mission, then add a sentence containing a yapics
+link to the existing collection so that “Was ist ein yapic?” has context.
+The latest local proposal uses the earlier owner-proposed orientation sentence.
 
-Three follow-up concepts compare a separate yapic disclosure, one combined
-expandable introduction, and a focused writing dialog. Each visibly defines
-Wirkungsfeld before the question, retains the fixed lines, and preserves the same
-textarea/draft when enlarged. The footer meaning “to yap ≈ quasseln” remains a
-discreet help proposal; implementation must retain existing About navigation.
-These interactive concepts are ignored local review evidence. Preference for the
-quiet-flow direction and the two fixed lines does not approve the remaining copy,
-disclosure or editor interaction, or an application replacement.
+The input's right edge should match the mission's ending period on a single line;
+wrapped/narrow layouts remain constrained to the available width. The owner
+rejected the separate enlargement arrow and its interaction, requesting the usual
+native drag grip inside the textarea's bottom-right corner. The latest single
+prototype uses native vertical resizing, retains its draft and existing disclosure,
+and preserves the two fixed lines. Earlier comparison concepts are superseded as
+the active return point. Footer meaning “to yap ≈ quasseln” remains discreet;
+application implementation must preserve existing About navigation.
 
-Next: support the owner's comparison and refine the exact copy/disclosure/editor
-behavior, then obtain approval of the changed implementation scope. Application
-code and consumer revisions remain unchanged by this exploration. The Issue owns
-scope/next action; the [application Project](https://github.com/users/normenmueller/projects/5)
-owns live status/order. Verify both on recovery. PR acceptance and merge remain
+Next: review this revised local composition/copy with the owner, then refine and
+obtain approval of the changed application implementation scope. These ignored
+visual proposals do not accept the original PR or deliver an application replacement.
+Application code and consumer revisions are unchanged by this exploration.
+The Issue owns scope/next action; the [application Project](https://github.com/users/normenmueller/projects/5)
+owns live status/order. Verify both on recovery. Acceptance and merge remain
 pending; do not merge from the original scope approval or start another Issue.
 BEHAVIOR owns review, merge, cleanup and session boundaries. Existing holds and
 deferrals remain effective.

@@ -1,33 +1,38 @@
-# Return point — Issue #29 delivered for owner review
+# Return point — Issue #29 revised for owner review
 
 [PR #30](https://github.com/normenmueller/yap/pull/30) delivers
-[#29](https://github.com/normenmueller/yap/issues/29) at `d3b25ad` on
-`fix/29-homepage-stars-credit`. The homepage again shows the lavender stars beside
-the request question and the explicitly configured assistant name plus linked
-credit above the input. Missing branding remains omitted. The existing
-introduction, native input, footer and generic application boundary are preserved.
-The reviewer request is for `normenmueller`; owner acceptance and merge are pending.
+[#29](https://github.com/normenmueller/yap/issues/29) at `24d094c` on
+`fix/29-homepage-stars-credit`. The owner selected a simpler homepage after visual
+review: retain the lavender stars beside the question and remove the separate
+assistant attribution. The configured assistant remains in the input greeting;
+explicit curator credit remains in the footer. The requested revision is
+implemented; owner acceptance of this delivered revision and merge are pending.
 
-Next: support the owner's visual review of this bounded restoration and wait for
-feedback or GitHub approval. Do not merge or select another Issue. The ignored
-optional session note points to this worktree's synthetic desktop/mobile preview
-and evidence. No real instance, consumer revision or provider execution changed.
-Other Project states/order, assignees and holds remain unchanged.
+Next: support the owner's visual review and wait for feedback or GitHub approval.
+Do not merge or select another Issue. `normenmueller` remains the requested
+reviewer. The ignored optional session note points to the updated synthetic
+preview and evidence. Other Project states/order, assignees and holds are
+preserved. No real instance, consumer revision or provider execution changed.
 
 <details>
-<summary>Issue #29 verification and review</summary>
+<summary>Issue #29 revised implementation and verification</summary>
 
-All 11 branding tests and the extended homepage browser regression passed at
-`d3b25ad`, including configured name/credit, short desktop windows and true fresh
-no-script navigation. The existing mypy 2.4.0 gate passed four files and rejected
-six invalid calls; homepage code remains outside that static gate. A synthetic
-root-entry preview passed 42 layout cases covering default/configured/long
-branding, desktop/mobile widths and enlarged text. Desktop, 390px and 320px
-screenshots were inspected. Evidence is scoped to the affected Chromium-family
-rendering; no new full-report/export or whole-suite run is claimed. Independent
-nonauthor review and final recheck found no actionable findings. The reviewer
-inspected affected screenshots/geometry and independently reran the homepage
-regression and all 11 branding tests successfully.
+The redundant attribution markup, styling and its short-window spacing override
+are removed. Existing `branding.assistant_credit` values are ignored without
+rewriting manifests. Greeting escaping, decorative stars, native input and the
+explicit safe footer link are retained. The user guide describes this behavior.
+
+At `24d094c`, all 11 branding tests and the homepage browser regression passed.
+The refreshed synthetic root-entry preview passed 42 cases across default,
+configured and long branding, desktop/mobile widths, 16/32px fonts and fresh
+navigation with scripts on/off. Updated desktop and mobile screenshots were
+visually inspected. These are scoped Chromium-family checks, not a new full-suite,
+full-report/export or cross-browser certification. The unchanged strict type gate
+passed at the prior implementation; homepage code remains outside that gate.
+
+The earlier restoration at `d3b25ad` included the separate attribution. The owner's
+later decision supersedes that placement; it does not accept the revised delivery
+or authorize merge. Independent review covers the revised source and records.
 
 </details>
 

@@ -1,44 +1,53 @@
-# Return point — Issue #29 revised for owner review
+# Return point — Issue #29 complete; end this session
 
-[PR #30](https://github.com/normenmueller/yap/pull/30) delivers
-[#29](https://github.com/normenmueller/yap/issues/29) at `24d094c` on
-`fix/29-homepage-stars-credit`. The owner selected a simpler homepage after visual
-review: retain the lavender stars beside the question and remove the separate
-assistant attribution. The configured assistant remains in the input greeting;
-explicit curator credit remains in the footer. The requested revision is
-implemented; owner acceptance of this delivered revision and merge are pending.
+The owner approved [PR #30](https://github.com/normenmueller/yap/pull/30) at
+`fcd4e538fb7b78c55789e615401faea958c3e858` on October 30, 2026. It merged into
+`trunk` as `c08cf75409ee44e8ce696ae721f6241c27d8414b`; the merge tree matches
+the approved head. [#29](https://github.com/normenmueller/yap/issues/29) is complete.
+The accepted homepage restores the lavender stars beside the question and removes
+the redundant assistant attribution. The input greeting names the configured
+assistant; explicit curator credit remains in the footer.
 
-Next: support the owner's visual review and wait for feedback or GitHub approval.
-Do not merge or select another Issue. `normenmueller` remains the requested
-reviewer. The ignored optional session note points to the updated synthetic
-preview and evidence. Other Project states/order, assignees and holds are
-preserved. No real instance, consumer revision or provider execution changed.
+The completed local/remote branch, its worktree and the empty collection directory
+are removed after merge and preservation checks. Private references, synthetic
+previews and development evidence are preserved in ignored retired storage.
+No real instance, consumer revision or provider execution changed.
+
+Next: end/delete this completed Issue session. No next Issue is selected. A fresh
+session in `trunk`, without resume, may verify the owner's next selection and
+prepare its branch/worktree as BEHAVIOR defines. Do not begin another Issue here.
+Other Project states/order, assignees and existing holds remain preserved.
 
 <details>
-<summary>Issue #29 revised implementation and verification</summary>
+<summary>Accepted Issue #29 implementation, verification and cleanup</summary>
 
-The redundant attribution markup, styling and its short-window spacing override
-are removed. Existing `branding.assistant_credit` values are ignored without
-rewriting manifests. Greeting escaping, decorative stars, native input and the
-explicit safe footer link are retained. The user guide describes this behavior.
+The accepted implementation is `24d094c`; `fcd4e53` adds its reviewed return point.
+The owner's visual feedback superseded the initial restoration of a separate
+assistant name/provider line. Its markup, styling and short-window spacing
+override are removed. Legacy `branding.assistant_credit` values are ignored
+without rewriting manifests. Escaped greeting, decorative stars, native input
+and explicitly configured safe footer links remain.
 
 At `24d094c`, all 11 branding tests and the homepage browser regression passed.
 The refreshed synthetic root-entry preview passed 42 cases across default,
 configured and long branding, desktop/mobile widths, 16/32px fonts and fresh
-navigation with scripts on/off. Updated desktop and mobile screenshots were
-visually inspected. These are scoped Chromium-family checks, not a new full-suite,
-full-report/export or cross-browser certification. The unchanged strict type gate
-passed at the prior implementation; homepage code remains outside that gate.
+navigation with scripts on/off. Updated desktop/mobile screenshots were visually
+inspected. The nonauthor independently reran branding/homepage tests and inspected
+the refreshed evidence, finding no actionable issues. These are scoped
+Chromium-family checks, not a new full-suite, full-report/export or cross-browser
+certification. The unchanged strict type gate passed four files and rejected six
+invalid calls at the prior implementation; homepage code remains outside it.
+This closeout changes records and metadata only and reuses that valid evidence.
 
-The earlier restoration at `d3b25ad` included the separate attribution. The owner's
-later decision supersedes that placement; it does not accept the revised delivery
-or authorize merge. Independent review covers the revised source and records.
+Before removal, 2,928 regular files, three symlinks and 319 directories of ignored
+private/development material were preserved and verified by SHA-256 contents,
+modes and symlink targets. One additional collection metadata file was preserved
+and verified separately. The approved branch was verified merged and free of
+unmerged/untracked work before cleanup. Archived environments and old navigation
+are historical, not active runtime or authority. Existing legacy worktrees/refs
+were left unchanged.
 
 </details>
-
-Earlier completed-delivery history is retained below; its old return points do
-not replace the current owner review. Issue #29 preparation remains in Git
-history and its owning Issue.
 
 ---
 

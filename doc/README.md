@@ -91,6 +91,10 @@ with JavaScript it floats above the input and closes on outside click, Escape or
 focus moving elsewhere; without JavaScript it opens in the page flow. Drag the
 textarea's native lower-right grip to make it taller. Text remains in that same
 field, but is not submitted or saved; its creation button stays disabled.
+Wide, tall windows use the lower entry position; shorter desktop windows reduce
+the spacing so the normal closed view includes its footer. Enlarged text, long
+configured content, an expanded no-script explanation or a manually enlarged
+textarea can still make the page grow naturally.
 
 Optional `branding.assistant` supplies the displayed assistant name. Optional
 `branding.assistant_credit` supplies an explicit display credit; when it contains

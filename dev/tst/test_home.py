@@ -49,20 +49,25 @@ class HomeTests(unittest.TestCase):
                             time.sleep(.02)
                         else:
                             self.fail('Homepage did not load in the selected script mode.')
-                        for width in (1200, 320, 1200):
-                            with self.subTest(title=title, scripts=enabled, width=width):
+                        for width, height in ((1200, 1000), (1366, 768), (1280, 720),
+                                              (1024, 640), (1366, 600), (320, 1000), (1200, 1000)):
+                            with self.subTest(title=title, scripts=enabled, width=width, height=height):
                                 connection.call('Emulation.setDeviceMetricsOverride', width=width,
-                                                height=1000, deviceScaleFactor=1, mobile=False)
+                                                height=height, deviceScaleFactor=1, mobile=False)
                                 frames(enabled)
                                 geometry = js('''(()=>{
                                     const rect=s=>document.querySelector(s).getBoundingClientRect();
                                     const box=rect('.home-content'),lead=rect('.lead'),input=rect('textarea');
                                     return {center:(box.left+box.right)/2,edge:input.right-lead.right,
                                             overflow:document.documentElement.scrollWidth>innerWidth,
-                                            top:input.top};})()''')
+                                            top:input.top,footer:rect('footer').bottom,
+                                            pageHeight:document.documentElement.scrollHeight};})()''')
                                 self.assertAlmostEqual(geometry['center'], width / 2, delta=1)
                                 self.assertAlmostEqual(geometry['edge'], 0, delta=1)
                                 self.assertFalse(geometry['overflow'])
+                                if title == 'yap.' and width > 700:
+                                    self.assertLessEqual(geometry['pageHeight'], height + 1)
+                                    self.assertLessEqual(geometry['footer'], height + 1)
                                 js('document.querySelector("textarea").value="Keep this draft";'
                                    'document.querySelector(".yapic-explanation summary").focus()')
                                 connection.call('Input.dispatchKeyEvent', type='keyDown', key='Enter',

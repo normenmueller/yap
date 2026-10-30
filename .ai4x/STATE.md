@@ -1,17 +1,22 @@
-# Return point — Issue #25 owner implementation review
+# Return point — Issue #25 merged; end this session
 
-The owner approved [#25](https://github.com/normenmueller/yap/issues/25)'s refined
-scope on October 30, 2026. Its implementation is on `fix/25-yapics-cards`, based
-on verified `trunk` revision `2dfa38c173135c5d0d47a2623417dccae5be0ded`.
-Implementation revision `2b41b65c419ecd89578776a18d1a315aae1ac0f3` restores the two
-full collection cards and separate native Need disclosures. Optional `yap.json`
-`illustrative_cards` inputs supply per-card paragraphs, optional sender/recipient
-and fixed growth labels. Missing values are omitted; external values are validated
-and escaped, and authored language is retained. The user guide owns the format
-and editing instructions. This delivers neither genuine quip identification (#8)
-nor durable yapic definitions/evolution (#12).
+The owner approved [PR #26](https://github.com/normenmueller/yap/pull/26) at
+`e14da177b385b697bc7dc4d2e93025afbc735de4` on October 30, 2026 and explicitly
+authorized merge and cleanup. It merged into `trunk` as
+`e12b697bf0fcbbb67b97bca7aefe91a3c117a4cd`; the merge tree matches the approved
+head. [#25](https://github.com/normenmueller/yap/issues/25) is closed as completed
+and its Project item is Done. Other item statuses/order and issue assignees were
+preserved. Closeout changes only engineering records and metadata.
 
-Verification at that implementation revision: all 317 regression tests passed on
+The accepted implementation restores the two full collection cards and separate
+native Need disclosures. Optional `yap.json` `illustrative_cards` inputs supply
+per-card paragraphs, optional sender/recipient and fixed growth labels. Missing
+values are omitted; external values are validated and escaped, and authored
+language is retained. The user guide owns the format and editing instructions.
+This delivers neither genuine quip identification (#8) nor durable yapic
+definitions/evolution (#12).
+
+Verification at implementation revision `2b41b65`: all 317 regression tests passed on
 Python 3.15.2/PyYAML 6.0.3 before the restart checkpoint. Pinned mypy 2.4.0 passed
 the strict gate (four source files, including its positive fixture); six invalid
 static calls were rejected. The final nonauthor independently reran the five
@@ -34,20 +39,29 @@ native Enter/Space disclosure, independent opening, Tab access, keyboard scrolli
 to the end, card navigation and no horizontal document overflow. Pointer checks
 without JavaScript confirmed Need isolation and card-body navigation at the same
 six size combinations. Desktop/mobile closed/open screenshots were visually
-inspected. This is scoped evidence, not whole-application certification or owner
-acceptance. No application code changed during these final checks.
+inspected. This is scoped evidence, not whole-application certification. No application code changed during these final checks.
 
-Next: the owner reviews [PR #26](https://github.com/normenmueller/yap/pull/26)
-and gives feedback or a GitHub review. No implementation acceptance or merge is
-authorized. Stay on #25; do not start another queue item. The Issue owns scope/next
-action; the Project owns live status/order. Preserve other items and the boundaries below.
+Closeout preserved 3,134 regular files, three symlinks and 362 directories of
+ignored development/private material, verified by SHA-256 contents, modes and
+symlink targets. One additional collection metadata file was preserved with
+matching SHA-256 and mode before parent-directory cleanup. The local preview and evidence remain in ignored retired
+development storage; archived configuration and virtual environments are historical,
+not active runtime or team authority. After verifying the approved head was merged
+and no unmerged work remained, the completed branch was deleted locally/remotely,
+its worktree removed, and its now-empty collection directory removed. Unrelated
+legacy worktrees/refs were left unchanged.
 
-Temporary reference cleanup is complete. After renewed explicit owner approval
-on October 30, 2026, only the supplied temporary reference directory was removed;
-its exact path and symlink boundaries were checked, and its absence was verified.
-No reference source was edited before removal. Private navigation and authored
-reference content remain outside commits. Owner implementation review remains
-the return point; this cleanup approval does not accept or authorize merging #25.
+The supplied temporary reference was removed only after renewed explicit owner
+approval, checking exact path/symlink boundaries and verifying absence. No reference
+source was edited before removal. Private navigation and authored reference content
+remain outside commits.
+
+Next: end/delete this completed issue session. No next issue is selected. After
+the owner selects work, start a fresh session without resume in `trunk` for the
+bounded issue/base/branch/worktree preparation described in BEHAVIOR, then end that
+preparation session and start fresh in its issue worktree. Do not continue another
+queue item here. The Issue owns scope/next action; the Project owns live status/order.
+Preserve existing holds, deferrals and accepted boundaries below.
 
 ## Accepted Python delivery and retained backlog context
 

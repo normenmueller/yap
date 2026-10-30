@@ -84,11 +84,17 @@ The command edits only the selected source binding and navigation; attach does
 not modify the target directory. See [local workspaces](authoring.md#local-workspaces)
 for path rules and migration.
 
-The homepage opens with the portfolio heading and an assistant request-panel
-preview. The linked heading and the introduction's yapic link open the existing
-Activity/Performance collection. The request field does not submit or save text;
-its creation button remains disabled. Assistant display text does not configure
-or activate a provider.
+The homepage centers the portfolio heading, a short introduction and a compact
+assistant request preview. The heading link and underlined `yapics` open the
+existing Activity/Performance collection. Select `yapic?` for a longer explanation:
+with JavaScript it floats above the input and closes on outside click, Escape or
+focus moving elsewhere; without JavaScript it opens in the page flow. Drag the
+textarea's native lower-right grip to make it taller. Text remains in that same
+field, but is not submitted or saved; its creation button stays disabled.
+Wide, tall windows use the lower entry position; shorter desktop windows reduce
+the spacing so the normal closed view includes its footer. Enlarged text, long
+configured content, an expanded no-script explanation or a manually enlarged
+textarea can still make the page grow naturally.
 
 Optional `branding.assistant` supplies the displayed assistant name. Optional
 `branding.assistant_credit` supplies an explicit display credit; when it contains
@@ -97,6 +103,13 @@ rules apply. Neither identity nor credit is inferred for an unconfigured instanc
 For example, `"assistant": "Example helper"` and
 `"assistant_credit": "by Example team"` are ordinary branding text, not a care
 relationship or executable integration.
+
+The homepage keeps the footer's product link to About and adds the discreet
+`to yap ≈ quasseln` explanation on hover/focus. Use existing `branding.footer`
+and `branding.footer_link` for an explicit credit. For example, a footer of
+`Curated by Example.` with the matching safe link produces
+`Curated by Example. Focused with yap.` on the homepage. Other views retain their
+existing footer format; an unconfigured instance receives no curation credit.
 
 The retained interface currently uses German labels. Authored text retains its
 language independently of future interface localization. Generated views and

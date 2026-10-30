@@ -1,28 +1,75 @@
-# Return point — Issue #27 selected; worktree preparation complete
+# Return point — Issue #27 owner implementation review
 
-The owner selected [#27](https://github.com/normenmueller/yap/issues/27): move
-the existing yapic explanation after the homepage introduction and before the
-first divider. It is in Refinement in the
-[application Project](https://github.com/users/normenmueller/projects/5).
-Preparation accepts neither implementation scope nor result.
+The owner accepted the final quiet-flow design and explicitly authorized its
+implementation in [#27](https://github.com/normenmueller/yap/issues/27).
+Implementation `72fc103` on `fix/27-yapic-explanation` is delivered through the
+existing [PR #28](https://github.com/normenmueller/yap/pull/28). The earlier
+placement-only delivery was superseded during owner-led visual refinement.
+Design approval does not accept this implementation or authorize merge.
 
-Next: end/delete this `trunk` preparation session. Start a fresh Codex CLI session,
-without resume, in `fix/27-yapic-explanation` beside `trunk`. Verify the actual
-working directory, branch, instructions and write scope, then assess and refine
-#27 with the owner there before implementation. The Issue owns scope and next
-action; the Project owns live status and order. BEHAVIOR owns review, merge and
-cleanup boundaries. Existing holds and deferrals remain effective.
+The owner selected the deeper entry during visual review and required the footer
+to remain visible without scrolling on normal desktop/laptop views. The homepage
+now uses a lower entry position on tall windows and compact spacing on shorter desktops.
+The fixed 1100px comparison stage is not an application height requirement.
+Normal closed views fit the checked desktop sizes; enlarged text, long configured
+content, a manually enlarged textarea or the open no-script definition may grow
+naturally. No content is clipped and the footer remains in normal page flow.
+
+Next: the owner reviews the refreshed implementation in PR #28. Design and
+spacing choices do not accept the delivered result or authorize merge.
+The Issue owns scope/next action; the
+[application Project](https://github.com/users/normenmueller/projects/5) owns live
+status/order. Verify both on recovery. GitHub Approve on the delivered PR
+authorizes merge after required checks. Do not start another Issue or change
+a consumer revision during review. BEHAVIOR owns merge, cleanup and the session
+boundary; existing holds and deferrals remain effective.
 
 <details>
-<summary>Verified preparation and session boundary</summary>
+<summary>Issue #27 delivery, verification and limits</summary>
 
-Branch and matching worktree `fix/27-yapic-explanation` were created at verified
-remote `trunk` revision `6b018726235e17433763258e1384806f024665ea` and receive
-this preparation-only handoff. The working session remains in `trunk`.
-Existing Project item order, statuses and issue assignees are preserved.
-No application code or consumer revision changed. Analysis, decisions,
-implementation and tests belong in the issue worktree/session; its Issue owns
-the detailed requested behavior and verification.
+The application now renders the centered quiet-flow layout, continuous tighter
+introduction with underlined collection link, arrowless native yapic disclosure,
+exact authored definition in a styled overlay, and native textarea resizing.
+Mission and closing copy are retained. UI-only JavaScript adds the floating
+bubble/tip and outside-click, Escape and focus dismissal. Without JavaScript,
+the native disclosure opens readably in page flow. Creation remains inactive;
+there is no new provider execution, draft persistence or instance migration.
+
+Existing explicit branding owns assistant identity and footer credits. The
+selected synthetic preview configures the approved display values; unconfigured
+instances acquire no curation identity. The homepage credit formatting, word
+help and real About anchor preserve the generic boundary. The guide owns editing
+instructions. Independent source review resolved and rechecked custom-title
+alignment and long-credit wrapping findings, including narrow/enlarged text.
+
+At `72fc103`, the affected homepage regression and ten branding tests passed.
+Twenty-six browser window/mode cases checked ten normal desktop sizes from
+1366×600 to 1920×1080, mobile widths and enlarged text with scripts on/off;
+all normal closed desktop views include the footer without scrolling. Tall,
+short and mobile screenshots were inspected. A fresh synthetic CLI report,
+unchanged repeat and export reproduced the publication/preservation checks below.
+Independent source review covers this bounded spacing change.
+
+All 319 regression tests passed at `a8b4cac`; scoped browser/publication evidence
+is recorded in #27/PR #28. The existing pinned mypy 2.4.0 gate passed four
+declared files and rejected six invalid calls; homepage/footer modules remain
+outside that gate. JavaScript syntax and diff checks passed.
+
+Twenty isolated Chrome layout/mode cases cover desktop/mobile widths, 16/32px
+root fonts, normal/short windows and scripts on/off. Native keyboard disclosure,
+CSS-owned centering/mission width, no-shift overlay and no-script flow fallback
+passed. Real root-entry checks cover native dragging, preserved text/Enter,
+outside-click/Tab dismissal, word help and actual About/collection navigation.
+Desktop/mobile closed/open screenshots were inspected. This is scoped local
+evidence, not whole-codebase typing or cross-browser/device certification.
+
+The real synthetic CLI report generated 25 site files, including five PDFs.
+An unchanged repeat/export rebuilt no outputs; full site/export SHA-256 inventories
+match. Seven authored/configuration/unsaved files were preserved. All 237 local
+href/src paths exist (fragments unchecked); the private fixture marker is absent
+from publication, model JSON and extracted PDF text. Evidence and selected preview
+configuration remain ignored in this worktree. No real instance or consumer
+revision changed. Accepted delivery/cleanup histories below are unchanged.
 
 </details>
 

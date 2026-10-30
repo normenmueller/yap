@@ -29,6 +29,7 @@ class Page(HTMLParser):
         self.images = []
         self.text = []
         self.in_footer = False
+        self.in_gloss = False
         self.footer_text = []
         self.footer_links = []
         self.footer_anchors = []
@@ -39,6 +40,8 @@ class Page(HTMLParser):
         fields = dict(attributes)
         if tag == 'footer':
             self.in_footer = True
+        if tag == 'span' and fields.get('class') == 'footer-gloss':
+            self.in_gloss = True
         if tag == 'a':
             self.links.append(fields.get('href', ''))
             if self.in_footer:
@@ -49,6 +52,8 @@ class Page(HTMLParser):
             self.images.append(fields)
 
     def handle_endtag(self, tag):
+        if tag == 'span' and self.in_gloss:
+            self.in_gloss = False
         if tag == 'a':
             self.current_footer_anchor = None
         if tag == 'footer':
@@ -56,7 +61,7 @@ class Page(HTMLParser):
 
     def handle_data(self, data):
         self.text.append(data)
-        if self.in_footer:
+        if self.in_footer and not self.in_gloss:
             self.footer_text.append(data)
             if self.current_footer_anchor is not None:
                 self.current_footer_anchor['text'].append(data)
@@ -86,7 +91,7 @@ class BrandingTests(unittest.TestCase):
             self.assertIn('yap dein yapic mit mir!', homepage)
             self.assertIn('Example activities', homepage)
             self.assertIn('Example &lt;portfolio&gt;<span>.</span>', homepage)
-            self.assertIn('Dein Wirkungsfeld umfasst deine Vorhaben, Ziele und Beiträge.', homepage)
+            self.assertIn('Deine Vorhaben, Ziele und Beiträge bilden dein Wirkungsfeld.', homepage)
             self.assertNotIn('class="tiles"', homepage)
             collection = (site / 'views/yapics/index.html').read_text()
             self.assertIn('Arbeiten. Wirken. Nachlesen.', collection)
@@ -108,7 +113,8 @@ class BrandingTests(unittest.TestCase):
             self.assertEqual(product_logo['width'], '64')
             self.assertEqual((site / 'assets/yap-logo.svg').read_text(), custom_logo)
             for page in (homepage, collection, about):
-                self.assertEqual(''.join(Page(page).footer_text), 'Maintained by Example <team> · Focused with yap')
+                self.assertEqual(''.join(Page(page).footer_text),
+                                 'Maintained by Example <team> · Focused with yap' + ('.' if page == homepage else ''))
                 self.assertIn('Maintained by Example &lt;team&gt;', page)
                 self.assertNotIn('Example &lt;author&gt;', page)
                 self.assertNotIn('<author>', page)
@@ -143,9 +149,27 @@ class BrandingTests(unittest.TestCase):
             self.assertIn('href="https://example.org/assist"', entry)
             self.assertNotIn('<helper>', homepage)
             self.assertNotIn('<team>', homepage)
-            self.assertNotIn('<script', homepage)
+            self.assertEqual(homepage.count('<script>'), 1)
             self.assertNotIn('<form', homepage)
             self.assertIn('type="button" disabled', homepage)
+            explanation = ('Ein <em>yapic</em> zeigt dir dein Wirkungsfeld aus der Perspektive, die du gerade brauchst.')
+            for page in (homepage, entry):
+                with self.subTest(output='root entry' if page == entry else 'site'):
+                    self.assertEqual(page.count(explanation), 1)
+                    self.assertEqual(page.count('id="request-note"'), 1)
+                    introduction = page.index('Deine Vorhaben, Ziele und Beiträge bilden dein Wirkungsfeld.')
+                    definition = page.index(explanation)
+                    question = page.index('Was in deinem ')
+                    request = page.index('<textarea id="view-request"')
+                    closing = page.index('Dein Bedarf gibt die Richtung vor.')
+                    self.assertLess(introduction, definition)
+                    self.assertLess(definition, question)
+                    self.assertLess(question, request)
+                    self.assertLess(request, closing)
+                    self.assertIn('aria-describedby="request-note"', page)
+                    self.assertIn('for="view-request"', page)
+                    self.assertIn('<details class="yapic-explanation">', page)
+                    self.assertIn('<em>yapic?</em></summary>', page)
             branding.pop('assistant_credit')
             (root / 'yap.json').write_text(json.dumps(manifest))
             with selected(root):
@@ -165,6 +189,21 @@ class BrandingTests(unittest.TestCase):
                 self.assertNotIn('That’s right!', rendered)
                 self.assertNotIn('Portfolio von ', rendered)
                 self.assertNotIn('Portfolio by ', rendered)
+
+    def test_homepage_credit_is_explicit_and_keeps_the_about_link(self):
+        with tempfile.TemporaryDirectory() as directory, selected(directory):
+            plain = footer.render(homepage=True, about_href='about.html')
+            self.assertEqual(''.join(Page(plain).footer_text), 'Focused with yap.')
+            self.assertNotIn('Curated by', plain)
+            Path('yap.json').write_text(json.dumps({'schema': 1, 'slug': 'example', 'branding': {
+                'footer': 'Curated by Example.',
+                'footer_link': {'text': 'Example', 'url': 'https://example.org/'}}}))
+            rendered = footer.render(homepage=True, about_href='about.html')
+            parsed = Page(rendered)
+            self.assertEqual(''.join(parsed.footer_text), 'Curated by Example. Focused with yap.')
+            self.assertEqual(parsed.footer_links, ['https://example.org/', 'about.html'])
+            self.assertIn('aria-describedby="footer-gloss"', rendered)
+            self.assertIn('to yap ≈ quasseln', rendered)
 
     def test_additional_credit_is_plain_text_and_author_is_not_a_footer_input(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -241,7 +280,8 @@ class BrandingTests(unittest.TestCase):
             self.assertGreaterEqual(len(pages), 9)
             for page in pages:
                 parsed = Page(page.read_text())
-                self.assertEqual(''.join(parsed.footer_text), 'Curated by Example · Focused with yap', str(page.relative_to(site)))
+                self.assertEqual(''.join(parsed.footer_text), 'Curated by Example · Focused with yap'
+                                 + ('.' if page.name == 'example.html' else ''), str(page.relative_to(site)))
                 self.assertEqual(parsed.footer_links[0], 'https://example.org/')
                 self.assertEqual([''.join(anchor['text']) for anchor in parsed.footer_anchors], ['Example', 'yap'])
                 self.assertEqual((page.parent / parsed.footer_links[1]).resolve(), (site / 'about.html').resolve())

@@ -1,23 +1,22 @@
-# Return point — Issue #27 owner review; vertical spacing comparison next
+# Return point — Issue #27 owner implementation review
 
 The owner accepted the final quiet-flow design and explicitly authorized its
 implementation in [#27](https://github.com/normenmueller/yap/issues/27).
-Implementation `a8b4cac` on `fix/27-yapic-explanation` is delivered through the
+Implementation `72fc103` on `fix/27-yapic-explanation` is delivered through the
 existing [PR #28](https://github.com/normenmueller/yap/pull/28). The earlier
 placement-only delivery was superseded during owner-led visual refinement.
 Design approval does not accept this implementation or authorize merge.
 
-During implementation review the owner found the composition too top-oriented
-on a tall window and requested UX advice, possibly moving the personal question
-lower. Local comparisons retain all content and behavior: the current 38px request
-gap; an 80px gap with the header unchanged; or the whole block 64px lower with a
-56px gap. The UX recommendation favors the 80px gap, with compact spacing on
-narrow/short windows. These are proposals only; no spacing change is selected or
-implemented. Application revision and valid delivery evidence below are unchanged.
+The owner selected the deeper entry during visual review and required the footer
+to remain visible without scrolling on normal desktop/laptop views. The homepage
+now uses a lower entry position on tall windows and compact spacing on shorter desktops.
+The fixed 1100px comparison stage is not an application height requirement.
+Normal closed views fit the checked desktop sizes; enlarged text, long configured
+content, a manually enlarged textarea or the open no-script definition may grow
+naturally. No content is clipped and the footer remains in normal page flow.
 
-Next: compare the spacing proposals with the owner, then follow the explicit
-choice within #27 or continue implementation review. Do not infer a selection
-or result acceptance from the UX recommendation.
+Next: the owner reviews the refreshed implementation in PR #28. Design and
+spacing choices do not accept the delivered result or authorize merge.
 The Issue owns scope/next action; the
 [application Project](https://github.com/users/normenmueller/projects/5) owns live
 status/order. Verify both on recovery. GitHub Approve on the delivered PR
@@ -42,6 +41,14 @@ instances acquire no curation identity. The homepage credit formatting, word
 help and real About anchor preserve the generic boundary. The guide owns editing
 instructions. Independent source review resolved and rechecked custom-title
 alignment and long-credit wrapping findings, including narrow/enlarged text.
+
+At `72fc103`, the affected homepage regression and ten branding tests passed.
+Twenty-six browser window/mode cases checked ten normal desktop sizes from
+1366×600 to 1920×1080, mobile widths and enlarged text with scripts on/off;
+all normal closed desktop views include the footer without scrolling. Tall,
+short and mobile screenshots were inspected. A fresh synthetic CLI report,
+unchanged repeat and export reproduced the publication/preservation checks below.
+Independent source review covers this bounded spacing change.
 
 All 319 regression tests passed at `a8b4cac`; scoped browser/publication evidence
 is recorded in #27/PR #28. The existing pinned mypy 2.4.0 gate passed four

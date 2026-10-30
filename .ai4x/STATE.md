@@ -1,27 +1,31 @@
-# Return point — Issue #27 refining quiet flow with a native resize grip
+# Return point — Issue #27 refining centered quiet flow and inline help
 
 The original placement scope of [#27](https://github.com/normenmueller/yap/issues/27)
 was implemented as `5ec0872` and delivered in
 [PR #28](https://github.com/normenmueller/yap/pull/28), but the owner has not
 accepted the live composition. The Issue remains in visual refinement.
 
-The owner prefers the quiet-flow direction and refined it using screenshots.
 Keep “Vorhaben bewegen. Wirkung sichtbar machen.” and, below the input,
-“Dein Bedarf gibt die Richtung vor.” exactly. Place the visible Wirkungsfeld
-definition very close below the mission, then add a sentence containing a yapics
-link to the existing collection so that “Was ist ein yapic?” has context.
-The latest local proposal uses the earlier owner-proposed orientation sentence.
+“Dein Bedarf gibt die Richtung vor.” exactly. The owner now requests the entire
+visible content block centered horizontally as one unit. The current prototype
+keeps its internal text left-aligned and its input aligned to the mission's end.
+The definition and linked yapics sentence form one paragraph without a forced
+break; the yapics link is explicitly underlined. A small inline “yapic? >” control
+immediately after “Orientierung.” replaces the separate disclosure prompt.
+It expands the perspective explanation without leaving the page.
 
-The input's right edge should match the mission's ending period on a single line;
-wrapped/narrow layouts remain constrained to the available width. The owner
-rejected the separate enlargement arrow and its interaction, requesting the usual
-native drag grip inside the textarea's bottom-right corner. The latest single
-prototype uses native vertical resizing, retains its draft and existing disclosure,
-and preserves the two fixed lines. Earlier comparison concepts are superseded as
-the active return point. Footer meaning “to yap ≈ quasseln” remains discreet;
-application implementation must preserve existing About navigation.
+The owner requested the display footer “Curated by ai4X. Focused with yap.”,
+with ai4X linking to the exact public target recorded in #27, in the same purple
+as yap and underlined. The discreet “to yap ≈ quasseln” help remains. This is
+requested display copy, not new integration/curation authority; application
+implementation must preserve existing About navigation.
 
-Next: review this revised local composition/copy with the owner, then refine and
+Native vertical resizing through the textarea's lower-right grip remains the
+selected local interaction; the rejected enlarge arrow/dialog is not restored.
+The same draft, collection links and two fixed lines are preserved. Earlier
+comparison concepts are superseded as the active return point.
+
+Next: review the updated local composition/copy with the owner, then refine and
 obtain approval of the changed application implementation scope. These ignored
 visual proposals do not accept the original PR or deliver an application replacement.
 Application code and consumer revisions are unchanged by this exploration.

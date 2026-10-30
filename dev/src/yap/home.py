@@ -144,9 +144,7 @@ def _request():
             '<textarea id="view-request" rows="2" aria-describedby="request-note" placeholder="'
             + escape(greeting, quote=True) + '"></textarea>'
             '<button type="button" disabled aria-label="yapic erstellen (Konzeptvorschau)" '
-            'title="Konzeptvorschau — Erstellung noch ohne Funktion">' + portrait + '</button></div>'
-            '<p class="request-note" id="request-note">Ein <em>yapic</em> verbindet deinen Bedarf mit passenden Perspektiven und '
-            'Darstellungen auf dein Wirkungsfeld — eine Saat für neue Einsichten und klare Orientierung.</p></section>')
+            'title="Konzeptvorschau — Erstellung noch ohne Funktion">' + portrait + '</button></div></section>')
 
 
 def _product_logo():
@@ -163,7 +161,10 @@ def render(destination):
     homepage = _page('home', '<p class="eyebrow"><a href="views/yapics/index.html" title="Alle yapics öffnen">'
                      + tagline + '</a></p><header class="intro"><h1>'
                      + title + '</h1><p class="lead">' + product.MISSION + '</p><p class="description">'
-                     + product.DESCRIPTION + '</p></header>' + _request())
+                     + product.DESCRIPTION + '</p>'
+                     '<p class="request-note" id="request-note">Ein <em>yapic</em> verbindet deinen Bedarf mit passenden Perspektiven und '
+                     'Darstellungen auf dein Wirkungsfeld — eine Saat für neue Einsichten und klare Orientierung.</p></header>'
+                     + _request())
     portfolio = _page('yapics', '<header class="portfolio-intro"><h1>yapic Portfolio</h1><p>'
                       + product.COLLECTION + '</p></header>' + _cards('../../'))
     about = _page('about', '<article class="about">' + _product_logo() + product.ABOUT + '</article>')

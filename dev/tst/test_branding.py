@@ -146,6 +146,23 @@ class BrandingTests(unittest.TestCase):
             self.assertNotIn('<script', homepage)
             self.assertNotIn('<form', homepage)
             self.assertIn('type="button" disabled', homepage)
+            explanation = ('Ein <em>yapic</em> verbindet deinen Bedarf mit passenden Perspektiven und '
+                           'Darstellungen auf dein Wirkungsfeld — eine Saat für neue Einsichten und klare Orientierung.')
+            for page in (homepage, entry):
+                with self.subTest(output='root entry' if page == entry else 'site'):
+                    self.assertEqual(page.count(explanation), 1)
+                    self.assertEqual(page.count('id="request-note"'), 1)
+                    introduction = page.index('Dein Wirkungsfeld umfasst deine Vorhaben, Ziele und Beiträge.')
+                    definition = page.index(explanation)
+                    divider = page.index('<section class="ai-preview"')
+                    question = page.index('Was in deinem ')
+                    request = page.index('<textarea id="view-request"')
+                    self.assertLess(introduction, definition)
+                    self.assertLess(definition, divider)
+                    self.assertLess(divider, question)
+                    self.assertLess(question, request)
+                    self.assertIn('aria-describedby="request-note"', page)
+                    self.assertIn('<label for="view-request">', page)
             branding.pop('assistant_credit')
             (root / 'yap.json').write_text(json.dumps(manifest))
             with selected(root):

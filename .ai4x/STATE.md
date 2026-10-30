@@ -1,4 +1,33 @@
-# Return point — Issue #25 merged; end this session
+# Return point — Issue #27 selected; worktree preparation complete
+
+The owner selected [#27](https://github.com/normenmueller/yap/issues/27): move
+the existing yapic explanation after the homepage introduction and before the
+first divider. It is in Refinement in the
+[application Project](https://github.com/users/normenmueller/projects/5).
+Preparation accepts neither implementation scope nor result.
+
+Next: end/delete this `trunk` preparation session. Start a fresh Codex CLI session,
+without resume, in `fix/27-yapic-explanation` beside `trunk`. Verify the actual
+working directory, branch, instructions and write scope, then assess and refine
+#27 with the owner there before implementation. The Issue owns scope and next
+action; the Project owns live status and order. BEHAVIOR owns review, merge and
+cleanup boundaries. Existing holds and deferrals remain effective.
+
+<details>
+<summary>Verified preparation and session boundary</summary>
+
+Branch and matching worktree `fix/27-yapic-explanation` were created at verified
+remote `trunk` revision `6b018726235e17433763258e1384806f024665ea` and receive
+this preparation-only handoff. The working session remains in `trunk`.
+Existing Project item order, statuses and issue assignees are preserved.
+No application code or consumer revision changed. Analysis, decisions,
+implementation and tests belong in the issue worktree/session; its Issue owns
+the detailed requested behavior and verification.
+
+</details>
+
+<details>
+<summary>Accepted Issue #25 delivery and closeout evidence</summary>
 
 The owner approved [PR #26](https://github.com/normenmueller/yap/pull/26) at
 `e14da177b385b697bc7dc4d2e93025afbc735de4` on October 30, 2026 and explicitly
@@ -56,12 +85,7 @@ approval, checking exact path/symlink boundaries and verifying absence. No refer
 source was edited before removal. Private navigation and authored reference content
 remain outside commits.
 
-Next: end/delete this completed issue session. No next issue is selected. After
-the owner selects work, start a fresh session without resume in `trunk` for the
-bounded issue/base/branch/worktree preparation described in BEHAVIOR, then end that
-preparation session and start fresh in its issue worktree. Do not continue another
-queue item here. The Issue owns scope/next action; the Project owns live status/order.
-Preserve existing holds, deferrals and accepted boundaries below.
+</details>
 
 ## Accepted Python delivery and retained backlog context
 
@@ -81,14 +105,15 @@ and care references, and #24 further typed domain/model and module separation.
 
 The previous handoff records preservation and cleanup of the accepted delivery.
 This preparation still found legacy local/remote-tracking refs and prunable worktree
-registrations; they were left unchanged. Their remote state was not reverified. BEHAVIOR now states the cleanup rule generically, without fixed folder
-names: remove empty worktree collection directories and recreate them when needed.
+registrations; they were left unchanged. Remote verification found no published
+legacy branches. BEHAVIOR states the cleanup rule generically, without fixed
+folder names: remove empty worktree collection directories and recreate them when needed.
 Ignored/private artifacts were preserved and verified before removal; archived
 configuration, virtual environments and old navigation are historical, not active.
 
 The earlier backlog assessment recommended #8, actual quip identification, as a
 concrete product case with its required typed boundaries. The owner has now selected
-#25 instead; that recommendation does not override the selection. #5 remains Paused; #6/#11 deferrals and
+#27 instead; that recommendation does not override the selection. #5 remains Paused; #6/#11 deferrals and
 #13's hold remain effective. #7/#10 retain their separately bounded effect/provider
 scopes. The current quip scene is illustrative. No real collection, provider
 activation, consumer revision or instance migration is selected here.

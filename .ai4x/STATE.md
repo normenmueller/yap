@@ -1,3 +1,28 @@
+# Return point — Issue #29 prepared; start a fresh fix session
+
+The owner selected [#29](https://github.com/normenmueller/yap/issues/29) on
+October 30, 2026: restore the homepage star cluster and configured assistant
+attribution shown in two private visual references. #27 remains completed.
+
+Preparation verified clean `trunk` at
+`861f5dcf29166a0a060eb933a4f649f362c8209b`, matching the remote base, and created
+branch `fix/29-homepage-stars-credit` with its matching worktree. The new Project
+item is in Refinement; other item states/order, assignees and holds are unchanged.
+No application implementation, rendering diagnosis or new verification has run.
+
+Next: end/delete the trunk preparation session and start a fresh session, without
+resume, in the `fix/29-homepage-stars-credit` worktree. Verify actual cwd, branch,
+instructions and write scope there. Read its ignored `.yap/cfg/session.md` for
+private screenshot navigation. Inspect the selected request and existing branding
+there, then complete refinement and the requested restoration under BEHAVIOR.
+This preparation does not accept a delivered change or authorize merge.
+
+The preparation base above precedes this handoff-only commit. The sections below
+retain the accepted prior delivery and cleanup evidence; their former return
+point is historical and does not replace the current #29 selection.
+
+---
+
 # Return point — Issue #27 complete; end this session
 
 The owner approved [PR #28](https://github.com/normenmueller/yap/pull/28) at

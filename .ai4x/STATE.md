@@ -1,4 +1,4 @@
-# Return point — Issue #27 refining the explanation bubble and copy
+# Return point — Issue #27 reviewing the explanation overlay
 
 The original placement scope of [#27](https://github.com/normenmueller/yap/issues/27)
 was implemented as `5ec0872` and delivered in
@@ -16,8 +16,11 @@ intro leading; the prototype now uses 1.5 line height. The inline trigger is onl
 The owner rejected the plain expanded paragraph and supplied longer explanatory
 copy, recorded verbatim in #27. The latest local proposal presents it in three
 paragraphs inside a Need-inspired bubble with a fine lavender edge, pointer tip
-and restrained seed motif. It expands in document flow; Escape or the trigger
-closes it. The bubble treatment is a design proposal awaiting review.
+and restrained seed motif. The owner now requests an overlay over the following
+elements, replacing the earlier in-flow behavior: question, input, closing line
+and footer stay in place. The latest local proposal uses an opaque positioned
+bubble, dismissed by trigger, Escape, outside click or focus moving to another
+control. The treatment remains a design proposal awaiting review.
 
 The owner requested the display footer “Curated by ai4X. Focused with yap.”,
 with ai4X linking to the exact public target recorded in #27, in the same purple

@@ -96,7 +96,10 @@ the spacing so the normal closed view includes its footer. Enlarged text, long
 configured content, an expanded no-script explanation or a manually enlarged
 textarea can still make the page grow naturally.
 
-Optional `branding.assistant` supplies the displayed assistant name. Optional
+The decorative star cluster marks the request question. Above the input, the
+assistant attribution shows the configured name and credit separated by a middle
+dot when both are present. Optional `branding.assistant` supplies the displayed
+assistant name. Optional
 `branding.assistant_credit` supplies an explicit display credit; when it contains
 the configured `branding.footer_link.text` once, the existing safe credit-link
 rules apply. Neither identity nor credit is inferred for an unconfigured instance.

@@ -155,6 +155,11 @@ class BrandingTests(unittest.TestCase):
             explanation = ('Ein <em>yapic</em> zeigt dir dein Wirkungsfeld aus der Perspektive, die du gerade brauchst.')
             for page in (homepage, entry):
                 with self.subTest(output='root entry' if page == entry else 'site'):
+                    self.assertIn('<span class="assistant-name">Example &lt;helper&gt;</span> · by ', page)
+                    self.assertLess(page.index('class="assistant-credit"'), page.index('<textarea'))
+                    question_label = page.split('<label class="request-question"', 1)[1].split('</label>', 1)[0]
+                    self.assertIn('<svg', question_label)
+                    self.assertIn('aria-hidden="true" focusable="false"', question_label)
                     self.assertEqual(page.count(explanation), 1)
                     self.assertEqual(page.count('id="request-note"'), 1)
                     introduction = page.index('Deine Vorhaben, Ziele und Beiträge bilden dein Wirkungsfeld.')
@@ -175,6 +180,25 @@ class BrandingTests(unittest.TestCase):
             with selected(root):
                 home.render(site)
             self.assertNotIn('example.org/assist', (site / 'example.html').read_text())
+
+    def test_request_attribution_uses_only_supplied_branding(self):
+        with tempfile.TemporaryDirectory() as directory, selected(directory):
+            for assistant, credit, expected in (
+                ('', '', ''), ('Example helper', '', 'Example helper'),
+                ('', 'by Example team', 'by Example team'),
+                ('Example helper', 'by Example team', 'Example helper · by Example team'),
+                ('  ', '\t', ''),
+            ):
+                with self.subTest(assistant=assistant, credit=credit):
+                    Path('yap.json').write_text(json.dumps({'schema': 1, 'slug': 'example', 'branding': {
+                        'assistant': assistant, 'assistant_credit': credit}}))
+                    rendered = home._request()
+                    if expected:
+                        attribution = rendered.split('<div class="assistant-credit">', 1)[1].split('</div>', 1)[0]
+                        self.assertEqual(''.join(Page(attribution).text), expected)
+                    else:
+                        self.assertNotIn('class="assistant-credit"', rendered)
+                    self.assertNotIn('ai4X', ''.join(Page(rendered).text))
 
     def test_default_footer_is_only_the_product_link_in_both_languages(self):
         with tempfile.TemporaryDirectory() as directory, selected(directory):

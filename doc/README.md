@@ -12,6 +12,12 @@ die Quellen und erzeugt Ansichten zu Aktivitäten und Wirkung. Ein KI-Assistent
 kann dieselben Befehle nutzen. Wähle dein Portfolio ausdrücklich aus; seine
 Inhalte bleiben von der Anwendung getrennt.
 
+The [product principles](principles.md) describe the target experience and the
+activity, perspective, presentation and report responsibilities. The commands
+below describe current behavior.
+The [instance workbench](workbench.md) explains the selected editor/AI-host model
+and conversational view creation; it does not add a management GUI.
+
 Run from the application checkout, replacing the example instance path:
 
 ```sh

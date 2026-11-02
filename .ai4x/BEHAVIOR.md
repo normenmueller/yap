@@ -17,7 +17,21 @@ the retained German baseline from undelivered localization. Collaborate in the
 user's language. Explain consequences plainly and always say what the user needs
 to do next, or that no action is needed.
 
-Apply the PO reading rule to documents, Issues and PRs: short, accessible opening;
+Keep all `.ai4x/` documents agent-first, agent-facing and human-approvable.
+Optimize for agent decisions: explicit constraints, ownership, conditions,
+effects, open decisions and continuation; use concise unambiguous language.
+Apply these formulation/content principles to both this application's development
+context and generated instance context. Keep their purposes, team identities,
+instructions, authority, state and runtime separate. Generate instance-specific
+contracts; never copy development workflow or synchronize the two contexts.
+Do not create a README.md in `.ai4x/`. Read [PRINCIPLES.md](PRINCIPLES.md) before
+product refinement, design or review. It owns agent-facing product constraints.
+Documentation outside `.ai4x/` addresses humans; explain the agent contracts
+without introducing competing rule owners. Root AGENTS.md remains the thin
+agent entry point required for recovery.
+
+Apply the PO reading rule to human-facing documents, Issues and PRs: short,
+accessible opening;
 technical evidence and architecture at the end in collapsed details; team notes
 further collapsed or in their authoritative records. Keep product copy free of
 internal implementation notes. Prefer lean semantic structure and small cohesive

@@ -6,6 +6,9 @@ until further notice. TypeScript can support browser presentation; a full
 TypeScript or Haskell replacement is not the selected direction.
 
 - [User guide](../doc/README.md): current commands and daily operation.
+- [PRINCIPLES.md](PRINCIPLES.md): read before product refinement/design/review;
+  owns product invariants, workbench/dialogue/reuse constraints, responsibility
+  boundaries, move effects and open details.
 - [Authoring](../doc/authoring.md): source owners, fields and synthetic examples.
 - [Architecture](../doc/architecture.md): application/instance boundary and target
   agent-assisted operation.
@@ -16,10 +19,15 @@ TypeScript or Haskell replacement is not the selected direction.
 `dev/src/yap/` owns implementation, `dev/acc/` application templates and assets,
 `dev/tst/` regression evidence and `doc/` reusable guidance. Root AGENTS.md is a
 thin entry point; this `.ai4x/` owns application-development context.
+Keep `.ai4x/` agent-facing and human-approvable; keep external documentation
+human-facing. BEHAVIOR owns the audience rule; PRINCIPLES owns product constraints.
 
 Instances own `yap.json`, `pfo/`, `pov/`, private `.yap/cfg/` settings, generated
 `.yap/local/` output and their own agent context. They select application code;
 application code must not embed a particular instance or know its location.
+Development `.ai4x/` governs building yap; generated instance `.ai4x/` governs
+operating that portfolio. BEHAVIOR's writing principles apply to both; identities,
+instructions, authority, state and runtime remain independent.
 
 Activities retain explicit stable identities. Relationships, status and measured
 achievement are never inferred from directories, prose, Git activity or views.

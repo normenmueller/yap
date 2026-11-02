@@ -1,34 +1,56 @@
-# Return point — Issue #31 prepared; start a fresh feature session
+# Return point — Issue #31 design discussion; end this session
 
-The owner selected [#31](https://github.com/normenmueller/yap/issues/31) for
-Refinement on November 2, 2026 and has further comments to discuss. Its recorded
-needs remain the starting point. No implementation scope or migration is approved.
+Owner requested Cold Start after the November 2, 2026 discussion. Stop after
+verified closeout; owner ends/deletes this session. Resume discussion/design in a
+fresh session without resume in `feat/31-authoring-perspectives-reports`.
+Verify actual cwd/branch/HEAD/remote and live #31 before continuing. Do not prepare
+another issue or recreate this existing branch/worktree.
 
-Preparation verified clean `trunk` at
-`12002f8ab49f9b0ea36f6d039c9ea2c6b5f7b0c9`, matching the remote base, and created
-branch `feat/31-authoring-perspectives-reports` with its matching worktree.
-#31 is now in the application Project in Refinement. Other item states/order,
-assignees, holds and deferrals remain preserved. No application code, consumer
-selection, issue-specific design or implementation changed during preparation.
+Status: #31 Open/Refinement; implementation scope, migration and provider activation
+remain unapproved. No real instance selected. Starting revision was `a15a5dc`,
+matching the remote feature branch; `trunk` was `12002f8`. This closeout changes
+documentation only, preserving the owner's README copyright addition.
 
-The owner agreed the Project workflow: open yap issues enter Backlog automatically;
-Gertrud checks intake before the next selection; the owner orders candidates;
-Focus includes Refinement alongside Ready, In progress and In review. The Project
-README owns the view guide; BEHAVIOR owns the session and approval rules. The
-auto-add workflow is enabled for new or updated open yap issues
-(`is:issue is:open`); the enabled item-added workflow sets Backlog. All currently
-open application issues are represented in the Project. These are configuration
-and metadata checks; no new application regression run is claimed.
+Read [PRINCIPLES.md](PRINCIPLES.md) for accepted product constraints:
+- Six principles, independent manual/automatic order and explicit move effects.
+- Activity/perspective/presentation/report stay distinct.
+- Instance AI team and dedicated lead assistant are core to intended use.
+- Workbench: editor left, AI host right, same selected instance root; no separate
+  management GUI. Generated PoVs may be interactive, including drag-and-drop.
+- Create/evolve PoVs in dialogue; users need not author JSON/YAML. Preserve an
+  executable saved view, including purpose, decisions, rules, tools and dependencies.
+  Reopening must not regenerate the design; cognitive reassessment is distinct.
+- Reuse/adapt before creating tools; evaluate generalization for reviewed return
+  to yap. No automatic private publication or instance-pin updates.
+- Development and generated instance `.ai4x/` are independent; both agent-first,
+  agent-facing, human-approvable. External docs explain the model for humans.
 
-Next: end/delete this trunk preparation session. Start a fresh session, without
-resume, in the `feat/31-authoring-perspectives-reports` worktree. Verify actual
-cwd, branch, instructions and write scope. Read #31 and begin with the owner's
-comments before refining scope and acceptance criteria. Do not implement, migrate
-or select another issue from this preparation.
+Open: ordering ties/value order/per-presentation settings/manual-order retention;
+exact executable-view persistence and local tool reference/runner/dependencies;
+editor/host/PoV conflict handling; upstream selection criteria; instance/team
+bootstrap/provider/authority. Exact authoring/report schema, report resources and
+excluded links, and migration remain owned by #31's detailed questions. Preserve
+#23/#12/#24 ownership, other Project order/states, assignees, holds and deferrals.
 
-The verified base above precedes this handoff-only commit. The sections below
-retain accepted delivery and cleanup evidence; their former return points are
-historical and do not replace the current #31 selection.
+Next discussion: agree the viewing question/selection for a new Focus and work
+through perspective versus presentation. Proposed evidence cases: fresh-session
+reopen without old chat; two presentations of one perspective; source change and
+refresh; saved interactive move visible to editor and team. These are candidates
+for refinement, not approved implementation or a completed practical experiment.
+
+Review/evidence: two independent AI architecture/workflow reviewers recommend the
+model, with cautions on terminal familiarity, concurrent edits, reproducibility
+and premature abstraction. Concrete document rechecks resolved the missing saved
+view-purpose detail and reported no actionable findings; both scoped memory
+assessments 10/10 under BEHAVIOR's five criteria. Local links/anchors, whitespace,
+README copyright, original #31 agreed needs and historical STATE preserved.
+Cold Start handoff independently rechecked with no actionable findings and a
+scoped 10/10 under the same five criteria. Use #31 and this branch's draft PR to
+verify publication metadata on recovery; verify actual clean/remote state rather
+than inferring it from this record. No runtime verification or implementation
+acceptance claimed.
+
+Historical delivery/cleanup evidence follows; its old return points are inactive.
 
 ---
 

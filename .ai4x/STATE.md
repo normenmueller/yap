@@ -1,3 +1,37 @@
+# Return point — Issue #31 prepared; start a fresh feature session
+
+The owner selected [#31](https://github.com/normenmueller/yap/issues/31) for
+Refinement on November 2, 2026 and has further comments to discuss. Its recorded
+needs remain the starting point. No implementation scope or migration is approved.
+
+Preparation verified clean `trunk` at
+`12002f8ab49f9b0ea36f6d039c9ea2c6b5f7b0c9`, matching the remote base, and created
+branch `feat/31-authoring-perspectives-reports` with its matching worktree.
+#31 is now in the application Project in Refinement. Other item states/order,
+assignees, holds and deferrals remain preserved. No application code, consumer
+selection, issue-specific design or implementation changed during preparation.
+
+The owner agreed the Project workflow: open yap issues enter Backlog automatically;
+Gertrud checks intake before the next selection; the owner orders candidates;
+Focus includes Refinement alongside Ready, In progress and In review. The Project
+README owns the view guide; BEHAVIOR owns the session and approval rules. The
+auto-add workflow is enabled for new or updated open yap issues
+(`is:issue is:open`); the enabled item-added workflow sets Backlog. All currently
+open application issues are represented in the Project. These are configuration
+and metadata checks; no new application regression run is claimed.
+
+Next: end/delete this trunk preparation session. Start a fresh session, without
+resume, in the `feat/31-authoring-perspectives-reports` worktree. Verify actual
+cwd, branch, instructions and write scope. Read #31 and begin with the owner's
+comments before refining scope and acceptance criteria. Do not implement, migrate
+or select another issue from this preparation.
+
+The verified base above precedes this handoff-only commit. The sections below
+retain accepted delivery and cleanup evidence; their former return points are
+historical and do not replace the current #31 selection.
+
+---
+
 # Return point — Issue #29 complete; end this session
 
 The owner approved [PR #30](https://github.com/normenmueller/yap/pull/30) at

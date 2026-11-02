@@ -33,6 +33,15 @@ merge after required checks; design approval accepts the design only. Changes
 after approval need the affected review. Do not infer acceptance from a build,
 chosen copy, publication or this handoff. Never force-push or discard unknown work.
 
+The Project README owns the guide to its Backlog, Overview, Focus and Board
+views. Open application issues enter the Project as Backlog candidates. Before
+selecting the next issue during an active planning session, reconcile open
+repository issues with Project membership and flag new candidates, overlaps,
+holds and deferrals. The owner orders candidates. Focus includes Refinement,
+Ready, In progress and In review; intake does not approve execution or imply
+background work. Refinement clarifies scope and acceptance with the owner before
+Ready. Existing one-issue, fresh-session and acceptance boundaries still apply.
+
 Use an issue-linked branch for engineering work. Keep local/remote branch names
 identical and match new worktree paths to the branch, preserving existing PR and
 review history. Use Git for history, not backup folders. Preserve assignees and

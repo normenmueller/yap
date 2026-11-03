@@ -1,54 +1,51 @@
-# Return point — Issue #31 design discussion; end this session
+# Return point — Issue #31 grouping and contextual importance refinement
 
-Owner requested Cold Start after the November 2, 2026 discussion. Stop after
-verified closeout; owner ends/deletes this session. Resume discussion/design in a
-fresh session without resume in `feat/31-authoring-perspectives-reports`.
-Verify actual cwd/branch/HEAD/remote and live #31 before continuing. Do not prepare
-another issue or recreate this existing branch/worktree.
+The fresh session on November 3, 2026 verified this existing worktree/branch at
+`9c0547c`, matching the remote feature branch; remote `trunk` was `12002f8`.
+#31 is Open/Refinement; draft PR #32 is open with owner review requested.
+Continue discussion/design here. Do not prepare another issue or recreate this
+branch/worktree. Implementation scope, migration and provider activation remain
+unapproved; no real instance is selected.
 
-Status: #31 Open/Refinement; implementation scope, migration and provider activation
-remain unapproved. No real instance selected. Starting revision was `a15a5dc`,
-matching the remote feature branch; `trunk` was `12002f8`. This closeout changes
-documentation only, preserving the owner's README copyright addition.
+The owner requires a concise expert recommendation with rationale alongside every
+question. [BEHAVIOR.md](BEHAVIOR.md) owns this continuing collaboration rule.
 
-Read [PRINCIPLES.md](PRINCIPLES.md) for accepted product constraints:
-- Six principles, independent manual/automatic order and explicit move effects.
-- Activity/perspective/presentation/report stay distinct.
-- Instance AI team and dedicated lead assistant are core to intended use.
-- Workbench: editor left, AI host right, same selected instance root; no separate
-  management GUI. Generated PoVs may be interactive, including drag-and-drop.
-- Create/evolve PoVs in dialogue; users need not author JSON/YAML. Preserve an
-  executable saved view, including purpose, decisions, rules, tools and dependencies.
-  Reopening must not regenerate the design; cognitive reassessment is distinct.
-- Reuse/adapt before creating tools; evaluate generalization for reviewed return
-  to yap. No automatic private publication or instance-pin updates.
-- Development and generated instance `.ai4x/` are independent; both agent-first,
-  agent-facing, human-approvable. External docs explain the model for humans.
+[PRINCIPLES.md](PRINCIPLES.md) owns accepted product constraints. On November 3,
+the owner broadened the discussion beyond a single Focus: freely named groups,
+explicit activity assignments, nested groups and freely arranged horizontal
+swimlane presentations, with activity status visually recognizable throughout.
+The owner accepted both recommendations:
 
-Open: ordering ties/value order/per-presentation settings/manual-order retention;
-exact executable-view persistence and local tool reference/runner/dependencies;
-editor/host/PoV conflict handling; upstream selection criteria; instance/team
-bootstrap/provider/authority. Exact authoring/report schema, report resources and
-excluded links, and migration remain owned by #31's detailed questions. Preserve
-#23/#12/#24 ownership, other Project order/states, assignees, holds and deferrals.
+- Use freely nested perspective groups initially; groups need not be activities.
+  An actual work undertaking can itself be an activity. No shared subactivity
+  composition or dependency is inferred from nesting.
+- Keep current-view importance per perspective, separate from general activity
+  priority; use it for explicit marking and filtering. Ordinary reordering does
+  not assign importance. Exact controls/values and future calculation are open.
 
-Next discussion: agree the viewing question/selection for a new Focus and work
-through perspective versus presentation. Proposed evidence cases: fresh-session
-reopen without old chat; two presentations of one perspective; source change and
-refresh; saved interactive move visible to editor and team. These are candidates
-for refinement, not approved implementation or a completed practical experiment.
+Retain the earlier accepted four responsibility boundaries, independent order,
+explicit move effects, conversational executable saved views, instance workbench,
+instance team direction and reviewed tool reuse. Development and instance context
+remain independent. Human-facing explanations live in doc/principles.md and
+doc/workbench.md; the agent contract remains authoritative.
 
-Review/evidence: two independent AI architecture/workflow reviewers recommend the
-model, with cautions on terminal familiarity, concurrent edits, reproducibility
-and premature abstraction. Concrete document rechecks resolved the missing saved
-view-purpose detail and reported no actionable findings; both scoped memory
-assessments 10/10 under BEHAVIOR's five criteria. Local links/anchors, whitespace,
-README copyright, original #31 agreed needs and historical STATE preserved.
-Cold Start handoff independently rechecked with no actionable findings and a
-scoped 10/10 under the same five criteria. Use #31 and this branch's draft PR to
-verify publication metadata on recovery; verify actual clean/remote state rather
-than inferring it from this record. No runtime verification or implementation
-acceptance claimed.
+Next: continue general grouping/presentation refinement rather than requiring a
+Focus viewing question first. Candidate questions, not decisions: whether an
+activity may appear in several groups within one perspective; how nested lanes
+show status and contextual importance; how explicit and rule-based assignments
+interact. Include a short expert recommendation and reason with each question.
+Do not infer a reusable global group catalog or activity composition schema.
+
+Other open details remain: sort-value order/ties, per-presentation settings,
+manual-order retention, executable-view persistence and tool runner/dependencies,
+editor/host/PoV conflicts, upstream selection, instance/team bootstrap/authority,
+act.yaml/report schema/resources/excluded links and migration. Preserve #23/#12/
+#24 ownership, other Project states/order, assignees, holds and deferrals.
+
+Prior evidence at `9c0547c`: independent architecture/workflow and documentation
+reviews found no remaining actionable findings, with scoped memory assessments
+of 10/10. That evidence covers the prior documentation only; it does not verify
+these new decisions or runtime behavior. This update changes records only.
 
 Historical delivery/cleanup evidence follows; its old return points are inactive.
 

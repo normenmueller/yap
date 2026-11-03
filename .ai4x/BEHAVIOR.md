@@ -17,6 +17,9 @@ the retained German baseline from undelivered localization. Collaborate in the
 user's language. Explain consequences plainly and always say what the user needs
 to do next, or that no action is needed.
 
+For every question to the owner, include a concise expert recommendation and
+its rationale. Apply this in future sessions as well as the current discussion.
+
 Keep all `.ai4x/` documents agent-first, agent-facing and human-approvable.
 Optimize for agent decisions: explicit constraints, ownership, conditions,
 effects, open decisions and continuation; use concise unambiguous language.

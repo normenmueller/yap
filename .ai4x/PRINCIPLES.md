@@ -32,6 +32,27 @@ Verify current behavior in source and the owning Issue before proposing changes.
 Keep all four explicit. Multiple presentations of one perspective do not create
 new perspectives. PDF and standalone HTML are report output formats.
 
+## Free grouping, visible status and contextual importance
+
+- Treat freely named, nested perspective groups as the initial grouping model.
+  Allow explicit activity assignments without requiring an automatic criterion;
+  rule-based selection/grouping remains possible. Reuse the same activities
+  across perspectives without copying their facts.
+- Support freely arranging and nesting groups, including a presentation as
+  nested horizontal swimlanes with activities inside. Preserve group membership,
+  nesting and arrangement as perspective data; the presentation owns rendering.
+- A group need not be an activity with its own status/content. An actual work
+  undertaking may be an activity in its own right; this does not select a shared
+  activity/subactivity composition model or infer one from nested groups.
+- Visually expose each displayed activity's shared status even when grouping
+  uses another criterion. Status columns are not required; exact visual encoding
+  remains to design. Examples do not select a new status vocabulary.
+- Keep "especially important in this view now" per perspective, independently
+  of the existing general activity priority. Support explicit assignment and
+  filtering by this contextual importance. A dedicated drag-and-drop action may
+  assign it when the effect is explicit; ordinary reordering does not imply it.
+  Exact values, controls and any future calculated importance remain open.
+
 ## Ordering and move effects
 
 - Support per-perspective manual order and automatic sorting by properties,

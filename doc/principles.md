@@ -51,6 +51,26 @@ One perspective can have several presentations. A board and a map of Focus do
 not become separate perspectives merely because they display it differently.
 PDF and standalone HTML are report output formats.
 
+## Free groups and importance in a view
+
+Create freely named groups, assign activities explicitly, and nest or rearrange
+the groups for each perspective. Automatic rules can also help, but are not
+required. A presentation can show the nested groups as horizontal swimlanes
+containing activities. Each activity remains the same activity wherever it is
+shown, and its status stays visually recognizable even when the grouping is
+about something else.
+
+A group does not need its own status or description as an activity. If an
+overarching undertaking itself describes work, it can be an activity too.
+Nesting groups does not establish a shared activity/subactivity relationship.
+
+Marking an activity as especially important for the current view belongs to that
+perspective. It can drive a focus filter without changing another perspective
+or the activity's general priority. A dedicated drag-and-drop action may set
+this importance when its meaning is clear; simply moving a card higher does
+not assign it. The exact controls, importance values and any future calculation
+remain to design.
+
 ## Manual and automatic order
 
 Each perspective supports its own manual order or an explicitly selected

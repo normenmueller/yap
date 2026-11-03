@@ -1,28 +1,22 @@
-# Return point — Issue #31 documentation delivery review
+# Return point — Issue #31 complete; end this session
 
-Use the existing `feat/31-authoring-perspectives-reports` worktree/branch.
-Preparation started at `5aed313`; verify actual HEAD, remote and live metadata.
-The owner approved narrowing #31 to product-direction, workbench and agent-
-collaboration documentation. #32 delivers only that scope and closes #31 on merge.
-The former product implementation scope is transferred, not delivered.
+The owner approved [PR #32](https://github.com/normenmueller/yap/pull/32) at
+`dbaff12`; it merged into trunk as `f070bb4` with the same tree. #31 is completed
+and its Project item is Done. Delivery is documentation only; product outcomes
+remain in #33–#36, all Backlog. No implementation or provider activation is implied.
 
-Next owner action: review [PR #32](https://github.com/normenmueller/yap/pull/32).
-GitHub Approve at the reviewed revision authorizes this documentation merge after
-required checks. It grants no product implementation, migration or provider
-activation. No owner delivery approval is recorded at preparation.
+The completed branch/worktree are removed after verified ignored-data
+preservation and checks for unmerged work. Retired private material remains
+ignored; no real instance or consumer pin changed.
 
-Agent action: support that review and resolve feedback; do not resume product
-refinement or select another Issue here. After verified merge, follow BEHAVIOR's
-preservation/cleanup and session-end boundary. A later Issue starts fresh.
+Next owner action: end/delete this completed Issue session. Start a fresh session
+in trunk, without resume, for planning. Do not prepare another Issue here.
+No next Issue is selected. Backlog priority needs an explicit owner decision;
+its inherited order is not a confirmed delivery plan. Preserve holds/deferrals
+(#5, #6, #11, #13), other Project order/status/assignees and #12/#23/#24 ownership.
 
-Follow-up candidates [#33](https://github.com/normenmueller/yap/issues/33), [#34](https://github.com/normenmueller/yap/issues/34), [#35](https://github.com/normenmueller/yap/issues/35) and [#36](https://github.com/normenmueller/yap/issues/36)
-are in Backlog. No execution order or first implementation scope is approved.
-The owning Issues retain detailed requirements; [PRINCIPLES](PRINCIPLES.md) owns
-product constraints and [BEHAVIOR](BEHAVIOR.md) owns collaboration/recovery rules.
-Keep STATE active and concise; do not duplicate those contracts here.
-
-Preserve #12/#23/#24 ownership, #5's pause, #6/#11 deferrals, #13's hold and other
-Project order/status/assignees. No real instance is selected. Retired delivery
-and preservation evidence remains in
+[BEHAVIOR](BEHAVIOR.md) owns roles, selection and session boundaries;
+[PRINCIPLES](PRINCIPLES.md) owns product constraints. Refer to Issues for scope.
+Historical preservation/delivery evidence remains in
 [STATE at 7b60f21](https://github.com/normenmueller/yap/blob/7b60f21cb13daa517b6172213493a707105cb7ed/.ai4x/STATE.md);
-its historical return points are inactive. This delivery changes records only.
+old return points are inactive. This closeout changes records only.

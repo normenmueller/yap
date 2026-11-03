@@ -14,11 +14,15 @@ AI assistance does not establish accepted ai4X curation or activate agents.
 Write code, engineering records and agent context in US English; preserve authored
 content in its original language. Target English/German interfaces; distinguish
 the retained German baseline from undelivered localization. Collaborate in the
-user's language. Explain consequences plainly and always say what the user needs
-to do next, or that no action is needed.
+user's language. Explain consequences plainly.
 
 For every question to the owner, include a concise expert recommendation and
 its rationale. Apply this in future sessions as well as the current discussion.
+End substantive replies with the immediate next action and who performs it.
+When an owner decision is pending, ask the specific decision question and say
+what Gertrud will do after the answer. Do not say no action is needed while that
+decision remains open. When no owner input is needed, continue authorized work
+and report its outcome or concrete continuation; do not invent a confirmation.
 
 Keep all `.ai4x/` documents agent-first, agent-facing and human-approvable.
 Optimize for agent decisions: explicit constraints, ownership, conditions,

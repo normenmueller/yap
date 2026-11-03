@@ -23,6 +23,10 @@ its rationale. Apply this in future sessions as well as the current discussion.
 Keep all `.ai4x/` documents agent-first, agent-facing and human-approvable.
 Optimize for agent decisions: explicit constraints, ownership, conditions,
 effects, open decisions and continuation; use concise unambiguous language.
+Keep mandatory recovery small: STATE contains only active work, pending owner
+actions, execution limits and the return point. Reference authoritative rules
+instead of repeating them. Retire completed narratives to exact Git/Issue/PR
+references; do not accumulate logs or old return instructions in STATE.
 Apply these formulation/content principles to both this application's development
 context and generated instance context. Keep their purposes, team identities,
 instructions, authority, state and runtime separate. Generate instance-specific
@@ -49,6 +53,19 @@ to self-accept a result. GitHub Approve on a delivered implementation authorizes
 merge after required checks; design approval accepts the design only. Changes
 after approval need the affected review. Do not infer acceptance from a build,
 chosen copy, publication or this handoff. Never force-push or discard unknown work.
+
+Distinguish issue phase from PR review state. A draft review request provides
+visibility, not delivery acceptance. At a review checkpoint, name the artifact,
+reviewed revision, requested owner action and effect of approval, including
+whether merge is intended. Report pending review even after saving/pushing;
+branch persistence is not integration into trunk. Use a closing PR reference
+only when that PR is intended to complete the linked issue; retain normal
+merge-based closure rather than changing repository settings for navigation.
+An intermediate design/document review does not make unfinished scope complete.
+
+The Issue owns the next action; STATE carries its concise session continuation.
+Keep the Project README a stable view guide linking to the selected Issue;
+do not maintain another copy of transient session instructions there.
 
 The Project README owns the guide to its Backlog, Overview, Focus and Board
 views. Open application issues enter the Project as Backlog candidates. Before
@@ -99,6 +116,8 @@ material memory changes, independently assess five criteria at 0–2 each: recov
 factual/source consistency, authority/preservation, concision and references.
 Resolve findings and recheck before substantive work continues. A scoped 10/10
 is required by the owner; do not coach scores or create a review registry.
+Exercise recovery and acceptance transitions against the actual pending work;
+text/link consistency alone does not verify the collaboration outcome.
 
 ## Cold Start and fresh-session recovery
 

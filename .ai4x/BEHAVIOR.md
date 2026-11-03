@@ -79,9 +79,12 @@ the owner need not repeat a decision by also clicking the Board. Selection permi
 refinement only and cannot replace active work or bypass the completion,
 explicit-interruption and fresh-session boundaries below. Resolve conflicting
 selection signals with the owner while preserving the current active selection.
-Joint refinement defines bounded scope and acceptance criteria. Owner approval
-records Ready, not self-acceptance; no separate routine start approval is needed
-within the valid selected Issue session. Gertrud records In progress when approved work
+Joint refinement defines bounded scope and acceptance criteria. The owner moving
+the selected Issue from Refinement to Ready approves its recorded scope and
+criteria. Explicit conversational approval is equivalent; Gertrud then records
+Ready. Missing scope is not permission to invent it. No separate routine start
+approval is needed within the valid selected Issue session; a Board change alone
+does not launch a background agent. Gertrud records In progress when approved work
 starts and In review when a verified delivery awaits owner acceptance. Gertrud
 records Done after approved merge/completion or explicit retirement, preserving
 the distinction from delivered functionality. Owner-directed Paused needs an

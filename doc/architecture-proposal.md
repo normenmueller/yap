@@ -5,12 +5,20 @@ goals. **Act (Activity)** and **Pfm (Performance)** are the selected standard ya
 A new portfolio should start with empty personal data and both available through
 the same contract as other yapics.
 
-After cloning the application, **make yap** should offer **Create a portfolio**
-or **Open an existing portfolio**. It should open the selected portfolio's own
-homepage. A text editor, terminal and assisting AI host remain complete working
-paths alongside the interface, using the same sources and application operations.
+The selected [instance workbench](workbench.md) pairs an editor with an AI host
+at the same explicitly selected instance root. A specialized instance AI team,
+led by a dedicated lead assistant, is part of normal use. It develops views in
+dialogue, reusing or extending deterministic tools. Generated PoVs may be
+interactive; no separate management GUI is selected. Manual and scripted work
+support a subset of the intended workflow.
 
-This is the discussion proposal for [issue #3](https://github.com/normenmueller/yap/issues/3).
+The [product principles](principles.md) explain the agreed activity, perspective,
+presentation and report distinctions and the meaning of interactive moves.
+The [agent product contract](../.ai4x/PRINCIPLES.md) gives agents the constraints
+to apply during refinement and design; this proposal explains their architecture.
+
+This proposal originated in [issue #3](https://github.com/normenmueller/yap/issues/3)
+and incorporates the owner's product/workbench decisions during #31 refinement.
 The [current application boundary](architecture.md) owns delivered Python behavior.
 **Python remains the application/domain core until further notice.** The full
 creation journey and generic saved yapic definitions remain product goals; they
@@ -33,8 +41,12 @@ The selected product direction is:
   configuration, generated output and assistance context.
 - Provide an executable guided create/open journey. A written walkthrough alone
   does not deliver it. Local use requires no hosting account or application fork.
-- Support agent-assisted work from the start through deterministic operations;
-  accepted ai4X curation and activation remain later, separate integration.
+- Design the instance AI team as a core part of normal use, backed by shared
+  deterministic operations; accepted ai4X curation and activation still need
+  their explicit integration contract.
+- Use the editor/AI-host workbench for management. Develop PoVs conversationally;
+  reuse tools first, extend locally when needed, and return suitable generalized
+  capabilities to yap through normal application review.
 - Design initial durable definitions and the complete constellation-context
   boundary now, without requiring an accepted provider binding to use Act/Pfm.
 - Keep repository inspection and bounded operations shared across yapics. Shared
@@ -77,15 +89,77 @@ roots, and a declared binding grants no operation authority.
 
 The Python application's resource root belongs to the application; the process
 selects its instance explicitly. Keep only a thin selected-version invocation in
-a portfolio. Improve semantic boundaries within this application. A browser
-interface may use TypeScript, calling the same Python application operations;
-it must not maintain synchronized business rules or a second source store.
+a portfolio. Improve semantic boundaries within this application. An interactive
+PoV may use TypeScript, calling the same Python application operations; it must
+not maintain synchronized business rules or a second source store. This does
+not select a separate browser management application.
 
 Application development and portfolio assistance have independent `.ai4x` context
 and `.yap` runtime/configuration. Opening a portfolio neither copies the
 application team into it nor proves accepted ai4X care. Instance bootstrap context
 states purpose, source owners, selected application, bounded effects and a return
 point; it is distinct from development instructions.
+
+Both contexts address AI agents and remain reviewable by people. They share
+writing principles: concise, explicit responsibilities, conditions, effects and
+open decisions. Their teams, instructions, authority, state and runtime stay
+independent. Generating an instance's context means preparing it for that
+portfolio, rather than copying yap's development workflow.
+
+## Instance AI team
+
+The owner selected an architecture that combines a deterministic application
+core with a specialized AI team for each instance. A dedicated lead assistant
+coordinates the relevant capabilities and provides continuity in daily work.
+The team helps interpret needs, manage activities, shape perspectives, choose
+presentations and compose reports. It is a normal product component rather than
+an incidental chatbot added to an otherwise complete manual workflow.
+
+The application owns repeatable validation and bounded execution. The team owns
+cognitive work such as interpreting intent, proposing useful groups and
+recognizing what needs clarification. Its proposals can vary; accepted changes
+use the same application operations as direct interface or CLI actions. Facts,
+arrangements and saved artifacts remain inspectable outside the agent host.
+Exact assignments, persistence and acceptance rules need their own contracts.
+
+The intended creation journey prepares empty activity/perspective sources, the
+instance's own `.ai4x/` team instructions and durable context, and `.yap/` local
+configuration/runtime. The owner's `act` and `pov` examples express these
+responsibilities; they do not approve replacing today's `pfo/act` layout.
+The `.ai4x/` directory stores team descriptions and context; execution occurs
+through an explicitly selected AI host/provider. Creating those files neither
+starts a process nor establishes an accepted provider association.
+
+The instance team is distinct from this repository's application-development
+team. An existing instance can still be inspected and managed to a supported
+extent through files and scripts without a running team. The full intended
+experience assumes use of its instance team, without requiring an always-running
+agent or delegating validation to an LLM.
+
+Team provisioning, the lead assistant's exact role, provider binding and startup,
+durable memory, and authority remain to refine. Guided creation belongs to #23;
+durable definitions and care to #12. This direction does not reopen their status,
+select a provider, activate agents or expand #31's implementation scope.
+
+## Conversational views and reusable tools
+
+The team can turn a verbal description into a perspective and its presentations,
+including developing a missing local helper or renderer. Persistence is handled
+by the team and application; users need not author JSON or YAML. Inspect the
+selected application/instance tools first, reuse or adapt them where suitable,
+and separate personal view settings from reusable capability.
+
+Preserve the agreed purpose, selection/group/order rules, presentation/tool
+sources, dependencies and relevant input versions. Reopening uses the saved
+result rather than regenerating its design. Refreshing deterministic parts and
+reconsidering a cognitive judgment are distinct operations; judgments retain
+their basis and do not become implicit activity facts.
+
+Useful local tools are candidates for generalization into yap, with synthetic
+examples and normal application review. This makes capabilities available to
+future instances through their selected application version. It neither copies
+private portfolio data nor automatically upgrades existing instances. Exact
+local tool contracts and upstream selection criteria remain to refine.
 
 ## Shared operations and presentations
 
@@ -130,6 +204,10 @@ is selected by this discussion.
 
 ## Guided creation and opening
 
+After cloning the application, the proposed **make yap** should offer Create or
+Open and prepare access to the selected portfolio. This guided entry remains
+undelivered; it is separate from the editor/AI-host workbench used day to day.
+
 The proposed application-root `make yap` is a thin CLI entry. Prompts and explicit
 noninteractive arguments call the same create/open operations as a future UI.
 The current Python CLI can open an explicitly selected existing instance; it does
@@ -159,10 +237,13 @@ provided, is private convenience rather than required shared state.
 
 ## Durable definitions and identity
 
-Propose **data-only YAML** plus a static catalog of source, operation and presenter
-IDs in the pinned application. Standard Act/Pfm and local definitions use the
-same decoder. YAML selects reviewed behavior; it cannot name arbitrary imports,
-shell commands or new domain rules. A dynamic plugin framework is not selected.
+The earlier **data-only YAML** plus standard catalog proposal remains one
+candidate for standard definitions, not a ceiling on local PoV capabilities.
+The selected direction also permits explicitly referenced local tools and
+presentations. A declarative file does not itself grant arbitrary code execution
+or define new domain rules. The reference, validation, execution and dependency
+contract for local tools remains open; no universal plugin framework or final
+persistence format is selected.
 
 Illustrative `dev/acc/yapics/act.yaml` (candidate vocabulary, no delivered decoder):
 
@@ -344,13 +425,14 @@ a new decision. No UI framework or future public API is selected here.
 The [engineering appendix](architecture-engineering.md) owns candidate module/type
 boundaries, construction and proof limits. Preserve canonical IDs, source fields,
 versions, explicit relationships, saved arrangements, publication destinations
-and authored content until an accepted migration specifies changes. Keep full
-terminal/editor/AI-host use and compare accepted boards, nested lanes, trees,
+and authored content until an accepted migration specifies changes. Keep
+terminal/editor/AI-host access to deterministic operations and compare accepted boards, nested lanes, trees,
 graphs and PDFs before accepting visual losses. Bilingual interfaces/guidance are
 a target; existing authored language and the retained German presentation baseline
 remain distinct from delivered localization.
 
-An optional graphical/editor host must not become a second corpus or domain-rule
+The selected workbench uses an existing editor and AI host rather than a new
+management GUI. Interactive PoVs must not become a second corpus or domain-rule
 owner. A corpus-only host must exclude external private workspaces deliberately;
 symlink/index exclusions are not a plugin filesystem sandbox. Mobile behavior and
 stronger external-editor write protocols remain separate requirements.

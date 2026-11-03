@@ -97,11 +97,18 @@ Instance owners control whether source paths belong in their own Git history.
 
 ## Agent-assisted direction
 
-The intended daily workflow combines a text editor, an AI host and deterministic
-application operations. The person authors portfolio content and works in external
-workspaces. An assisting agent can interpret requests and invoke the same bounded
-operations as the CLI/UI. Validation, source ownership and effects stay in the
-application rather than a second agent-maintained implementation.
+The target daily workflow treats a specialized instance AI team with a dedicated
+lead assistant as a product component, alongside direct interaction and
+deterministic application operations. The [instance team proposal](architecture-proposal.md#instance-ai-team)
+explains this direction and its unresolved provisioning/integration contracts.
+The current CLI does not provision or run that team. Validation, source ownership
+and effects stay in the application rather than a second agent-maintained
+implementation.
+
+The selected [instance workbench](workbench.md) uses editor and AI host at one
+instance root, with no separate management GUI. Generated PoVs may be interactive.
+Conversational view creation, replayable local tools and reviewed generalization
+into yap are target behavior; no local extension runner is delivered here.
 
 Application-development memory lives in this application's `.ai4x/`. Each instance
 needs its own thin agent entry and concise context describing its purpose, source
@@ -125,5 +132,6 @@ AI assistance.
 
 The [next-architecture proposal](architecture-proposal.md) and its
 [engineering appendix](architecture-engineering.md) retain the product directions,
-Python design and unresolved definition/identity choices for issue #3. Proposed
+Python design and unresolved definition/identity choices, with product/workbench
+decisions refined in #31. Proposed
 contracts remain discussion artifacts; this document owns delivered Python behavior.

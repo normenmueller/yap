@@ -1,52 +1,37 @@
-# yap — your activity portfolio
+# Your activity portfolio
 
-Reusable portfolio rendering and local operations, separated from instance data.
-Python remains the application core until further notice. Guided onboarding and
-saved generic yapic definitions remain separate product work.
+## Why
 
-Run from this application checkout:
+Keep sight of what matters and decide what deserves your attention, with little
+administrative overhead.
 
-```sh
-python3 -m venv .yap/local/venv
-source .yap/local/venv/bin/activate
-python3 -m pip install -r requirements.txt
-PYTHONPATH="$PWD/dev/src" python3 -B -m yap --instance /absolute/path/to/portfolio check
-PYTHONPATH="$PWD/dev/src" python3 -B -m yap --instance /absolute/path/to/portfolio report
-```
+## What
 
-`open` validates the selected application pin, builds the portfolio and opens its
-instance homepage. A declared `application.revision` requires the exact clean Git
-checkout; private application-path discovery belongs to the instance launcher.
+The intended workflow keeps activity management simple: manage each activity
+once and shape independent perspectives on your work. Present them as boards,
+maps or lists, then compose selected content and presentations into shareable
+reports.
 
-The runtime uses Python 3.10-or-later syntax and POSIX facilities, including
-`fcntl`. Execution has been validated on Python 3.15.2; a broader Python-version
-or Windows compatibility matrix has not been established.
+## How
 
-The existing Pandoc, LaTeX, PDF utilities and Chromium-family browser are required
-for full reports. Application code and templates stay here; authored portfolio data,
-private configuration and generated output stay in the selected instance. Do not
-copy application code into an instance. This source distribution must keep `dev/src/`,
-`dev/acc/` and `requirements.txt` together; wheel packaging is not implemented by
-this candidate.
+**yap** is the tool for this approach. It keeps your portfolio in readable files
+and uses shared, deterministic operations. The intended workbench pairs a text
+editor with a specialized AI team, led by a dedicated assistant, in a terminal
+split. Develop views in dialogue, using and extending reusable tools. Generated
+views may be interactive; no separate management GUI is planned.
 
-An optional instance `yap.json` uses schema 1, a simple `slug` for its homepage,
-and `branding` text fields `title`, `tagline`, `logo`, `favicon` and `footer`.
-Logo/favicon paths must identify existing files within the instance. A deliberate
-`publication_prefix` can preserve established PDF destination addresses. Loading a
-manifest does not initialize Git, migrate sources or activate an agent/provider.
-The core source layout remains `pfo` and `pov`. Local workspace bindings belong
-in each activity/area's YAML `wsp` map; generated navigation is always `wsp/NAME`.
-Existing machine bindings need an explicit previewed migration; see
-[workspace authoring](doc/authoring.md#local-workspaces). Runtime output remains
-in `.yap/local/`.
+Today, the Python application validates an existing portfolio and generates
+views and reports. Guided creation, instance-team provisioning and conversational
+view development remain product goals.
 
-Run regression tests with `make test`. The CLI supports one selected local instance
-per process; it retains the baseline process working-directory model.
+Start with the [user guide](doc/README.md) for setup and commands. Read the
+[product principles](doc/principles.md) for the intended experience and the
+[workbench model](doc/workbench.md) for the working approach.
 
 <details>
-<summary>Development checks</summary>
+<summary>Developing yap</summary>
 
-In the activated virtual environment, install the development requirements:
+After following the user guide's environment setup:
 
 ```sh
 python3 -m pip install -r requirements-dev.txt
@@ -54,16 +39,13 @@ make typecheck
 make test
 ```
 
-`requirements-dev.txt` includes runtime dependencies and pins mypy 2.4.0.
-The strict type gate covers `outputs.py`, `source_values.py` and positive/negative
-contract fixtures. The remaining application modules are not statically checked
-by this gate. Passing checks apply to their inspected scope; they do not certify
-the entire codebase or approve an implementation. See the
-[Python engineering design](doc/architecture-engineering.md).
+The type check covers a declared subset of the codebase. See the
+[Python engineering guide](doc/architecture-engineering.md) for its scope.
+The repository's development team and each portfolio's operating team have
+separate contexts, governed by the same agent-facing writing principles.
 
 </details>
 
-## License
+Licensed under [Apache 2.0](LICENSE). Bundled template licenses retain their terms.
 
-Licensed under the [Apache License 2.0](LICENSE). Bundled repository-template
-license texts retain their stated terms.
+© 2026 [nemron](https://github.com/normenmueller)

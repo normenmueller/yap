@@ -17,7 +17,28 @@ the retained German baseline from undelivered localization. Collaborate in the
 user's language. Explain consequences plainly and always say what the user needs
 to do next, or that no action is needed.
 
-Apply the PO reading rule to documents, Issues and PRs: short, accessible opening;
+For every question to the owner, include a concise expert recommendation and
+its rationale. Apply this in future sessions as well as the current discussion.
+
+Keep all `.ai4x/` documents agent-first, agent-facing and human-approvable.
+Optimize for agent decisions: explicit constraints, ownership, conditions,
+effects, open decisions and continuation; use concise unambiguous language.
+Keep mandatory recovery small: STATE contains only active work, pending owner
+actions, execution limits and the return point. Reference authoritative rules
+instead of repeating them. Retire completed narratives to exact Git/Issue/PR
+references; do not accumulate logs or old return instructions in STATE.
+Apply these formulation/content principles to both this application's development
+context and generated instance context. Keep their purposes, team identities,
+instructions, authority, state and runtime separate. Generate instance-specific
+contracts; never copy development workflow or synchronize the two contexts.
+Do not create a README.md in `.ai4x/`. Read [PRINCIPLES.md](PRINCIPLES.md) before
+product refinement, design or review. It owns agent-facing product constraints.
+Documentation outside `.ai4x/` addresses humans; explain the agent contracts
+without introducing competing rule owners. Root AGENTS.md remains the thin
+agent entry point required for recovery.
+
+Apply the PO reading rule to human-facing documents, Issues and PRs: short,
+accessible opening;
 technical evidence and architecture at the end in collapsed details; team notes
 further collapsed or in their authoritative records. Keep product copy free of
 internal implementation notes. Prefer lean semantic structure and small cohesive
@@ -27,11 +48,47 @@ changes; avoid speculative machinery, duplicate rules and parallel implementatio
 
 The application's Project owns live status/order; Issues own scope and next
 action, source files own facts. Keep them current after meaningful changes.
-Ready is the owner's approval of the refined implementation scope, not permission
-to self-accept a result. GitHub Approve on a delivered implementation authorizes
-merge after required checks; design approval accepts the design only. Changes
+GitHub Approve on the delivered Issue scope, including
+documentation-only delivery, authorizes merge after required checks. Agreement
+with a design recommendation alone accepts that direction, not delivery. Changes
 after approval need the affected review. Do not infer acceptance from a build,
 chosen copy, publication or this handoff. Never force-push or discard unknown work.
+
+Distinguish issue phase from PR review state. A draft review request provides
+visibility, not delivery acceptance. At a review checkpoint, name the artifact,
+reviewed revision, requested owner action and effect of approval, including
+whether merge is intended. Report pending review even after saving/pushing;
+branch persistence is not integration into trunk. Use a closing PR reference
+only when that PR is intended to complete the linked issue; retain normal
+merge-based closure rather than changing repository settings for navigation.
+An intermediate design/document review does not make unfinished scope complete.
+
+The Issue owns the next action; STATE carries its concise session continuation.
+Keep the Project README a stable view guide linking to the selected Issue;
+do not maintain another copy of transient session instructions there.
+
+The Project README explains Backlog, Overview, Focus and Board. The owner orders
+Backlog and Ready manually; the highest eligible item is the first candidate,
+not an automatic start. Open issues enter as Backlog candidates without priority
+or execution approval. At the next planning boundary, Gertrud reconciles open
+issues with Project membership, flags new candidates/overlaps/holds/deferrals and
+recommends the next eligible item in owner order. Do not reorder or skip silently.
+The owner selects one Issue in conversation or by moving it to Refinement.
+Gertrud records conversational decisions and normally maintains Project status;
+the owner need not repeat a decision by also clicking the Board. Selection permits
+refinement only and cannot replace active work or bypass the completion,
+explicit-interruption and fresh-session boundaries below. Resolve conflicting
+selection signals with the owner while preserving the current active selection.
+Joint refinement defines bounded scope and acceptance criteria. The owner moving
+the selected Issue from Refinement to Ready approves its recorded scope and
+criteria. Explicit conversational approval is equivalent; Gertrud then records
+Ready. Missing scope is not permission to invent it. No separate routine start
+approval is needed within the valid selected Issue session; a Board change alone
+does not launch a background agent. Gertrud records In progress when approved work
+starts and In review when a verified delivery awaits owner acceptance. Gertrud
+records Done after approved merge/completion or explicit retirement, preserving
+the distinction from delivered functionality. Owner-directed Paused needs an
+Issue-owned reason and return condition. Focus shows Refinement through In review.
 
 Use an issue-linked branch for engineering work. Keep local/remote branch names
 identical and match new worktree paths to the branch, preserving existing PR and
@@ -73,6 +130,8 @@ material memory changes, independently assess five criteria at 0–2 each: recov
 factual/source consistency, authority/preservation, concision and references.
 Resolve findings and recheck before substantive work continues. A scoped 10/10
 is required by the owner; do not coach scores or create a review registry.
+Exercise recovery and acceptance transitions against the actual pending work;
+text/link consistency alone does not verify the collaboration outcome.
 
 ## Cold Start and fresh-session recovery
 

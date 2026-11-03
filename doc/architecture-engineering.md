@@ -24,8 +24,9 @@ navigation, explicit migration and publication exclusions.
 The implementation still combines source interpretation and presentation in some
 modules, uses mutable dictionaries for much of its model and changes process
 working-directory/environment state during builds. It is not a concurrent,
-multi-instance service. Future browser access needs a designed local interface;
-calling a CLI does not deliver that interface or remove these limitations.
+multi-instance service. Generated interactive PoVs need a designed interface to
+shared operations; calling a CLI does not deliver that interface or remove these
+limitations. The selected workbench adds no separate management GUI.
 
 Saved generic yapic definitions, guided new-instance creation, actual quip
 collection and live ai4X integration remain undelivered product work. Retaining
@@ -158,17 +159,21 @@ types or silently promote the current CLI into a multi-instance service.
 Keep authoritative facts, saved view arrangements and transient interaction state
 separate. A drag may request a tracking change or a placement move; the agreed
 meaning decides which operation. Zoom and expanded branches are not new facts.
-A proposed graphical client uses those shared Python operations, preserving a
-complete CLI/editor/AI-host path and offline behavior.
+A proposed graphical client uses those shared Python operations, preserving
+CLI/editor access to deterministic operations and offline behavior. The full
+intended workflow assumes the [instance AI team](architecture-proposal.md#instance-ai-team)
+for its cognitive work; manual/scripted use supports a subset of that experience.
 
 ## Durable definitions and guided creation
 
-The [proposal](architecture-proposal.md#durable-definitions-and-identity) owns the
-candidate data-only YAML and manifest vocabulary. Standard Act/Pfm and local
-definitions should use one decoder and a static catalog of reviewed source,
-operation and presenter IDs. Their executable behavior stays in application code.
-A definition cannot name arbitrary imports, shell commands or new domain rules.
-A dynamic plugin runtime is not selected.
+The [proposal](architecture-proposal.md#durable-definitions-and-identity) explains
+the candidate standard definitions and manifest vocabulary. A standard catalog
+can supply reviewed capabilities; explicitly referenced local tools can extend
+presentations beyond it. Local renderers should consume validated portfolio
+inputs and request shared operations for mutations, preserving identity, facts
+and move semantics. Definitions alone grant no code execution or new domain-rule
+authority. Local tool references, runner/dependency contracts and compatibility
+need design against a concrete case; no universal plugin runtime is selected.
 
 Standard references resolve in the pinned application; local references name an
 instance-relative definition. Origin/key/revision remain distinct, with no

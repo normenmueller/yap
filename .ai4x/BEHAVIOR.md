@@ -48,8 +48,7 @@ changes; avoid speculative machinery, duplicate rules and parallel implementatio
 
 The application's Project owns live status/order; Issues own scope and next
 action, source files own facts. Keep them current after meaningful changes.
-Ready is the owner's approval of the refined execution scope, not permission
-to self-accept a result. GitHub Approve on the delivered Issue scope, including
+GitHub Approve on the delivered Issue scope, including
 documentation-only delivery, authorizes merge after required checks. Agreement
 with a design recommendation alone accepts that direction, not delivery. Changes
 after approval need the affected review. Do not infer acceptance from a build,
@@ -68,14 +67,25 @@ The Issue owns the next action; STATE carries its concise session continuation.
 Keep the Project README a stable view guide linking to the selected Issue;
 do not maintain another copy of transient session instructions there.
 
-The Project README owns the guide to its Backlog, Overview, Focus and Board
-views. Open application issues enter the Project as Backlog candidates. Before
-selecting the next issue during an active planning session, reconcile open
-repository issues with Project membership and flag new candidates, overlaps,
-holds and deferrals. The owner orders candidates. Focus includes Refinement,
-Ready, In progress and In review; intake does not approve execution or imply
-background work. Refinement clarifies scope and acceptance with the owner before
-Ready. Existing one-issue, fresh-session and acceptance boundaries still apply.
+The Project README explains Backlog, Overview, Focus and Board. The owner orders
+Backlog and Ready manually; the highest eligible item is the first candidate,
+not an automatic start. Open issues enter as Backlog candidates without priority
+or execution approval. At the next planning boundary, Gertrud reconciles open
+issues with Project membership, flags new candidates/overlaps/holds/deferrals and
+recommends the next eligible item in owner order. Do not reorder or skip silently.
+The owner selects one Issue in conversation or by moving it to Refinement.
+Gertrud records conversational decisions and normally maintains Project status;
+the owner need not repeat a decision by also clicking the Board. Selection permits
+refinement only and cannot replace active work or bypass the completion,
+explicit-interruption and fresh-session boundaries below. Resolve conflicting
+selection signals with the owner while preserving the current active selection.
+Joint refinement defines bounded scope and acceptance criteria. Owner approval
+records Ready, not self-acceptance; no separate routine start approval is needed
+within the valid selected Issue session. Gertrud records In progress when approved work
+starts and In review when a verified delivery awaits owner acceptance. Gertrud
+records Done after approved merge/completion or explicit retirement, preserving
+the distinction from delivered functionality. Owner-directed Paused needs an
+Issue-owned reason and return condition. Focus shows Refinement through In review.
 
 Use an issue-linked branch for engineering work. Keep local/remote branch names
 identical and match new worktree paths to the branch, preserving existing PR and

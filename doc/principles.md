@@ -4,8 +4,9 @@ yap should make activity management simple and offer expressive, independently
 arranged views. The normal workflow combines direct interaction with a specialized
 instance AI team and shared deterministic application operations.
 
-These product decisions guide refinement, including
-[#31](https://github.com/normenmueller/yap/issues/31). They describe the target;
+These product decisions guide subsequent refinement and implementation.
+[#31](https://github.com/normenmueller/yap/issues/31) records the agreed direction.
+They describe the target;
 the [user guide](README.md) and [current architecture](architecture.md) describe
 delivered behavior. This is the human-facing explanation of the
 [agent product contract](../.ai4x/PRINCIPLES.md). The

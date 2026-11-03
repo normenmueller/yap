@@ -48,9 +48,10 @@ changes; avoid speculative machinery, duplicate rules and parallel implementatio
 
 The application's Project owns live status/order; Issues own scope and next
 action, source files own facts. Keep them current after meaningful changes.
-Ready is the owner's approval of the refined implementation scope, not permission
-to self-accept a result. GitHub Approve on a delivered implementation authorizes
-merge after required checks; design approval accepts the design only. Changes
+Ready is the owner's approval of the refined execution scope, not permission
+to self-accept a result. GitHub Approve on the delivered Issue scope, including
+documentation-only delivery, authorizes merge after required checks. Agreement
+with a design recommendation alone accepts that direction, not delivery. Changes
 after approval need the affected review. Do not infer acceptance from a build,
 chosen copy, publication or this handoff. Never force-push or discard unknown work.
 
